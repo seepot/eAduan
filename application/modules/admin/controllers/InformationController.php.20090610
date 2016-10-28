@@ -1,0 +1,103 @@
+<?php 
+
+class Admin_InformationController extends Spt_Controller_Action
+{
+	public function listAction()
+	{
+		$this->view->translate = $this->translate();
+		$pagingNo = Zend_Controller_Front::getInstance()->getRequest()->getParam('paging');
+		if($pagingNo <> '')
+			$pagingNo = Zend_Controller_Front::getInstance()->getRequest()->getParam('paging');
+		else
+			$pagingNo = 10;
+		$this->title = $this->translate()->_("Senarai Informasi Sistem");
+		$this->view->url = $this->getUrl();
+		$grid = $this->grid ( 'table' );
+		$grid->from('sys_information_page')
+			->addColumn('ipage_id',array('title'=>$this->translate()->_("ID"), 'hide' => 1))
+			->addColumn('ipage_name',array('title'=>$this->translate()->_("Nama")))
+			->addColumn('ipage_desc',array('title'=>$this->translate()->_("Keterangan")))
+			->order('ipage_name ASC')
+			->setPagination ( $pagingNo );
+		//$grid->noFilters (1);
+				
+        $grid->setTemplate ( 'work', 'table' );
+        $grid->activityId ( 'ipage_id' );
+		$grid->viewButton ( true, $this->translate()->_("Papar Pengguna"), Zend_Controller_Front::getInstance()->getBaseUrl().'/admin/information/view' );
+		$grid->editButton ( true, $this->translate()->_("Kemaskini Pengguna"), Zend_Controller_Front::getInstance()->getBaseUrl().'/admin/information/edit' );
+		$grid->export = array('pdf','print');
+        $this->view->pages = $grid->deploy ();
+        $this->render ( 'list' );
+	}
+	
+	public function editAction()
+	{
+		$form = new Spt_Form_Admin_Page_Edit;
+
+		$this->view->translate = $this->translate();
+		
+    	$db = Zend_Registry::get ( 'db' );
+    	
+    	if (!$this->getRequest()->isPost()) {
+            $rowset = $db->fetchRow(
+					$db->select()
+							->from(array('i' => 'sys_information_page'),
+								array('ipage_id', 'ipage_name', 'ipage_desc', 'ipage_content'))
+							->where( 'ipage_id = ?', $this->_getParam('id') )
+													
+			);
+            if (count($rowset) == 0) {
+                $this->view->failedFind = true;
+                return;
+            }
+            $this->view->rowset = $rowset;
+            $form->setElementFilters(array()); // disable all element filters
+            $this->_repopulateForm($form, $rowset);
+			$this->view->page_content = $this->_reverseAutoFormat($rowset['ipage_content']);
+            $this->view->id = $this->_getParam('id');
+            $this->view->form = $form;
+            return;
+        } elseif (!$form->isValid($_POST)) {
+            $this->view->failedValidation = true;
+            $this->view->form = $form;
+            return;
+        }
+        
+        $values = $form->getValues();
+		//print_r($values);
+        //die($_POST['page_content']);
+		$table = new SysInformationPage;
+        $data = array(
+            'ipage_name' => $values['page_name'],
+        	'ipage_desc' => $values['page_desc'],
+        	'ipage_content' => $_POST['page_content']
+        );
+        $table->update($data,
+            $table->getAdapter()->quoteInto('ipage_id = ?', $this->_getParam('id'))
+        );
+        
+        $this->view->entrySaved = true;
+	}
+	
+	protected function _repopulateForm($form, $item)
+    {
+    	$values = array(
+        	'page_name' => $this->_reverseAutoFormat($item['ipage_name']),
+        	'page_desc' => $this->_reverseAutoFormat($item['ipage_desc']),
+    		'page_content' => $this->_reverseAutoFormat($item['ipage_content'])
+        );
+        $form->populate($values);
+    }
+	
+	protected function _reverseAutoFormat($string)
+    {
+        $string = preg_replace("/\<p\>/", '', $string);
+        $string = preg_replace("/\<\/p\>/", "\n\n", $string);
+        $string = preg_replace("/\<a[^>]*\>/", '', $string);
+        $string = preg_replace("/\<\/a\>/", '', $string);
+        $string = html_entity_decode($string, ENT_QUOTES, 'UTF-8');
+        return $string;
+    }
+}
+
+?>

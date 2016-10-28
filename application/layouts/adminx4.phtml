@@ -1,0 +1,51 @@
+
+<head> 
+<?php
+$front = Zend_Controller_Front::getInstance(); 
+?>
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/reset.css" media="all" />
+<script type="text/javascript" src="<?= JS_PATH ?>slidereffects.js"></script>
+
+<style type="text/css">
+<!--
+body,td,th { 
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 11px; 
+} 
+body { 
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #FFFFFF;
+} 
+A.menu:link {
+	FONT-WEIGHT: bold; 
+	FONT-SIZE: 11px; 
+	COLOR: #FFFFFF; 
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; 
+	TEXT-DECORATION: none
+}
+A.menu:hover {
+	COLOR: #FFFFFF; 
+	TEXT-DECORATION: underline
+}
+A.menu:visited {
+	color: #FFFFFF;
+}
+--> 
+</style> 
+
+</head>
+
+<body class="tundra" onLoad="goforit()"> 
+
+<table height="100%" width="100%" border="0px" cellpadding="0px" cellspacing="0px" align="center"> 
+	<tr>
+		<td height="100%" align="left" valign="top" style="margin-left:10px;"> 
+			<?php echo $this->layout()->content ?>	
+		</td>
+	</tr>
+</table>
+
+</body>

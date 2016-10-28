@@ -1,0 +1,145 @@
+<script language="JavaScript">
+var gAutoPrint = true; // Flag for whether or not to automatically call the print function
+
+function printSpecial()
+{
+
+document.getElementById("logo").style.display = "";
+
+if (document.getElementById != null)
+{
+var html = '<HTML>\n<HEAD>\n';
+
+if (document.getElementsByTagName != null)
+{
+var headTags = document.getElementsByTagName("head");
+if (headTags.length > 0)
+html += headTags[0].innerHTML;
+}
+
+html += '\n</HE' + 'AD>\n<BODY>\n';
+
+var printReadyElem = document.getElementById("printReady");
+
+if (printReadyElem != null)
+{
+html += printReadyElem.innerHTML;
+}
+else
+{
+alert("Could not find the printReady section in the HTML");
+return;
+}
+
+html += '\n</BO' + 'DY>\n</HT' + 'ML>';
+
+var printWin = window.open("","printSpecial");
+printWin.document.open();
+printWin.document.write(html);
+printWin.document.close();
+if (gAutoPrint){
+	printWin.print();
+	document.getElementById("logo").style.display = "none";
+	}
+}
+else
+{
+alert("Sorry, the print ready feature is only available in modern browsers.");
+}
+}
+
+
+
+</script>
+<div id="printReady">
+	<div align="center" id="logo" style="display:none">
+		<table border="0">
+			<tr>
+				<td><img src="<?= IMAGES_PATH ?>/jhev.png" width="70px"></td>
+				<td>STATISTIK PERMOHONAN SVTB1M -KATEGORI BALU</td>
+			</tr>
+		</table>
+		
+	</div>
+<table cellpadding="5" cellspacing="1"  id="unijaya" width="100%">
+	<colgroup>
+		<col />
+		<col class="oce-first" />
+	</colgroup>
+	<tbody>
+		<tr>
+			<th width="6%"><?= $this->translate->_('Bil') ?></th>
+			<th width="50%"><?= $this->translate->_('Pusat Pendaftaran') ?></th>
+			<th width="10%"><?= $this->translate->_('Status') ?></th>
+			<th><?= $this->translate->_('Jumlah') ?></th>
+			<th><?= $this->translate->_('Peratus') ?></th>
+			<th><?= $this->translate->_('Jumlah') ?></th>
+			<th><?= $this->translate->_('Peratus') ?></th>
+		</tr>
+		<?php
+			$jumlah = 0;
+			$lulus = 0;
+			$xlulus = 0;
+			
+			$strQuery = "SELECT 
+								COUNT( * ) AS jumlah 
+							 FROM 
+								xpencen_pesara AS a, xpencen_balu AS b 
+							 WHERE a.xpencen_pesara_id = b.pesara_id ";
+			
+			$all = $this->db->fetchRow($strQuery);
+	
+			foreach($this->result as $id=>$key){
+				
+				$strQuery = "SELECT 
+								a.xpencen_office_kelulusan, COUNT( * ) AS jumlah 
+							 FROM 
+								xpencen_pesara AS a, xpencen_balu AS b 
+							 WHERE a.xpencen_pesara_id = b.pesara_id
+							 AND a.xpencen_office_pusatpendaftaran = '".$id."'
+							 GROUP BY a.xpencen_office_kelulusan";
+				
+				$a = $this->db->fetchPairs($strQuery);
+				
+				$b = $a[1] + $a[2];
+				//print_r($a);
+		?>
+		<tr>
+			<td rowspan="2"><?= $id ?></td>
+			<td rowspan="2"><?= $key ?></td>
+			<td><?= $this->translate->_('Lulus') ?></td>
+			<td><?= $a[1] ?></td>
+			<td><?= round(($a[1]/$all['jumlah'])*100,2) ?>%</td>
+			<td rowspan="2"><?= $b ?></td>
+			<td rowspan="2"><?= round(($b/$all['jumlah'])*100,2) ?>%</td>
+		</tr>
+		<tr>
+			<td><?= $this->translate->_('Tidak Lulus') ?></td>
+			<td><?= $a[2] ?></td>
+			<td><?= round(($a[2]/$all['jumlah'])*100,2) ?>%</td>
+		</tr>
+		<?php
+				$jumlah += $a[1];
+				$jumlah += $a[2];
+				
+				$lulus += $a[1];
+				$xlulus += $a[2];
+			}
+		?>
+		<tr>
+			<td rowspan="2" colspan="2" align="center"><strong>Jumlah</strong></td>
+			<td><strong><?= $this->translate->_('Lulus') ?></strong></td>
+			<td><strong><?= $lulus; ?></strong></td>
+			<td><strong>100%</strong></td>
+			<td rowspan="2"><strong><?= $jumlah; ?></strong></td>
+			<td rowspan="2"><strong>100%</strong></td>
+		</tr>
+		<tr>
+			<td><strong><?= $this->translate->_('Tidak Lulus') ?></strong></td>
+			<td><strong><?= $xlulus; ?></strong></td>
+			<td><strong>100%</strong></td>
+		</tr>
+	</tbody>
+</table>
+</div>
+<a href="javascript:void(printSpecial())">Print</a>

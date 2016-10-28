@@ -1,0 +1,55 @@
+<?php if($this->entrySaved): ?>
+    <p class="success"><?= $this->translate->_('Penghantaran aduan baru ke BPM berjaya') ?></p>
+    <meta http-equiv="refresh" content=2;URL="<?= SYSTEM_URL ?>/bpm/aduan/penyelialist">
+<?php else: ?>
+<?php include('info.phtml'); ?>
+			
+<?php 
+		/******Enable Dojo**********/
+		$this->dojo()->enable(); 
+		// Container with tabs
+		$this->tabContainer()->captureStart('applyview', array(), array('style' => 'width:100%;text-align:left;', 'doLayout'=>'false', 'tabPosition'=>'top')); 
+			 // First tab "Am"
+			$this->contentPane()->captureStart('general', array(), array('title' => $this->translate->_('Maklumat Pengadu')));
+	?>
+			<?php include('pengadu_view.phtml'); ?>
+		
+	<?php
+		echo $this->contentPane()->captureEnd('general');
+		/**************End Tab 1******************/
+	?>
+	<?php
+			/**************Start Tab 2******************/
+			$this->contentPane()->captureStart('aduan', array(), array('title' => $this->translate->_('Maklumat Aduan')));
+			//echo "tab6 content";
+	?>
+			<?php include('aduan_view.phtml'); ?>
+	
+	<?php
+			echo $this->contentPane()->captureEnd('aduan');
+			/**************End Tab 2*****************/
+	?>
+	
+	<?php
+			/**************Start Tab 2******************/
+			$this->contentPane()->captureStart('pengesahan', array(), array('title' => $this->translate->_('Pengesahan Aduan')));
+			//echo "tab6 content";
+	?>
+			<?php include('pengesahan.phtml'); ?>
+	
+	<?php
+			echo $this->contentPane()->captureEnd('pengesahan');
+			/**************End Tab 2*****************/
+	?>
+	
+	<?php
+		echo $this->tabContainer()->captureEnd('applyview'); 
+		/**************End Container******************/
+	?>
+	<br/>
+<div class="entry-edit">
+	<div class="fieldset" style="text-align:center;">
+		<button type="submit" class="scalable back" name="submit" id="submit" style="" onClick="Javascript:history.back();"><span><?= $this->translate->_('Kembali') ?></span></button>  
+	</div>
+</div>
+<?php endif; ?>

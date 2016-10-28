@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<meta name="google-site-verification" content="V8YQiYmZMVQpJi9143Qa702duTPXz-oJFlAjS_tsFVs" />
+<?php
+$front = Zend_Controller_Front::getInstance(); 
+$defSession = Zend_Registry::get ( 'defSession' );
+if(isset($defSession->css))
+	$css = $defSession->css;
+else
+	$css = 'gold';
+?>
+<link rel="stylesheet" href="<?= SYSTEM_URL ?>/public/css/<?= $css ?>/spt.css" type="text/css" media="all">
+<link rel="stylesheet" href="<?= SYSTEM_URL ?>/public/css/<?= $css ?>/table.css" type="text/css" media="all">
+<link rel="stylesheet" href="<?= SYSTEM_URL ?>/public/css/estilos.css" type="text/css" media="all">
+<link rel="stylesheet" href="<?= SYSTEM_URL ?>/public/css/clear.css" type="text/css" media="all" />
+<link rel="stylesheet" href="<?= SYSTEM_URL ?>/public/css/reset.css" type="text/css" media="all" />
+<style type="text/css" media="screen">@import "<?= SYSTEM_URL ?>/public/css/tabs.css";</style>
+
+<!--[if IE]>
+<link rel="stylesheet" href="<?= SYSTEM_URL ?>/public/css/ie/ie.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="<?= SYSTEM_URL ?>/public/css/ie/iestyle.css" type="text/css" media="all">
+<link rel="stylesheet" href="<?= SYSTEM_URL ?>/public/css/ie/below_ie7.css" type="text/css" media="all">
+<![endif]-->
+<style type="text/css">
+<!--
+body,td,th { 
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 11px; 
+} 
+body { 
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #FFFFFF;
+} 
+
+--> 
+</style> 
+	<script type="text/javascript" src="<?= JS_PATH ?>datetime.js"></script>
+	<script language="Javascript">
+
+		function ajax_loader()
+		{
+			document.getElementById('loading-mask').style.display = "block";
+		}
+
+	</script>
+	<script type="text/javascript" src="<?= JS_PATH ?>functions.js"></script>
+	<script type="text/javascript" src="<?= SYSTEM_URL ?>/public/js/index.php?c=auto&amp;f=,prototype/prototype.js,scriptaculous/builder.js,scriptaculous/effects.js,scriptaculous/dragdrop.js,scriptaculous/controls.js,scriptaculous/slider.js,prototype/validation.js,varien/js.js,mage/translate.js,mage/adminhtml/hash.js,mage/adminhtml/events.js,mage/adminhtml/loader.js,mage/adminhtml/grid.js,mage/adminhtml/tabs.js,mage/adminhtml/form.js,mage/adminhtml/accordion.js,mage/adminhtml/tools.js,mage/adminhtml/uploader.js" ></script>
+	
+	<?php
+		
+		// Check if dojo library is needed
+		if ($this->dojo()->isEnabled()):
+			// Include dojo library
+			$this->dojo()->setLocalPath(SYSTEM_URL.'/public/dojo/dojo/dojo.js')
+				// Use dojo theme tundra
+				->addStyleSheetModule('dijit.themes.tundra');
+			// Echo out the dojo <script> tags
+			echo $this->dojo();
+		endif; 
+	?>
+	
+	
+	<script type="text/javascript">
+	function func_page(paging,page,url){
+		//function paging
+		alert(url);
+		var no = (paging*page)-paging;
+		//location.href = '<?= SYSTEM_URL ?>/admin/user/list/start/'+no; 
+	}
+	</script>
+	<style type="text/css">
+	#loading{
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 5000;
+		background-color: red;
+		font-size: 150%;
+		color: white;
+		padding: 2px;
+	}
+	
+	#loadedContent{
+		border: 1px solid #CCC;
+		background-color: #f2f2f2;
+		padding: 10px;
+		width: 300px;
+	}
+	</style>
+
+	  
+		
+	  
+		<script type="text/javascript">
+		function popUp(path,title,confirmation,question) {
+			var popwin;
+			var input=true;
+			if (confirmation) input=confirm(question);
+			if (input) {
+				if (title!="view") {
+					// small window
+					leftval=(screen.width)?(screen.width-400)/2:100;
+					topval=(screen.height)?(screen.height-500)/2:100;
+					popwin=window.open(path, title, "width=400,height=500,top=" + topval + ",left=" + leftval + ",toolbar=0,scrollbars=1,directories=no,location=0,statusbar=0,menubar=0,resizable=0");
+				} else {
+					// big window
+					leftval=(screen.width)?(screen.width-750)/2:100;
+					topval=(screen.height)?(screen.height-750)/2:100;
+					popwin=window.open(path, title, "width=750,height=750,top=" + topval + ",left=" + leftval + ",toolbar=0,scrollbars=1,directories=no,location=0,statusbar=0,menubar=0,resizable=1");
+				}
+				popwin.focus();
+			}
+		}
+		</script>
+		<script language="Javascript">
+			function filters()
+			{
+				var style = document.getElementById('filter').style.display;
+				
+				if(style == "none")
+					document.getElementById('filter').style.display = "";
+				else if(style == "")
+					document.getElementById('filter').style.display = "none";
+			}
+		</script>
+</head>
+
+<body class="tundra">
+<div id="loading-mask" style="display: none;"><p class="loader" id="loading_mask_loader"><img src="<?= IMAGES_PATH ?>/admin/ajax-loader-tr.gif" alt="Loading..."/><br/>Please wait...</p></div>
+<script>
+var ld=(document.all);
+
+var ns4=document.layers;
+var ns6=document.getElementById&&!document.all;
+var ie4=document.all;
+
+if (ns4)
+	ld=document.loading-mask;
+else if (ns6)
+	ld=document.getElementById("loading-mask").style;
+else if (ie4)
+	ld=document.all.loading-mask.style;
+
+function init()
+{
+if(ns4){ld.visibility="hidden";}
+else if (ns6||ie4) ld.display="none";
+}
+</script>
+
+<?php 
+$defSession = Zend_Registry::get ( 'defSession' );
+if (isset($defSession->css))
+{
+	$css = $defSession->css;
+}
+else{
+	$css = 'gold';
+}
+?>
+<div style="background:url(<?= IMAGES_PATH.$css ?>/spip_9.jpg) repeat-x">
+<table height="100%" width="100%" border="0px" cellpadding="0" cellspacing="0" align="center"> 
+	<tr>
+		<td height="100%" valign="top"> 
+			<table height="100%" width="100%" border="0px" cellpadding="1px" cellspacing="10px" align="left">
+				<tr>
+					<td valign="top">
+						<?php echo $this->layout()->content ?>	
+						<div id="loading-mask" style="display:none">
+							<p class="loader" id="loading_mask_loader"><img src="<?= IMAGES_PATH ?>/admin/ajax-loader-tr.gif" alt="Loading..."/><br/>Please wait...</p>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</div>
+<div id="loading" style="display: none;">Loading content...</div>
+</body>
+</html>

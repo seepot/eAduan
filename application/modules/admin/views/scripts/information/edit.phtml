@@ -1,0 +1,65 @@
+<script type="text/javascript" src="<?= EDITOR_PATH ?>fckeditor.js"></script>
+<?php if($this->failedValidation): ?>
+    <p class="error"><?= $this->translate->_('Terdapat masalah semasa kemaskini maklumat informasi.') ?></p> 
+<?php endif; ?>
+
+<?php if($this->entrySaved): ?>
+    <p class="success"><?= $this->translate->_('Kemaskini maklumat informasi berjaya.') ?></p>
+    <meta http-equiv="refresh" content=1;URL="<?= SYSTEM_URL ?>/admin/information/list">
+<?php else: ?>
+
+<form action="<?= $this->escape($this->form->getAction()) ?>" method="<?= $this->escape($this->form->getMethod()) ?>">
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-newsletter-list"><?= $this->translate->_('Kemaskini Informasi Sistem') ?></h3></td>
+		        <td class="a-right">
+		           <button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Kembali') ?></span></button>            	           	            	                    
+	               <? //= $this->form->reset ?>  
+	               <button type="submit" class="scalable save" name="submit" id="submit" style=""><span><?= $this->translate->_('Kemaskini') ?></span></button>  
+	            </td>
+		    </tr>
+		</table>
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset " id="group_fields63">
+	    	<p class="box"><?= $this->translate->_('Sila masukkan maklumat pada ruangan di bawah.') ?></p>
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td width="25%"><?= $this->translate->_('Nama') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->page_name ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Keterangan') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->page_desc ?></td>
+					</tr>
+					<tr>
+						<td colspan="2"><?= $this->translate->_('Kandungan') ?>&nbsp;<span class="required2">*</span></td>
+					</tr>
+					<tr>
+						<td colspan="2" style="background:#FFFFFF">
+							<script type="text/javascript">
+							window.onload = function()
+							{
+							var oFCKeditor = new FCKeditor( 'page_content' ) ;
+							oFCKeditor.BasePath = "<?= EDITOR_PATH ?>" ;
+							oFCKeditor.ToolbarSet	= 'Unijaya' ;
+							oFCKeditor.ReplaceTextarea() ;
+							}
+							</script>
+							<textarea id="page_content" name="page_content"><?= $this->page_content; ?></textarea>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p class="required2" align="right">* <?= $this->translate->_('Diperlukan') ?></p>
+		</div>	
+	</div>
+</form>
+<?php endif; ?>
+
+			

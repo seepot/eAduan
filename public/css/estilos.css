@@ -1,0 +1,122 @@
+.barra_tabela {
+	text-align: center;
+}
+
+.barra_tabela input {
+	width: 120px !important;
+	margin: 4px;
+}
+
+.barra_tabela a {
+	padding: 2px 2px 2px 2px;
+	margin: 2px;
+	text-decoration: none;
+	color: #333;
+}
+
+.barra_tabela a img {
+	border: 0px solid #ffa500;
+	padding: 0px;
+	margin: 0px;
+	position: relative;
+	top: 3px;
+}
+
+.barra_tabela tr:hover td {
+	background: #ffffff;
+}
+
+.width_10p {
+	width: 10%;
+}
+
+.width_15p {
+	width: 15%;
+}
+
+.width_20p {
+	width: 20%;
+}
+
+.width_30p {
+	width: 30%;
+}
+
+.width_40p {
+	width: 40%;
+}
+
+.width_50p {
+	width: 50%;
+}
+
+.width_60p {
+	width: 60%;
+}
+
+.width_80p {
+	width: 90%;
+}
+
+.width_30 {
+	width: 30px;
+}
+
+.width_20 {
+	width: 20px;
+}
+
+.width_50 {
+	width: 50px;
+}
+
+.width_75 {
+	width: 75px;
+}
+
+.width_150 {
+	width: 150px;
+}
+
+.width_160 {
+	width: 160px;
+}
+
+.width_500 {
+	width: 640px;
+}
+
+.width_400 {
+	width: 400px;
+}
+
+.width_350 {
+	width: 250px;
+}
+
+.width_100 {
+	width: 100px;
+}
+
+.width_80 {
+	width: 80px;
+}
+
+.width_data {
+	width: 80px;
+	display: block;
+	height: 14px;
+	overflow: hidden;
+}
+
+.width_120 {
+	width: 120px;
+}
+
+.width_200 {
+	width: 200px;
+}
+/* DASHBOARD
+*******************************************************************************/
+.dashboard-container                    { border:1px solid #ccc; }
+.dashboard-container .switcher          { margin-bottom:0;  border:0; }

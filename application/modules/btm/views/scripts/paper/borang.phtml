@@ -1,0 +1,117 @@
+<?php if($this->failedValidation): ?>
+    <p class="error"><?= $this->translate->_('Ada masalah') ?></p>
+<?php endif; ?>
+
+<?php if($this->entrySaved): ?>
+    <p class="success"><?= $this->translate->_('Berjaya') ?></p>
+    <meta http-equiv="refresh" content=1;URL="borang">
+<?php else: ?>
+<? //$this->form->name; ?>
+<form action="<?= $this->escape($this->form->getAction()) ?>" method="<?= $this->escape($this->form->getMethod()) ?>">
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-user"><?= $this->translate->_('Borang Kajian Kepuasan Pekerja Tahun 2009') ?></h3></td>
+		        <td class="a-right">
+		            <button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Kembali') ?></span></button>
+	                <button type="reset" name="reset" id="reset" style=""><span><?= $this->translate->_('Semula') ?></span></button>  
+	                <button type="submit" class="scalable save" name="submit" id="submit" style=""><span><?= $this->translate->_('Simpan') ?></span></button>  
+	                
+	            </td>
+		    </tr>
+		</table>
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+	    	<p class="box" align="left"><?= $this->translate->_('Masukkan maklumat pada ruangan di bawah.') ?></p>
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td width="25%"><?= $this->translate->_('Tahun') ?></td>
+						<td><?= $this->form->sel_tahun ?></td>
+					</tr>
+					<tr>
+						<td width="25%"><?= $this->translate->_('Kumpulan Jawatan') ?></td>
+						<td><?= $this->form->rad_kumpulanjawatan ?></td>
+					</tr>
+					<tr>
+						<td width="25%"><?= $this->translate->_('Bahagian') ?></td>
+						<td><?= $this->form->sel_bahagian ?></td>
+					</tr>
+					<tr>
+						<td width="25%"><?= $this->translate->_('Jantina') ?></td>
+						<td><?= $this->form->rad_jantina ?></td>
+					</tr>
+					<tr>
+						<td width="25%"><?= $this->translate->_('Umur') ?></td>
+						<td><?= $this->form->sel_umur ?></td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td>SKALA: <br><br>[1] SANGAT TIDAK MEMUASKAN<br> [2] TIDAK MEMUASKAN<br> [3] MEMUASKAN<br> [4] BAIK<br> [5] SANGAT BAIK</td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+			<table cellpadding="5" cellspacing="1"  id="unijaya" width="100%">
+				<colgroup>
+					<col />
+					<col class="oce-first" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<th width="6%"><?= $this->translate->_('Bil') ?></th>
+						<th width="70%"><?= $this->translate->_('Perkhidmatan') ?></th>
+						<th><?= $this->translate->_('Penilaian') ?></th>
+					</tr>
+					<?php
+						foreach($this->soalan as $id=>$key){
+							//print_r($key);
+							$n = 'q'.$key['soalan_id'];
+					?>
+					<tr>
+						<td><?= $id ?></td>
+						<td><?= $key['soalan_desc'] ?></td>
+						<td><?= $this->form->$n ?></td>
+					</tr>
+					<?php
+						}
+					?>
+				</tbody>
+			</table>
+			<br>
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td width="25%"><?= $this->translate->_('Komen atau Cadangan') ?></td>
+						<td><?= $this->form->txt_komen ?></td>
+					</tr>
+				</tbody>
+			</table>
+			<!--<p class="required2" align="right">* <?= $this->translate->_('Diperlukan') ?></p>-->
+		</div>	
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" style="text-align:center;">
+			<button type="submit" class="scalable save" name="submit" id="submit"><span><?= $this->translate->_('Simpan') ?></span></button>&nbsp;
+			<button type="reset" class="scalable reset" name="reset" id="reset" style=""><span><?= $this->translate->_('Semula') ?></span></button>&nbsp;
+			<button type="button" class="scalable back" name="submit" id="submit" style="" onClick="Javascript:history.back();"><span><?= $this->translate->_('Kembali') ?></span></button>  
+				
+		</div>
+	</div>
+</form>
+    <?php //print_r($this->soalan); ?>
+<?php endif; ?>

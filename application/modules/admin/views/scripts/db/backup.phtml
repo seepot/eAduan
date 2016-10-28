@@ -1,0 +1,51 @@
+<?php if($this->failedValidation): ?>
+    <p class="error"><?= $this->translate->_('Terdapat masalah semasa proses backup.') ?></p>
+<?php endif; ?>
+
+<?php if($this->entrySaved): ?>
+    <p class="success"><?= $this->translate->_('Backup berjaya') ?></p>
+    <meta http-equiv="refresh" content=1;URL="list">
+<?php else: ?>
+<? //$this->form->name; ?>
+<form action="<?= $this->escape($this->form->getAction()) ?>" method="<?= $this->escape($this->form->getMethod()) ?>">
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-user"><?= $this->translate->_('Backup Database') ?></h3></td>
+		        <td class="a-right">
+		            <button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Kembali') ?></span></button>
+	                <button type="submit" class="scalable save" name="submit" id="submit" style=""><span><?= $this->translate->_('Backup') ?></span></button>  
+	                
+	            </td>
+		    </tr>
+		</table>
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+	    	<p class="box"><?= $this->translate->_('Sila masukkan maklumat pada ruangan di bawah.') ?></p>
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td width="25%"><?= $this->translate->_('Keterangan') ?></td>
+						<td><?= $this->form->backupDesc ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Options') ?></td>
+						<td>
+							<div style="height:30px;"><?= $this->translate->_('Export Tables') ?> | <?= $this->form->tables ?>&nbsp;</div>
+							<div style="height:30px;"><?= $this->translate->_('Export Data') ?> | <?= $this->form->data ?>&nbsp;</div>
+							<div style="height:30px;"><?= $this->translate->_('Add \'Drop Table\'') ?> | <?= $this->form->drop ?>&nbsp;</div>
+							<div style="height:30px;"><?= $this->translate->_('Compression') ?> | <?= $this->form->zip ?>&nbsp;</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p class="required2" align="right">* <?= $this->translate->_('Diperlukan') ?></p>
+		</div>	
+	</div>
+</form>
+    
+<?php endif; ?>

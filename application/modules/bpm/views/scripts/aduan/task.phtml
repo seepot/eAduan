@@ -1,0 +1,39 @@
+<div class="entry-edit">
+	<div class="fieldset " id="group_fields63">
+		<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+			<colgroup>
+				<col class="oce-first" />
+				<col />
+				<col class="oce-first" />
+				<col />
+			</colgroup>
+			<tbody>
+				<tr>
+					<td height="40px" colspan="4" class="title" style="text-align:center;"><span style="font-size:18px;text-align:center"><strong><?= $this->translate->_('Tugasan Belum Selesai') ?></strong></span>
+					</td>
+				</tr>
+				<tr>
+					<td><?= $this->translate->_('Nama Staf') ?></td>
+					<td><?= $this->function->getFullNameById($this->usr_id) ?></td>
+				</tr> 
+				<tr>
+					<td width="20%"><?= $this->translate->_('Unit') ?></td>
+					<td><?= $this->function->getUnitBpm2ById($this->usr_id) ?></td>
+				</tr>
+				<tr>
+					<td width="20%"><?= $this->translate->_('Tahap Tinggi') ?></td>
+					<td><?= $this->function->getTahapByUsrId($this->usr_id,'3') ?></td>
+				</tr>
+				<tr>
+					<td width="20%"><?= $this->translate->_('Tahap Sederhana') ?></td>
+					<td><?= $this->function->getTahapByUsrId($this->usr_id,'2') ?></td>
+				</tr>
+				<tr>
+					<td width="20%"><?= $this->translate->_('Tahap Rendah') ?></td>
+					<td><?= $this->function->getTahapByUsrId($this->usr_id,'1') ?></td>
+				</tr>
+			</tbody>
+		</table>
+		<br />
+	</div>	
+</div>

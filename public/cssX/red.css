@@ -1,0 +1,39 @@
+div#leftblock{
+	float: left;
+	width: 200px;
+}
+div#leftdiv{
+	width: 200px;
+	text-align: left;
+}
+div#left{
+	font-size: 1em;
+	color: #939393;
+}
+div#left h3{
+	margin: 0px 0px 3px 0px;
+	padding: 0px 0px 3px 0px;
+	border-bottom: 1px solid #cccccc;
+	font-size: 1.18em;
+	color: #6c0000;
+}
+div#left .moduletable{
+	margin-bottom: 20px;
+	font-size: 0.92em;
+}
+div#left div.moduletable { 	padding: 10px;
+	background: #faf4f4;
+	margin-bottom: 10px;
+	border: solid 1px #ffffff;
+ }
+ input, select, button {
+	font: 11px/normal Tahoma, Arial, Helvetica, sans-serif;
+}
+.button, .button:hover { padding: 1px 10px!important; padding: 1px 5px; color: #f3f5f8; background-color: #333; border-color: #dfe5ec #8e9cae #8e9cae #dfe5ec; border-style: solid; border-width: 1px; }
+.button:active, .button:focus { color: #333; background-color: #e4e4e4; border-color: #8e9cae #dfe5ec #dfe5ec #8e9cae; border-style: solid; border-width: 1px; }
+.inputbox {
+	border: solid 1px #bfc2c5;
+	background: #f5f5f8;
+	
+}
+.inputbox:hover, .inputbox:focus { background-color: #fbfbfb; border: solid 1px #9198a0; }

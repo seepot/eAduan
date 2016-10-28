@@ -1,0 +1,48 @@
+<div class="entry-edit">
+		<div class="fieldset " id="group_fields63">
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+					<col />
+					<col class="oce-first" />
+					<col />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td height="40px" colspan="4" class="title" style="text-align:center;"><span style="font-size:18px;text-align:center"><strong><?= $this->translate->_('Maklumat Aduan') ?></strong></span>
+						</td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Unit BPM') ?></td>
+						<td><?= $this->function->getUnitBpmById($this->aduan->aduan_bpm) ?></td>
+					</tr> 
+					<tr>
+						<td width="20%"><?= $this->translate->_('Kategori Masalah') ?></td>
+						<td><?= $this->function->getKategoriMasalahById($this->aduan->aduan_kategorimasalah) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Tarikh Masalah') ?></td>
+						<td  ><?= $this->function->func_ymd2dmy($this->aduan->aduan_tarikh) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Lokasi Masalah') ?></td>
+						<td><?= $this->aduan->aduan_lokasi ?></td>
+						<!--<td><?= $this->function->getUnitJhevById($this->aduan->aduan_lokasi) ?></td>-->
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Ringkasan Masalah') ?></td>
+						<td  ><?= $this->aduan->aduan_ringkasan ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Had Kelulusan') ?> <span class="required2">(sekiranya pelulus baucar)</span></td>
+						<td  ><?= $this->aduan->aduan_hadpelulus ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Lampiran') ?></td>
+						<td  ><a href="<?= UPLOAD_URL.'aduan/'.$this->aduan->aduan_lampiran ?>" target = "_new" ><?= $this->aduan->aduan_lampiran ?></a></td>
+					</tr>
+				</tbody>
+			</table>
+			<br />
+		</div>	
+	</div>

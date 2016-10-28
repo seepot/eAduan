@@ -1,0 +1,30 @@
+Pengadu
+id = pengadu1
+pass = pengadu1
+no tel = 0137227224
+
+Penyelia Unit Pencen
+id = penyelia1
+pass = penyelia1
+no tel = 0125374226
+
+Pegawai BPM
+id = pegawaibpm1
+pass = pegawaibpm1
+no tel = 0137227224
+
+Staf BPM
+id = staf1
+pass = password
+no tel = 0125374226
+
+Sistem Admin
+id = shuhaimi
+pass = password
+no tel = 0125374226
+
+
+language = C:\Program Files\Zend\Apache2\htdocs\development\eAduan\languages
+
+C:\Program Files\Zend\Apache2\htdocs\development\eAduan\application\modules\bpm\controllers - AduanController
+

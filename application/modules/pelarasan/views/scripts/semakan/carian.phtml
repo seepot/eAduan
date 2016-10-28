@@ -1,0 +1,72 @@
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-user"><?= $this->translate->_('Semakan Pelarasan Pencen') ?></h3></td>
+		        <td class="a-right">
+		           <button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Back') ?></span></button>            	           	            	                     
+	            </td>
+		    </tr>
+		</table>
+	</div>
+	<form action="" method="POST">
+	Carian: <input name="txt_no_tentera" type="text" />&nbsp;<input type="submit" value="Cari" /><br/>
+	</form> 
+	<?php if(isset($_POST['txt_no_tentera'])){ ?>
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+			<table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#CCCCCC" id="info-box">
+				<tr class="contents">
+					<td height="25%" align="left" valign="top" bgcolor="#EFEFEF" class="head"><strong><?= $this->translate->_('No Tentera') ?></strong></td>
+					<td align="left" valign="top" bgcolor="#FFFFFF" class="big-red"><?= $this->row['pelarasan_no_tentera'] ?></td>
+					
+				</tr>
+				<tr class="contents">
+					<td width="25%" height="20" align="left" valign="top" bgcolor="#EFEFEF" class="head"><strong><?= $this->translate->_('Nama') ?></strong></td>
+					<td align="left" valign="top" bgcolor="#FFFFFF" class="big-blue"><?= $this->row['pelarasan_nama'] ?></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+					<col/>
+					<col class="oce-first" />
+					<col />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td width="20%"><?= $this->translate->_('No Tentera') ?></td>
+						<td width="30%"><?= $this->row['pelarasan_no_tentera'] ?></td>
+						<td width="20%"><?= $this->translate->_('Pangkat') ?></td>
+						<td><?= $this->row['pelarasan_pangkat'] ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Nama Tentera') ?></td>
+						<td><?= $this->row['pelarasan_nama'] ?></td>
+						<td><?= $this->translate->_('Bulan Khidmat Diakui') ?></td>
+						<td><?= $this->row['pelarasan_bulan'] ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Nama Penerima') ?></td>
+						<td colspan="3"><?= $this->row['pelarasan_waris_nama'] ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Pencen Terkini') ?></td>
+						<td><?= $this->row['pelarasan_pencen_terkini'] ?></td>
+						<td><?= $this->translate->_('Mulai') ?></td>
+						<td><?= $this->row['pelarasan_tarikh_mula'] ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Tunggakan') ?></td>
+						<td><?= $this->row['pelarasan_tunggakan'] ?></td>
+						<td><?= $this->translate->_('Status Bayaran') ?></td>
+						<td><?= $this->row['pelarasan_status_bayaran'] ?></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>	
+	</div>		
+<?php } ?>

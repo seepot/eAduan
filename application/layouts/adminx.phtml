@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="language" content="en" />
+<?php
+$this->headTitle(SYSTEM_NAME, 'APPEND');
+$this->headTitle()->setSeparator(' - ');
+echo $this->headTitle();
+
+$front = Zend_Controller_Front::getInstance(); 
+?>
+<link rel="shortcut icon" href="<?= IMAGES_PATH ?>icon/favicon.ico" type="image/x-icon" />
+
+</head>
+<?php 
+if(Zend_Auth::getInstance()->getIdentity())
+	$page = SYSTEM_URL."/admin";
+else
+	$page = SYSTEM_URL."/authentication/login";
+
+?>
+
+<frameset bordercolor="#FFFFFF" rows="113,*" cols="*" border="0" frameborder="0" framespacing="0">
+	<frame name="top" src="<?= SYSTEM_URL ?>/layout/admin/head" scrolling="no"/>
+		<frameset rows="*" cols="0,100%" name="SecondFrame" id="SecondFrame">
+			<frame name="left" src="" />
+			<frame name="right" src="<?= $page ?>" noresize="noresize" scrolling="yes" />
+		</frameset>
+	<noframes>
+		Sorry, your browser does not handle frames!
+	</noframes>
+</frameset>
+<noframes>
+	Sorry, your browser does not handle frames!
+</noframes>
+</html>

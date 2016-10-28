@@ -1,0 +1,98 @@
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-user"><?= $this->translate->_('Papar Kumpulan Pengguna') ?></h3></td>
+		        <td class="a-right">
+		           <button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Kembali') ?></span></button>            	           	            	                     
+	            </td>
+		    </tr>
+		</table>
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td width="25%"><?= $this->translate->_('Nama') ?></td>
+						<td><?= $this->rowset['acl_role_name'] ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Keterangan') ?></td>
+						<td><?= $this->rowset['acl_role_desc'] ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Kebenaran Capaian') ?></td>
+						<td>
+							<div class="entry-edit">
+							
+								<?php 
+									//print_r($this->role_privileges);
+									foreach($this->modules as $module) {
+										echo "";
+										echo "<div class=\"entry-edit-head\"><h4 class=\"icon-head head-edit-form fieldset-legend\">Modul ".$module['acl_module_desc']."</h4></div>";
+										echo "<div class=\"fieldset\" id=\"group_fields63\">";
+										echo "<table cellspacing=\"0\" class=\"form-list\">";
+										foreach($this->resources as $resource) {
+											if($resource['acl_module_id'] == $module['acl_module_id']){
+												echo  "<tbody><tr><td class=\"label\">".ucwords(strtolower($resource['acl_resource_desc']))."</td></tr></tbody>";
+											}
+											//print_r($this->privileges);
+											//if(isset($this->privileges['acl_resource_id']))
+											//{
+											
+											//echo "x";
+											$x = 0;
+											
+											foreach($this->privileges as $privilege){
+												if($resource['acl_module_id'] == $module['acl_module_id'] && $privilege['acl_resource_id'] == $resource['acl_resource_id']){										
+													if (in_array($privilege['acl_privilege_id'],$this->role_privileges) == true)
+													{
+														echo "<tr>";
+														echo "<td class=\"value\">";
+														echo " - ".ucwords(strtolower($privilege['acl_privilege_desc']));
+														echo "</td>";
+														echo "</tr>";
+														$x++;
+													}
+													/*
+													if($x==0)
+													{
+														echo "<tr>";
+														echo "<td class=\"value\">";
+														echo " - ";
+														echo "</td>";
+														echo "</tr>";
+														$x++;
+													}
+													*/
+													//echo "<br>";												
+												}	
+												//$x=0;
+												
+											}
+											//echo $x;
+											//}
+										}
+										echo "</table>";
+										echo "</div>";
+									}
+								?>
+							
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Status') ?></td>
+						<td><?= $this->rowset['active_name'] ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Jenis Pengguna') ?></td>
+						<td><?= $this->rowset['type_group_name'] ?></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>	
+	</div>		

@@ -1,0 +1,67 @@
+
+<script language="Javascript">
+	function func_checkdate(type){
+		var a = document.getElementById('date_tarikh_'+type).value;
+		alert(a);
+	}
+</script>
+<form action="<?= $this->escape($this->form->getAction()) ?>" method="<?= $this->escape($this->form->getMethod()) ?>" >
+	<?php //include('info.phtml'); ?>
+	<? //= $this->func_tab; ?>
+	<div class="entry-edit">
+		<div class="fieldset " id="group_fields63">
+			<p class="box" align="left">Masukkan maklumat pada ruangan di bawah.<span class="required2"> * Diperlukan</span><br/>
+			</p>
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+					<col />
+					<col class="oce-first" />
+					<col />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td height="40px" colspan="4" class="title" style="text-align:center;"><span style="font-size:18px;text-align:center"><strong><?= $this->translate->_('Pengesahan Aduan') ?></strong></span>
+						</td>
+					</tr>
+					<tr>
+						<td width = "20%"><?= $this->translate->_('Nama Penyelia') ?> </td>
+						<td><?= $this->function->getFullNameById(Zend_Auth::getInstance()->getIdentity()->usr_id) ?></td>
+					</tr> 
+					<tr>
+						<td width="20%"><?= $this->translate->_('Jawatan') ?> </td>
+						<td><?= $this->function->getPositionById(Zend_Auth::getInstance()->getIdentity()->usr_id) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Bahagian') ?> </td>
+						<td><?= $this->function->getDeptById(Zend_Auth::getInstance()->getIdentity()->usr_id) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Unit') ?> </td>
+						<td><?= $this->function->getUnitById(Zend_Auth::getInstance()->getIdentity()->usr_id) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('No Telefon') ?> </td>
+						<td><?= $this->function->getPhoneNoById(Zend_Auth::getInstance()->getIdentity()->usr_id) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Pengesahan') ?> <span class="required2">*</span></td>
+						<td><?= $this->form->chk_pengesahan ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Catatan') ?> <span class="required2">*</span></td>
+						<td><?= $this->form->txt_catatan ?></td>
+					</tr>
+				</tbody>
+			</table>
+			<br />
+		</div>	
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" style="text-align:center;">
+			<button type="submit" class="scalable save" name="submit" id="submit"><span><?= $this->translate->_('Hantar') ?></span></button>&nbsp;
+			<button type="reset" class="scalable reset" name="reset" id="reset" style=""><span><?= $this->translate->_('Semula') ?></span></button>&nbsp;
+		</div>
+	</div>
+</form>
+

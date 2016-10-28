@@ -1,0 +1,25 @@
+<div class="content-header">
+	<table cellspacing="0">
+		<tr>
+			<td style="width:50%;"><h3 class="icon-head head-sales-order"><?= $this->translate->_($this->title); ?></h3></td>
+		</tr>
+	</table>
+</div>	
+<?php //if (isset($this->aduan->insert_by)) : ?>
+<div class="entry-edit">
+	<div class="fieldset" id="group_fields63">
+		<table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#CCCCCC" id="info-box">
+			<tr class="contents">
+				<td height="25%" align="left" valign="top" bgcolor="#EFEFEF" class="head"><strong><?= $this->translate->_('Nama') ?></strong></td>
+				<td align="left" valign="top" bgcolor="#FFFFFF" class="big-red"><?= isset($this->aduan->insert_by) ? $this->function->getFullNameById($this->aduan->insert_by) : $this->function->getFullNameById(Zend_Auth::getInstance()->getIdentity()->usr_id) ?></td>
+				
+			</tr>
+			<tr class="contents">
+				<td width="25%" height="20" align="left" valign="top" bgcolor="#EFEFEF" class="head"><strong><?= $this->translate->_('No Jabatan') ?></strong></td>
+				<td align="left" valign="top" bgcolor="#FFFFFF" class="big-blue">
+					<?= isset($this->aduan->insert_by) ? $this->function->getNoJabatanById($this->aduan->insert_by) : $this->function->getNoJabatanById(Zend_Auth::getInstance()->getIdentity()->usr_id) ?>
+				<? //= $this->function->getNoJabatanById($this->aduan->insert_by) ?></td>
+			</tr>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,99 @@
+<?php if($this->failedValidation): ?>
+    <p class="error"><?= $this->translate->_('Terdapat masalah semasa pendaftaran kumpulan pengguna baru') ?></p>
+<?php endif; ?>
+
+<?php if($this->entrySaved): ?>
+    <p class="success"><?= $this->translate->_('Pendaftaran kumpulan pengguna baru berjaya') ?></p>
+    <meta http-equiv="refresh" content=1;URL="list">
+<?php else: ?>
+	<style type="text/css">
+        @import "<?= SYSTEM_URL ?>/public/dojo/dijit/themes/tundra/tundra.css";
+        @import "<?= SYSTEM_URL ?>/public/dojo/dojo/resources/dojo.css"
+    </style>
+    <script type="text/javascript" src="<?= SYSTEM_URL ?>/public/dojo/dojo/dojo.xd.js" djConfig="parseOnLoad: true"></script>
+    <script type="text/javascript">
+        dojo.require("dojo.parser");
+        dojo.require("dijit.form.CheckBox");
+     </script>
+<form name="form_add" action="<?= $this->escape($this->form->getAction()) ?>" method="<?= $this->escape($this->form->getMethod()) ?>">
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-customer"><?= $this->translate->_('Tambah Kumpulan Pengguna') ?></h3></td>
+		        <td class="a-right">
+		            <button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Kembali') ?></span></button>            	           	            	                    
+	                <?= $this->form->reset ?>  
+	                <button type="submit" class="scalable save" name="submit" id="submit"><span><?= $this->translate->_('Simpan') ?></span></button>  
+	            </td>
+		    </tr>
+		</table>
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+	    	<p class="box"><?= $this->translate->_('Sila masukkan maklumat pada ruangan di bawah.') ?></p>
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td width="25%"><?= $this->translate->_('Nama Kumpulan') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->groupname ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Keterangan') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->groupdesc ?></td>
+					</tr>
+					<tr>
+						<td valign="top"><?= $this->translate->_('Kebenaran Capaian') ?>&nbsp;<span class="required2">*</span></td>
+						<td>
+							<div class="entry-edit">
+								<?php 
+									foreach($this->modules as $module) {
+										echo "";
+										echo "<div class=\"entry-edit-head\"><h4 class=\"icon-head head-edit-form fieldset-legend\">Modul ".$module['acl_module_desc']."</h4></div>";
+										echo "<div class=\"fieldset\" id=\"group_fields63\">";
+										echo "<table cellspacing=\"0\" class=\"form-list\">";
+										foreach($this->resources as $resource) {
+											if($resource['acl_module_id'] == $module['acl_module_id']){
+												echo  "<tbody><tr><td class=\"label\" colspan\"3\">".ucwords(strtolower($resource['acl_resource_desc']))."</td></tr>";
+											}
+											//echo "<tr><td class=\"value\">";
+											$x = 1;
+											foreach($this->privileges as $privilege){					
+												if($resource['acl_module_id'] == $module['acl_module_id'] && $privilege['acl_resource_id'] == $resource['acl_resource_id']){										
+													if($x == 4)	
+														echo "<tr>";
+														
+													echo "<td class=\"value\">";
+													
+													echo "<input type=\"checkbox\" dojotype=\"dijit.form.CheckBox\"  name=\"chk_right[]\" id=\"chk_right[".$privilege['acl_privilege_id']."]\" value=\"".$privilege['acl_privilege_id']."\">&nbsp;".ucwords(strtolower($privilege['acl_privilege_desc']))."<br>";	
+													echo "</td>";
+													$x++;
+													if($x == 4){
+														echo "</tr>";
+														$x = 1;
+													}
+												}		
+											}
+											//echo "</td></tr>";
+										}
+										echo "</tbody></table>";
+										echo "</div>";
+									}
+								?>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td valign="top"><?= $this->translate->_('Jenis Pengguna') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->typegroup ?></td>
+					</tr>
+				</tbody>
+			</table>
+			<p class="required2" align="right">* <?= $this->translate->_('Diperlukan') ?></p>
+		</div>	
+	</div>
+</form>
+    
+<?php endif; ?>

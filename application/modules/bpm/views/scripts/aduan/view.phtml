@@ -1,0 +1,95 @@
+
+<?php include('info.phtml'); ?>
+			
+<?php 
+		/******Enable Dojo**********/
+		$this->dojo()->enable(); 
+		// Container with tabs
+		$this->tabContainer()->captureStart('applyview', array(), array('style' => 'width:100%;text-align:left;', 'doLayout'=>'false', 'tabPosition'=>'top')); 
+			 // First tab "Am"
+			$this->contentPane()->captureStart('general', array(), array('title' => $this->translate->_('Maklumat Pengadu')));
+	?>
+			<?php include('pengadu_view.phtml'); ?>
+		
+	<?php
+		echo $this->contentPane()->captureEnd('general');
+		/**************End Tab 1******************/
+	?>
+	<?php
+			/**************Start Tab 2******************/
+			$this->contentPane()->captureStart('aduan', array(), array('title' => $this->translate->_('Maklumat Aduan')));
+			//echo "tab6 content";
+	?>
+			<?php include('aduan_view.phtml'); ?>
+	
+	<?php
+			echo $this->contentPane()->captureEnd('aduan');
+			/**************End Tab 2*****************/
+	?>
+	
+	<?php
+			/**************Start Tab 2******************/
+			if ($this->aduan->status > '10'){
+			$this->contentPane()->captureStart('pengesahan', array(), array('title' => $this->translate->_('Pengesahan Aduan')));
+			//echo "tab6 content";
+	?>
+			<?php include('pengesahan_view.phtml'); ?>
+	
+	<?php
+			echo $this->contentPane()->captureEnd('pengesahan');
+			}
+			/**************End Tab 2*****************/
+	?>
+	
+	<?php
+			/**************Start Tab 3******************/
+			if ($this->aduan->status > '20'){
+			$this->contentPane()->captureStart('kelulusan', array(), array('title' => $this->translate->_('Kelulusan Aduan')));
+			//echo "tab6 content";
+	?>
+			<?php include('kelulusan_view.phtml'); ?>
+	
+	<?php
+			echo $this->contentPane()->captureEnd('kelulusan');
+			}
+			/**************End Tab 3*****************/
+	?>
+	
+	<?php
+			/**************Start Tab 4******************/
+			if ($this->aduan->status > '35'){
+			$this->contentPane()->captureStart('tindakan', array(), array('title' => $this->translate->_('Tindakan Aduan')));
+			//echo "tab6 content";
+	?>
+			<?php include('tindakan_view.phtml'); ?>
+	
+	<?php
+			echo $this->contentPane()->captureEnd('tindakan');
+			}
+			/**************End Tab 4*****************/
+	?>
+	
+	<?php
+			/**************Start Tab 4******************/
+			
+			$this->contentPane()->captureStart('kronologi', array(), array('title' => $this->translate->_('Kronologi')));
+			//echo "tab6 content";
+	?>
+			<?php include('kronologi.phtml'); ?>
+	
+	<?php
+			echo $this->contentPane()->captureEnd('kronologi');
+			
+			/**************End Tab 4*****************/
+	?>
+	
+	<?php
+		echo $this->tabContainer()->captureEnd('applyview'); 
+		/**************End Container******************/
+	?>
+	<br/>
+<div class="entry-edit">
+	<div class="fieldset" style="text-align:center;">
+		<button type="submit" class="scalable back" name="submit" id="submit" style="" onClick="Javascript:history.back();"><span><?= $this->translate->_('Kembali') ?></span></button>  
+	</div>
+</div>

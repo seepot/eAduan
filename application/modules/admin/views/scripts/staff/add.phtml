@@ -1,0 +1,87 @@
+<?php if($this->failedValidation): ?>
+    <p class="error"><?= $this->translate->_('Terdapat masalah semasa pendaftaran pengguna baru') ?></p>
+<?php elseif($this->userError): ?>
+    <p class="error"><?= $this->translate->_('ID Pengguna yang dipilih sudah terdapat di dalam pangkalan data') ?></p> 
+<?php elseif($this->nokpError): ?>
+    <p class="error"><?= $this->translate->_('No KP yang dipilih sudah terdapat di dalam pangkalan data') ?></p> 
+<?php elseif($this->emailError): ?>
+    <p class="error"><?= $this->translate->_('Alamat Email yang dipilih sudah terdapat di dalam pangkalan data') ?></p> 
+<?php endif; ?>
+
+<?php if($this->entrySaved): ?>
+    <p class="success"><?= $this->translate->_('Pendaftaran kakitangan baru berjaya') ?></p>
+    <meta http-equiv="refresh" content=1;URL="list">
+<?php else: ?>
+<? //$this->form->name; ?>
+<form action="<?= $this->escape($this->form->getAction()) ?>" method="<?= $this->escape($this->form->getMethod()) ?>">
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-user"><?= $this->translate->_('Tambah Kakitangan') ?></h3></td>
+		        <td class="a-right">
+		            <button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Kembali') ?></span></button>
+	                <button type="reset" name="reset" id="reset" style=""><span><?= $this->translate->_('Semula') ?></span></button>  
+	                <button type="submit" class="scalable save" name="submit" id="submit" style=""><span><?= $this->translate->_('Simpan') ?></span></button>  
+	                
+	            </td>
+		    </tr>
+		</table>
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+	    	<p class="box"><?= $this->translate->_('Sila masukkan maklumat pada ruangan di bawah.') ?> <span class="required2">* <?= $this->translate->_('Diperlukan') ?></span></p>
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td width="25%"><?= $this->translate->_('Nama Penuh') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->realname ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('No KP') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->nokp ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Email') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->email ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Tarikh Lahir') ?></td>
+						<td><?= $this->form->date_bday ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('ID Pengguna') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->username ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Kata Laluan') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->password ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Kata Laluan (Semula)') ?><span class="required2">*</span></td>
+						<td><?= $this->form->password2 ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Kumpulan Pengguna') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->roledalaman ?></td>
+					</tr>
+				</tbody>
+			</table>
+			<!--<p class="required2" align="right">* <?= $this->translate->_('Diperlukan') ?></p>-->
+		</div>	
+	</div>
+	<!--
+	<div class="entry-edit">
+		<div class="fieldset" style="text-align:center;">
+			<button type="submit" class="scalable save" name="submit" id="submit" style=""><span><?= $this->translate->_('Simpan') ?></span></button>  
+			<button type="reset" name="reset" id="reset" style=""><span><?= $this->translate->_('Semula') ?></span></button>  
+			<button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Kembali') ?></span></button>
+			</table>
+		</div>
+	</div>
+	-->
+</form>
+    
+<?php endif; ?>

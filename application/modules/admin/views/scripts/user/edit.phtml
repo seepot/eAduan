@@ -1,0 +1,136 @@
+<?php if($this->failedValidation): ?>
+    <!--<p class="error"><?= $this->translate->_('Terdapat masalah semasa kemaskini maklumat pengguna.') ?></p>-->
+	<div class="input-control text error-state" data-role="input-control">
+		<input type="text" value="<?= $this->translate->_('Terdapat masalah semasa kemaskini maklumat pengguna.') ?>">
+	</div>	
+<?php endif; ?>
+
+<?php if($this->entrySaved): ?>
+    <p class="success"><?= $this->translate->_('Kemaskini maklumat pengguna berjaya.') ?></p>
+	
+    <meta http-equiv="refresh" content=1;URL="list">
+<?php else: ?>
+
+<form action="<?= $this->escape($this->form->getAction()) ?>" method="<?= $this->escape($this->form->getMethod()) ?>">
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-user-edit"><?= $this->translate->_('Kemaskini Pengguna') ?></h3></td>
+		        <td class="a-right">
+		           <button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Kembali') ?></span></button>            	           	            	                    
+	               <?= $this->form->reset ?>  
+	               <button type="button" class="scalable delete" onclick="confirmSetLocation('<?= $this->translate->_('Anda pasti?') ?>', '<?= $this->front ?>/admin/user/delete/id/<?= $this->id ?>')" style=""><span><?= $this->translate->_('Hapus') ?></span></button>
+	               <button type="submit" class="scalable save" name="submit" id="submit" style=""><span><?= $this->translate->_('Kemaskini') ?></span></button>  
+	            </td>
+		    </tr>
+		</table>
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+			<table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#CCCCCC" id="info-box">
+				<tr class="contents">
+					<td height="25%" align="left" valign="top" bgcolor="#EFEFEF" class="head"><strong><?= $this->translate->_('Nama') ?></strong></td>
+					<td align="left" valign="top" bgcolor="#FFFFFF" class="big-red"><?= $this->rowset['usr_fullname'] ?></td>
+					
+				</tr>
+				<tr class="contents">
+					<td width="25%" height="20" align="left" valign="top" bgcolor="#EFEFEF" class="head"><strong><?= $this->translate->_('No Kad Pengenalan') ?></strong></td>
+					<td align="left" valign="top" bgcolor="#FFFFFF" class="big-blue"><?= $this->rowset['usr_identno'] ?></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset " id="group_fields63">
+	    	<p class="box"><?= $this->translate->_('Sila masukkan maklumat pada ruangan di bawah.') ?></p>
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td width="25%"><?= $this->translate->_('ID Pengguna') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->username ?></td>
+					</tr>
+					<!--<tr>
+						<td><?= $this->translate->_('Kata Laluan') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->user_password1 ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Kata Laluan (Semula)') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->user_password2 ?></td>
+					</tr>-->
+					<tr>
+						<td><?= $this->translate->_('Nama') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->user_name ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('No Kad Pengenalan') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->user_identno ?>&nbsp;&nbsp;Contoh : <strong>860610355627 / A8481744</strong></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('No Jabatan') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->user_nojabatan ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Bahagian') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->jhev_dept ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Unit') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->jhev_unit ?></td>
+					</tr>
+					<tr>
+						<td valign="top"><?= $this->translate->_('Alamat') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->primary_add ?></td>
+						
+					</tr>
+					
+					<tr>
+						<td valign="top"><?= $this->translate->_('Poskod') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->poskod_add ?></td>
+						
+					</tr>
+					
+					<tr>
+						<td valign="top"><?= $this->translate->_('Negeri') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->state_add ?></td>
+					</tr>
+					<tr>
+						<td valign="top"><?= $this->translate->_('Bandar') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->district_add ?></td>
+					</tr>
+					
+					<tr>
+						<td><?= $this->translate->_('No Telefon Pejabat') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->office_no ?>&nbsp;&nbsp;Contoh : <strong>0320508000</strong></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('No Telefon Bimbit') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->mobile_no ?>&nbsp;&nbsp;Contoh : <strong>0121234567</strong></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Emel') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->user_email ?>&nbsp;&nbsp;Contoh : <strong>jhev@mod.gov.my</strong></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Jantina') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->user_sex ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Kumpulan Pengguna') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->group_id ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Status') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->status ?></td>
+					</tr>
+				</tbody>
+			</table>
+			<p class="required2" align="right">* <?= $this->translate->_('Diperlukan') ?></p>
+		</div>	
+	</div>
+</form>
+<?php endif; ?>
+
+			

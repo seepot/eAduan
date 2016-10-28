@@ -1,0 +1,102 @@
+<script language="JavaScript">
+var gAutoPrint = true; // Flag for whether or not to automatically call the print function
+
+function printSpecial()
+{
+
+document.getElementById("logo").style.display = "";
+
+if (document.getElementById != null)
+{
+var html = '<HTML>\n<HEAD>\n';
+
+if (document.getElementsByTagName != null)
+{
+var headTags = document.getElementsByTagName("head");
+if (headTags.length > 0)
+html += headTags[0].innerHTML;
+}
+
+html += '\n</HE' + 'AD>\n<BODY>\n';
+
+var printReadyElem = document.getElementById("printReady");
+
+if (printReadyElem != null)
+{
+html += printReadyElem.innerHTML;
+}
+else
+{
+alert("Could not find the printReady section in the HTML");
+return;
+}
+
+html += '\n</BO' + 'DY>\n</HT' + 'ML>';
+
+var printWin = window.open("","printSpecial");
+printWin.document.open();
+printWin.document.write(html);
+printWin.document.close();
+if (gAutoPrint){
+	printWin.print();
+	document.getElementById("logo").style.display = "none";
+	}
+}
+else
+{
+alert("Sorry, the print ready feature is only available in modern browsers.");
+}
+}
+
+
+
+</script>
+
+<form name="frm_name" id="frm_name" method="post" action="<?= Zend_Controller_Front::getInstance()->getBaseUrl()."/bkp/report/jantina"?>">
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-user"><?= $this->translate->_('Senarai Komen Atau Cadangan') ?></h3></td>
+		    </tr>
+		</table>
+	</div>
+<div id="printReady">
+	<div align="center" id="logo" style="display:none">
+		<table border="0">
+			<tr>
+				<td><img src="<?= IMAGES_PATH ?>/jhev.png" width="70px"></td>
+				<td>LAPORAN KEPUASAN PEKERJA JHEV TAHUN 2009</td>
+			</tr>
+		</table>
+		
+	</div>
+	<table cellpadding="5" cellspacing="1"  id="unijaya" width="100%">
+	<colgroup>
+		<col />
+		<col class="oce-first" />
+	</colgroup>
+	<tbody>
+		<tr>
+			<th width="6%"><?= $this->translate->_('Bil') ?></th>
+			<th><?= $this->translate->_('Komen / Cadangan') ?></th>
+		</tr>
+	<?php 
+		$int_bil = 0;
+		foreach($this->kump as $id => $key){
+			if($key['umum_komen'] <> '')
+			{
+				$int_bil++;
+	?>
+		<tr>
+			<td><?= $int_bil ?></td>
+			<td><?= $key['umum_komen'] ?></td>
+		</tr>
+	<?php
+			}
+		}
+	?>
+	</table>
+	<br />
+</form>
+</div>
+<a href="javascript:void(printSpecial())">Print</a>

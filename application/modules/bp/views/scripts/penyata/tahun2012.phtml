@@ -1,0 +1,735 @@
+<META http-equiv="Content-Type" content="text/html; charset=utf-8"/><META http-equiv="Content-Style-Type" content="text/css"/><META http-equiv="Content-Script-Type" content="text/javascript"/><META HTTP-EQUIV="Location" CONTENT="http://app-server.jhev.gov.my/ReportServer?%2Freports%2FAkaunPenerima"/><META HTTP-EQUIV="Uri" CONTENT="http://app-server.jhev.gov.my/ReportServer?%2Freports%2FAkaunPenerima"/><META HTTP-EQUIV="Last-Modified" CONTENT="04/08/2013 08:19:07"><META NAME="MilitaryNo" CONTENT="10033               "><META NAME="RecipientRefID" CONTENT="030110033                     "><META NAME="FiscalYear" CONTENT="2012"><META NAME="Generator" CONTENT="Microsoft Report 8.0 "/><META NAME="Originator" CONTENT="Microsoft Report 8.0 "/>
+
+<style type="text/css">
+	@import "<?= SYSTEM_URL ?>/public/css/penyata.css";
+</style>
+<script language="JavaScript">
+var gAutoPrint = true; // Flag for whether or not to automatically call the print function
+
+function printSpecial()
+{
+
+
+
+if (document.getElementById != null)
+{
+var html = '<HTML>\n<HEAD>\n <link rel=\"stylesheet\" type=\"text/css\"  href=\"<?= SYSTEM_URL ?>/public/css/penyata.css\">\n';
+
+if (document.getElementsByTagName != null)
+{
+var headTags = document.getElementsByTagName("head");
+if (headTags.length > 0)
+html += headTags[0].innerHTML;
+}
+
+html += '\n</HE' + 'AD>\n<BODY>\n';
+
+var printReadyElem = document.getElementById("printReady");
+
+if (printReadyElem != null)
+{
+html += printReadyElem.innerHTML;
+}
+else
+{
+alert("Could not find the printReady section in the HTML");
+return;
+}
+
+html += '\n</BO' + 'DY>\n</HT' + 'ML>';
+
+var printWin = window.open("","printSpecial");
+printWin.document.open();
+printWin.document.write(html);
+printWin.document.close();
+if (gAutoPrint){
+	printWin.print();
+	document.getElementById("logo").style.display = "none";
+	document.getElementById("cop").style.display = "none";
+	document.getElementById("note").style.display = "none";
+	}
+}
+else
+{
+alert("Sorry, the print ready feature is only available in modern browsers.");
+}
+}
+
+
+
+</script>
+<style type="text/css">
+ #watermark_box {
+	position:relative;
+	display:block;
+	}
+	img.watermark {
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	} 
+  </style>
+
+<link rel="Stylesheet" type="text/css" href="<?= CSS_PATH ?>GlobalStyle.css" />
+<form action="" method="POST">
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-user"><?= $this->translate->_('Penyata Pencen Semasa Tahun ') ?><?= $this->tahun ?></h3></td>
+		        <td class="a-right">
+		            <button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Kembali') ?></span></button>
+		            <button type="button" class="reset" onclick="javascript:void(printSpecial());" style=""><span><?= $this->translate->_('Cetak') ?></span></button>
+	                
+	            </td>
+		    </tr>
+		</table>
+	</div>
+	
+</form>	
+
+  <!--  <p class="success"><?= $this->translate->_('Keputusan carian') ?></p> -->
+<?php
+		$server = '192.168.100.205';
+		$db = '[VIBES]';
+
+		// Connect to MSSQL
+		$link = mssql_connect($server, 'sa', 'JHEVsvr2010');
+
+		//mssql_select_db('Pertanyaan Pencen', $link);
+		
+		if (!$link || !mssql_select_db($db, $link)) {
+			die('Unable to connect or select database!');
+		}
+		
+			//$rad_type = $_POST['rad_type'];
+			
+			$militaryNo = $this->rowset->pesara_notentera;
+			$nokp = $this->rowset->usr_identno;
+			$kategori = $this->rowset->pesara_jenispenerima;
+			$fiscalYear = $this->tahun;
+			if($kategori == '1'){
+				$recipientRefId = '0301'.$this->rowset->pesara_notentera;
+			} else if ($kategori == '2') {
+				$recipientRefId = '0101'.$nokp;
+			}
+			$pencen = array();
+			$i = 0;
+			
+			$nama = '';
+			$noten = '';
+			$nokp = '';
+			$alamat1 = '';
+			$alamat2 = '';
+			$alamat3 = '';
+			$poskod = '';
+			$daerah = '';
+			$negeri = '';
+			$kodbank = '';
+			$noakaunbank = '';
+			$skim = '';
+			$x = false;
+			
+			$query2013 = "SELECT distinct payment.alfacode,
+				case when payment.alfacode not like 'PB%' and payment.benefitcode <> '94' then payment.grossamount else payment.AllowanceAmount end as AllowanceAmount,
+				service.MilitaryNo AS NoTentera, e.Name AS NamaPesara, b.CurrentIDNo AS NoKPPenerima,payment.RecipientRefID,
+				b.Name AS NamaPenerima, (account.BankCode +'-'+refbankmst.bankname) AS KodBank,
+				account.BankAccNo AS NoAkaunBank,
+				f.address1,f.address2,f.address3,f.postcode,f.statecode,upper(g.statedesc)Negeri,f.town,
+				CASE
+				WHEN payment.PaymentInd = '11' and payment.SourceData='52' THEN ('Bayaran Nafkah')
+				ELSE (payment.BenefitCode + ' - ' + RtmBenefit.BenefitDesc)
+				END as KodFaedah,
+				SUBSTRING(payment.monthyear, 5, 2) AS bulan,
+				case when payment.alfacode like 'PB%' or payment.benefitcode = '94' then payment.GrossAmount else 0 end AS kasar,
+				payment.DeductionAmount AS potongan, payment.NettAmount AS bersih,
+				RtmBenefit.BenefitDesc as descBenefitCode,
+				(select (BankSchemeCode + '-' + BankSchemeDesc)a from RtmBankScheme where BankSchemeCode = account.BankSchemeCode) as BankSchemeCode
+				FROM Payment AS payment
+				LEFT OUTER JOIN
+				Account AS account ON payment.RecipientRefID = account.RecipientRefID
+				and account.benefitcode = payment.benefitcode
+				and account.militaryno = '".$militaryNo."'
+				INNER JOIN
+				Person AS b ON payment.RecipientRefID = b.PersonRefID LEFT OUTER JOIN
+				Service AS service ON payment.PensionerRefID = service.PensionerRefID LEFT OUTER JOIN
+				Person AS e ON service.PensionerRefID = e.PersonRefID INNER JOIN
+				RtmBenefit ON payment.BenefitCode = RtmBenefit.BenefitCode LEFT OUTER JOIN
+				refbankmst ON account.bankcode=refbankmst.bankcode left outer join
+				Address f ON payment.RecipientRefID = f.AddressRefID and f.addresstypecode = '01'
+				left outer join RtmState g on (g.statecode = f.statecode)
+				where payment.recipientrefid = b.personrefid
+				and payment.pensionerrefid = service.pensionerrefid
+				and service.militaryno = '".$militaryNo."'
+				and payment.fiscalyear = '".$fiscalYear."'
+				and payment.RecipientRefID= '".$recipientRefId."'
+				and service.pensionerrefid = e.personrefid
+				and payment.wfstatus in ('90')
+				and (rtmbenefit.paymenttype in ('1','3') or rtmbenefit.benefitcode in ('94','93'))
+				and (payment.benefitcode not like '8%' or payment.benefitcode <> '91')
+				UNION ALL
+				SELECT '',0 as AllowanceAmount,'' AS NoTentera, '' AS NamaPesara, '' AS NoKPPenerima,'',
+				'' AS NamaPenerima, '' AS KodBank,
+				'','','','','','','',
+				'' AS NoAkaunBank,
+				'', period AS bulan,
+				0 AS kasar,
+				0 ,0, '' as descBenefitCode,''
+				from reffiscalperiod
+				where fiscalyear = '".$fiscalYear."'
+				and
+				period not in (select distinct (SUBSTRING(a.monthyear, 5, 2))
+				from payment a,service b where a.pensionerrefid = b.PensionerRefID
+				and a.recipientrefid = '".$recipientRefId."'
+				and b.militaryno = '".$militaryNo."' and a.fiscalyear = '".$fiscalYear."' and a.wfstatus in ('90')
+				and a.benefitcode in (select bc.benefitcode from rtmbenefit bc where bc.benefitcode =
+				a.benefitcode and bc.paymenttype in ('1','3')))
+				order by 18,17";
+			
+			$result2013 = mssql_query($query2013);
+			//$row2013 = mssql_fetch_object($result2013);
+			
+			$bln = 0;
+			
+			while ($row2013 = mssql_fetch_array($result2013, MSSQL_NUM)) {
+				//$pencen[$row2013] = $row2013[1];
+				 // echo '<pre>';
+				// print_r($row2013);
+				// echo '</pre>'; 
+				 
+				
+				
+				if($row2013[17] <> $bln){
+					$i = 0;
+					$bln = $row2013[17];
+				}else{
+					$i++;
+				}
+					
+				$j = 0;
+				$pencen[$row2013[17]][$i][$j] = $row2013[16];
+				$bln = $row2013[17];
+				$j++;
+				$pencen[$row2013[17]][$i][$j] = $row2013[18];
+				$j++;
+				$pencen[$row2013[17]][$i][$j] = $row2013[1];
+				$j++;
+				$pencen[$row2013[17]][$i][$j] = $row2013[19];
+				$j++;
+				$pencen[$row2013[17]][$i][$j] = $row2013[20];
+				//$i++;
+				
+				if($x == false){
+					$nama = $row2013[3];
+					$noten = $row2013[2];
+					$nokp = $row2013[4];
+					$namapen = $row2013[6];
+					$alamat1 = $row2013[9];
+					$alamat2 = trim($row2013[10]);
+					$alamat3 = trim($row2013[11]);
+					$poskod = trim($row2013[12]);
+					$daerah = trim($row2013[15]);
+					$negeri = $row2013[14];
+					$kodbank = $row2013[7];
+					$noakaunbank = $row2013[8];
+					$skim = $row2013[22];
+					$x = true;
+					}
+				
+				
+			}
+			//print_r($row2013);
+			//echo $nama.'xxx';;
+			unset($pencen[13]);
+			/* echo '<pre>';
+			print_r($pencen);
+			echo '</pre>';  */
+			
+			//die();
+			
+			//print_r($row2013);
+			
+		$arr_bulan = array (
+			'01' => 'JANUARI',
+			'02' => 'FEBRUARI',
+			'03' => 'MAC',
+			'04' => 'APRIL',
+			'05' => 'MEI',
+			'06' => 'JUN',
+			'07' => 'JULAI',
+			'08' => 'OGOS',
+			'09' => 'SEPTEMBER',
+			'10' => 'OKTOBER',
+			'11' => 'NOVEMBER',
+			'12' => 'DISEMBER'
+		);
+		
+?>
+<div id="printReady">
+	
+	<div class="entry-edit">
+		
+		<div class="fieldset" id="group_fields63">
+                <TABLE CELLSPACING="0" CELLPADDING="0">
+	<TR>
+		<TD ID="oReportCell">
+			<TABLE CELLSPACING="0" CELLPADDING="0">
+				<TR>
+					<TD class="a33c"><DIV class="a33">
+						<TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" COLS="9" LANG="en-US" class="r10" style="HEIGHT:35.81mm;WIDTH:198.404mm">
+							<TR VALIGN="top">
+								<TD style="HEIGHT:5.31mm;WIDTH:0.00mm"></TD>
+								<TD style="WIDTH:16.06mm;min-width: 16.06mm;HEIGHT:5.31mm;"></TD>
+								<TD style="WIDTH:7.41mm;min-width: 7.41mm;HEIGHT:5.31mm;"></TD>
+								<TD style="WIDTH:15.61mm;min-width: 15.61mm;HEIGHT:5.31mm;"></TD>
+								<TD style="WIDTH:12.99mm;min-width: 12.99mm;HEIGHT:5.31mm;"></TD>
+								<TD ROWSPAN="3" style="WIDTH:92.36mm;min-width: 92.36mm;">
+									<TABLE CELLSPACING="0" CELLPADDING="0" LANG="en-US" style="">
+										<TR>
+											<TD style="WIDTH:92.36mm;min-width: 92.36mm;HEIGHT:29.02mm;" class="a25"><DIV style="overflow-x:hidden;WIDTH:90.95mm;"><DIV class="a16"><span class="a14">JABATAN HAL EHWAL VETERAN ATM </span><span class="a15">KEMENTERIAN PERTAHANAN</span></DIV><DIV class="a18"><span class="a17">301 MEDAN TUANKU</span></DIV><DIV class="a20"><span class="a19">JALAN TUANKU ABDUL RAHMAN</span></DIV><DIV class="a22"><span class="a21">PETI SURAT 13191</span></DIV><DIV class="a24"><span class="a23">50250 KUALA LUMPUR</span></DIV></DIV></TD>
+										</TR>
+									</TABLE>
+								</TD>
+								<TD style="WIDTH:24.11mm;min-width: 24.11mm;HEIGHT:5.31mm;"></TD>
+								<TD style="WIDTH:2.37mm;min-width: 2.37mm;HEIGHT:5.31mm;"></TD>
+								<TD style="WIDTH:27.49mm;min-width: 27.49mm;HEIGHT:5.31mm;"></TD>
+							</TR>
+							<TR VALIGN="top">
+								<TD style="HEIGHT:18.48mm;WIDTH:0.00mm"></TD>
+								<TD style="WIDTH:16.06mm;min-width: 16.06mm;HEIGHT:18.48mm;"></TD>
+								<TD COLSPAN="2" style="WIDTH:25.02mm;min-width: 23.02mm;"><DIV style=""><DIV class="a26"><img src="<?= IMAGES_PATH ?>/logo2.JPG" width = "90px" /></DIV></DIV></TD>
+								<TD style="WIDTH:12.99mm;min-width: 12.99mm;HEIGHT:18.48mm;"></TD>
+								<TD ROWSPAN="3" COLSPAN="2" style="WIDTH:20.48mm;min-width: 26.48mm;HEIGHT:18.48mm;"></TD>
+								<TD style="WIDTH:27.49mm;min-width: 27.49mm;"><DIV style="WIDTH:23.76mm;"><DIV class="a27"><img src="<?= IMAGES_PATH ?>/logo1.JPG" width = "75px"/></DIV></DIV></TD>
+							</TR>
+							<TR>
+								<TD style="HEIGHT:5.22mm;WIDTH:0.00mm"></TD>
+								<TD ROWSPAN="2" COLSPAN="4" style="WIDTH:52.07mm;min-width: 52.07mm;HEIGHT:5.22mm;"></TD>
+								<TD style="WIDTH:27.49mm;min-width: 27.49mm;HEIGHT:5.22mm;"></TD>
+							</TR>
+							<TR>
+								<TD style="HEIGHT:0.44mm;WIDTH:0.00mm"></TD>
+								<TD style="WIDTH:92.36mm;min-width: 92.36mm;HEIGHT:0.44mm;"></TD>
+								<TD style="WIDTH:27.49mm;min-width: 27.49mm;HEIGHT:0.44mm;"></TD>
+							</TR>
+							<TR VALIGN="top">
+								<TD style="HEIGHT:6.35mm;WIDTH:0.00mm"></TD>
+								<TD COLSPAN="2" style="WIDTH:23.47mm;min-width: 23.47mm;HEIGHT:6.35mm;"></TD>
+								<TD COLSPAN="4" style="WIDTH:145.07mm;min-width: 145.07mm;">
+									<TABLE CELLSPACING="0" CELLPADDING="0" LANG="en-US" style="">
+										<TR>
+											<TD style="WIDTH:145.07mm;min-width: 145.07mm;HEIGHT:6.35mm;" class="a31"><DIV style="overflow-x:hidden;WIDTH:143.66mm;"><DIV class="a30"><span class="a28">PENYATA AKAUN PENERIMA PENCEN BAGI TAHUN </span><span class="a29"><?= $fiscalYear ?></span></DIV></DIV></TD>
+										</TR>
+									</TABLE>
+								</TD>
+								<TD COLSPAN="2" style="WIDTH:29.86mm;min-width: 29.86mm;HEIGHT:6.35mm;"></TD>
+							</TR>
+						</TABLE></DIV>
+					</TD>
+				</TR>
+				<TR>
+					<TD class="a277xBc">
+						<TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" class="a277xB">
+							<TR>
+								<TD style="vertical-align:top">
+									<TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" COLS="8" LANG="en-US" class="r10" style="WIDTH:198.404mm">
+										<TR>
+											<TD style="HEIGHT:4.01mm;WIDTH:0.00mm"></TD>
+											<TD style="WIDTH:2.28mm;min-width: 2.28mm;HEIGHT:4.01mm;"></TD>
+											<TD style="WIDTH:9.81mm;min-width: 9.81mm;HEIGHT:4.01mm;"></TD>
+											<TD style="WIDTH:8.65mm;min-width: 8.65mm;HEIGHT:4.01mm;"></TD>
+											<TD style="WIDTH:5.03mm;min-width: 5.03mm;HEIGHT:4.01mm;"></TD>
+											<TD style="WIDTH:68.48mm;min-width: 68.48mm;HEIGHT:4.01mm;"></TD>
+											<TD style="WIDTH:3.53mm;min-width: 3.53mm;HEIGHT:4.01mm;"></TD>
+											<TD style="WIDTH:100.64mm;min-width: 100.64mm;HEIGHT:4.01mm;"></TD>
+										</TR>
+										<TR VALIGN="top">
+											<TD style="HEIGHT:5.03mm;WIDTH:0.00mm"></TD>
+											<TD style="WIDTH:2.28mm;min-width: 2.28mm;HEIGHT:5.03mm;"></TD>
+											<TD COLSPAN="2" style="WIDTH:18.46mm;min-width: 18.46mm;">
+												<TABLE CELLSPACING="0" CELLPADDING="0" LANG="en-US" style="">
+													<TR>
+														<TD style="WIDTH:18.46mm;min-width: 18.46mm;HEIGHT:5.03mm;" class="a51">No Tentera</TD>
+													</TR>
+												</TABLE>
+											</TD>
+											<TD style="WIDTH:5.03mm;min-width: 5.03mm;">
+												<TABLE CELLSPACING="0" CELLPADDING="0" LANG="en-US" style="">
+													<TR>
+														<TD style="WIDTH:5.03mm;min-width: 5.03mm;HEIGHT:5.03mm;" class="a54">:</TD>
+													</TR>
+												</TABLE>
+											</TD>
+											<TD style="WIDTH:68.48mm;min-width: 68.48mm;">
+												<TABLE CELLSPACING="0" CELLPADDING="0" LANG="en-US" style="">
+													<TR>
+														<TD style="WIDTH:68.48mm;min-width: 68.48mm;HEIGHT:5.03mm;" class="a63l"><?= trim($noten); ?> - <?= $nama; ?></TD>
+													</TR>
+												</TABLE>
+											</TD>
+											<TD style="WIDTH:3.53mm;min-width: 3.53mm;HEIGHT:5.03mm;"></TD>
+											<TD ROWSPAN="5" style="WIDTH:100.64mm;min-width: 100.64mm;">
+												<TABLE CELLSPACING="0" CELLPADDING="0" COLS="3" BORDER="0" style="border-collapse:collapse;WIDTH:97.46mm;min-width: 97.46mm;" class="a141">
+													<TR HEIGHT="0">
+														<TD style="WIDTH:29.02mm;min-width: 29.02mm"></TD>
+														<TD style="WIDTH:3.37mm;min-width: 3.37mm"></TD>
+														<TD style="WIDTH:65.07mm;min-width: 65.07mm"></TD>
+													</TR>
+													<TR VALIGN="top">
+														<TD style="HEIGHT:5.03mm;" class="a75c"><DIV class="a75">No KP Penerima</DIV></TD>
+														<TD class="a79c"><DIV class="a79">:</DIV></TD>
+														<TD class="a83cl"><DIV class="a83"><?= trim($nokp); ?> - <?= $namapen; ?></DIV></TD>
+													</TR>
+													<TR VALIGN="top">
+														<TD style="HEIGHT:4.76mm;" class="a88c"><DIV class="a88">Kod Bank</DIV></TD>
+														<TD class="a92c"><DIV class="a92">:</DIV></TD>
+														<TD class="a96cl"><DIV class="a96"><?= $kodbank; ?></DIV></TD>
+													</TR>
+													<TR VALIGN="top">
+														<TD style="HEIGHT:4.76mm;" class="a101c"><DIV class="a101">No Akaun Bank</DIV></TD>
+														<TD class="a105c"><DIV class="a105">:</DIV></TD>
+														<TD class="a109cl"><DIV class="a109"><?= $noakaunbank; ?></DIV></TD>
+													</TR>
+													<TR VALIGN="top">
+														<TD style="HEIGHT:4.76mm;" class="a114c"><DIV class="a114">Kod Skim Bank</DIV></TD>
+														<TD class="a118c"><DIV class="a118">:</DIV></TD>
+														<TD class="a122cl"><DIV class="a122"><?= $skim; ?></DIV></TD>
+													</TR>
+													<TR VALIGN="top">
+														<TD style="HEIGHT:4.76mm;" class="a127c r14">&nbsp;</TD>
+														<TD class="a131c r14">&nbsp;</TD>
+														<TD class="a135c r14">&nbsp;</TD>
+													</TR>
+												</TABLE>
+											</TD>
+										</TR>
+										<TR>
+											<TD style="HEIGHT:0.25mm;WIDTH:0.00mm"></TD>
+											<TD COLSPAN="6" style="WIDTH:97.77mm;min-width: 97.77mm;HEIGHT:0.25mm;"></TD>
+										</TR>
+										<TR VALIGN="top">
+											<TD style="HEIGHT:0.12mm;WIDTH:0.00mm"></TD>
+											<TD style="WIDTH:2.28mm;min-width: 2.28mm;HEIGHT:0.12mm;"></TD>
+											<TD ROWSPAN="2" COLSPAN="2" style="WIDTH:18.46mm;min-width: 18.46mm;">
+												<TABLE CELLSPACING="0" CELLPADDING="0" LANG="en-US" style="">
+													<TR>
+														<TD style="WIDTH:18.46mm;min-width: 18.46mm;HEIGHT:5.03mm;" class="a57">Alamat</TD>
+													</TR>
+												</TABLE>
+											</TD>
+												<TD ROWSPAN="2" style="WIDTH:5.03mm;min-width: 5.03mm;">
+													<TABLE CELLSPACING="0" CELLPADDING="0" LANG="en-US" style="">
+														<TR>
+															<TD style="WIDTH:5.03mm;min-width: 5.03mm;HEIGHT:5.03mm;" class="a60">:</TD>
+														</TR>
+													</TABLE>
+												</TD>
+												<TD COLSPAN="2" style="WIDTH:72.00mm;min-width: 72.00mm;HEIGHT:0.12mm;"></TD>
+											</TR>
+											<TR VALIGN="top">
+												<TD style="HEIGHT:4.90mm;WIDTH:0.00mm"></TD>
+												<TD style="WIDTH:2.28mm;min-width: 2.28mm;HEIGHT:4.90mm;"></TD>
+												<TD ROWSPAN="2" style="WIDTH:68.48mm;min-width: 68.48mm;">
+													<TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" style="WIDTH:68.48mm;min-width: 68.48mm;HEIGHT:18.63mm;" class="a158">
+														<TR>
+															<TD style="vertical-align:top">
+																<TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" COLS="1" LANG="en-US" class="r10" style="WIDTH:68.4759mm">
+																	<TR VALIGN="top">
+																		<TD style="HEIGHT:4.76mm;WIDTH:68.48mm;min-width: 68.48mm;">
+																			<TABLE CELLSPACING="0" CELLPADDING="0" LANG="en-US" style="">
+																				<TR>
+																					<TD style="WIDTH:68.48mm;min-width: 68.48mm;HEIGHT:4.76mm;" class="a144l"><?= $alamat1; ?></TD>
+																				</TR>
+																			</TABLE>
+																		</TD>
+																	</TR>
+																	<TR>
+																		<TD style="HEIGHT:1.27mm;WIDTH:68.48mm;min-width: 68.48mm;HEIGHT:1.27mm;"></TD>
+																	</TR>
+																	<?php if($alamat2 <> ''){
+																	?>
+																	<TR VALIGN="top">
+																		<TD style="HEIGHT:4.76mm;WIDTH:68.48mm;min-width: 68.48mm;">
+																			<TABLE CELLSPACING="0" CELLPADDING="0" LANG="en-US" style="border-collapse:collapse">
+																				<TR>
+																					<TD style="WIDTH:68.48mm;min-width: 68.48mm;HEIGHT:4.76mm;" class="a153l"><?= $alamat2; ?></TD>
+																				</TR>
+																			</TABLE>
+																		</TD>
+																	</TR>
+																	<?php } ?>
+																	<?php if($alamat3 <> ''){ ?>
+																	<TR VALIGN="top">
+																		<TD style="HEIGHT:4.76mm;WIDTH:68.48mm;min-width: 68.48mm;">
+																			<TABLE CELLSPACING="0" CELLPADDING="0" LANG="en-US" style="border-collapse:collapse">
+																				<TR>
+																					<TD style="WIDTH:68.48mm;min-width: 68.48mm;HEIGHT:4.76mm;" class="a153l"><?= $alamat3; ?></TD>
+																				</TR>
+																			</TABLE>
+																		</TD>
+																	</TR>
+																	<?php } ?>
+																	<?php if($poskod <> ''){ ?>
+																	<TR VALIGN="top">
+																		<TD style="HEIGHT:4.76mm;WIDTH:68.48mm;min-width: 68.48mm;">
+																			<TABLE CELLSPACING="0" CELLPADDING="0" LANG="en-US" style="border-collapse:collapse">
+																				<TR>
+																					<TD style="WIDTH:68.48mm;min-width: 68.48mm;HEIGHT:4.76mm;" class="a153l"><?= $poskod; ?> <?= $daerah; ?></TD>
+																				</TR>
+																			</TABLE>
+																		</TD>
+																	</TR>
+																	<?php } ?>
+																	<TR>
+																		<TD style="HEIGHT:0.39mm;WIDTH:68.48mm;min-width: 68.48mm;HEIGHT:0.39mm;"></TD>
+																	</TR>
+																	<TR VALIGN="top">
+																		<TD style="HEIGHT:7.30mm;WIDTH:68.48mm;min-width: 68.48mm;">
+																			<TABLE CELLSPACING="0" CELLPADDING="0" LANG="en-US" style="">
+																				<TR>
+																					<TD style="WIDTH:68.48mm;min-width: 68.48mm;HEIGHT:4.76mm;" class="a156l"><?= $negeri; ?></TD>
+																				</TR>
+																			</TABLE>
+																		</TD>
+																	</TR>
+																</TABLE>
+															</TD>
+														</TR>
+													</TABLE>
+												</TD>
+												<TD style="WIDTH:3.53mm;min-width: 3.53mm;HEIGHT:4.90mm;"></TD>
+											</TR>
+											<TR>
+												<TD style="HEIGHT:13.72mm;WIDTH:0.00mm"></TD>
+												<TD ROWSPAN="2" COLSPAN="4" style="WIDTH:25.76mm;min-width: 25.76mm;HEIGHT:13.72mm;"></TD>
+												<TD style="WIDTH:3.53mm;min-width: 3.53mm;HEIGHT:13.72mm;"></TD>
+											</TR>
+											<TR>
+												<TD style="HEIGHT:1.95mm;WIDTH:0.00mm"></TD>
+												<TD COLSPAN="3" style="WIDTH:172.64mm;min-width: 172.64mm;HEIGHT:1.95mm;"></TD>
+											</TR>
+											<TR VALIGN="top">
+												<TD style="WIDTH:0.00mm"></TD>
+												<TD style="WIDTH:12.09mm;min-width: 12.09mm;"></TD>
+												<TD COLSPAN="6" style="WIDTH:186.31mm;min-width: 186.31mm;">
+													<TABLE CELLSPACING="0" CELLPADDING="0" COLS="7" BORDER="0" style="border-collapse:collapse;WIDTH:183.14mm;min-width: 183.14mm;" class="a275">
+														<TR HEIGHT="0">
+															<TD style="WIDTH:0px"></TD>
+															<TD style="WIDTH:22.54mm;min-width: 22.54mm"></TD>
+															<TD style="WIDTH:65.59mm;min-width: 65.59mm"></TD>
+															<TD style="WIDTH:23.36mm;min-width: 23.36mm"></TD>
+															<TD style="WIDTH:25.40mm;min-width: 25.40mm"></TD>
+															<TD style="WIDTH:25.40mm;min-width: 25.40mm"></TD>
+															<TD style="WIDTH:20.84mm;min-width: 20.84mm"></TD>
+														</TR>
+														<TR VALIGN="top">
+															<TD style="HEIGHT:9.53mm"></TD>
+															<TD class="a166c"><DIV class="a166">Bulan</DIV></TD>
+															<TD class="a184c"><DIV class="a184">Jenis Pencen/Ganjaran/Potongan</DIV></TD>
+															<TD class="a188c"><DIV class="a188">Amaun Pencen (RM)</DIV></TD>
+															<TD class="a194c"><DIV class="a194"><DIV style="overflow-x:hidden;WIDTH:25.28mm;"><DIV class="a191"><span class="a190">Amaun</span></DIV><DIV class="a193"><span class="a192">Tunggakan(RM)</span></DIV></DIV></DIV></TD>
+															<TD class="a198c"><DIV class="a198">Amaun Potongan (RM)</DIV></TD>
+															<TD class="a204c"><DIV class="a204"><DIV style="overflow-x:hidden;WIDTH:18.73mm;"><DIV class="a201"><span class="a200">Bayaran </span></DIV><DIV class="a203"><span class="a202">Bersih (RM)</span></DIV></DIV></DIV></TD>
+														</TR>
+														<?php 
+															$bln = '';
+															$jumColTotal1 = $jumColTotal2 = $jumColTotal3 = $jumTotalAll= 0;
+															
+															foreach($pencen as $key=>$row)
+															{
+																
+																/* echo $key;
+																echo '<pre>';
+																print_r($row);
+																echo '</pre>'; */
+																$jumCol1 = $jumCol2 = $jumCol3 = $jumCol4 = 0;
+																
+																foreach ($row as $row1)
+																{
+																	//$jum = $row1[1] + $row1[2];
+																	$jum = $row1[4];
+																
+																	echo '<TR VALIGN="top">';
+																	echo '<TD style="HEIGHT:6.35mm"></TD>';
+																	if ($bln <> $key){
+																		echo '<TD ROWSPAN="'.(count($row)+1).'" class="a172cl"><DIV class="a172">'.$arr_bulan[$key].'</DIV></TD>';
+																		$bln = $key;
+																	}
+																	echo '<TD class="a209cl"><DIV class="a209">'.$row1[0].'</DIV></TD>';
+																	echo '<TD class="a213c"><DIV class="a213">'.number_format($row1[1], 2, '.', ',').'</DIV></TD>';
+																	echo '<TD class="a217c"><DIV class="a217">'.number_format($row1[2], 2, '.', ',').'</DIV></TD>';
+																	echo '<TD class="a221c"><DIV class="a221">'.number_format($row1[3], 2, '.', ',').'</DIV></TD>';
+																	echo '<TD class="a225c"><DIV class="a225">'.number_format($row1[4], 2, '.', ',').'</DIV></TD>';
+																	echo '</TR>';
+																
+																	$jumCol1 += $row1[1];
+																	$jumCol2 += $row1[2];
+																	$jumCol3 += $row1[3];
+																	$jumCol4 += $row1[4];
+																
+																}
+																//$jumTotal = $jumCol1 + $jumCol2;
+																$jumTotal = $jumCol4;
+																$jumColTotal1 += $jumCol1;
+																$jumColTotal2 += $jumCol2;
+																$jumColTotal3 += $jumCol3;
+																$jumTotalAll += $jumTotal;
+																
+																echo '<TR VALIGN="top">';
+																echo '<TD style="HEIGHT:6.35mm"></TD>';
+																echo '<TD class="a230c"><DIV class="a230">JUMLAH (RM)</DIV></TD>';
+																echo '<TD class="a234c"><DIV class="a234">'.number_format($jumCol1, 2, '.', ',').'</DIV></TD>';
+																echo '<TD class="a217c"><DIV class="a238">'.number_format($jumCol2, 2, '.', ',').'</DIV></TD>';
+																echo '<TD class="a221c"><DIV class="a242">'.number_format($jumCol3, 2, '.', ',').'</DIV></TD>';
+																echo '<TD class="a225c"><DIV class="a246">'.number_format($jumTotal, 2, '.', ',').'</DIV></TD>';
+																echo '</TR>';
+																
+																//echo $jumCol;
+															}
+															echo '<TR VALIGN="top">';
+															echo '	<TD style="HEIGHT:6.35mm"></TD>';
+															echo '	<TD class="a179c r14">&nbsp;</TD>';
+															echo '	<TD class="a251c"><DIV class="a251">JUMLAH KESELURUHAN (RM)</DIV></TD>';
+															echo '	<TD class="a255c"><DIV class="a255">'.number_format($jumColTotal1, 2, '.', ',').'</DIV></TD>';
+															echo '	<TD class="a259c"><DIV class="a259">'.number_format($jumColTotal2, 2, '.', ',').'</DIV></TD>';
+															echo '	<TD class="a263c"><DIV class="a263">'.number_format($jumColTotal3, 2, '.', ',').'</DIV></TD>';
+															echo '	<TD class="a267c"><DIV class="a267">'.number_format($jumTotalAll, 2, '.', ',').'</DIV></TD>';
+															echo '</TR>';
+														?>
+														<!--<TR VALIGN="top">
+															<TD style="HEIGHT:6.35mm"></TD>
+															<TD ROWSPAN="3" HEIGHT="72" class="a172cl"><DIV class="a172">JANUARI</DIV></TD>
+															<TD class="a209cl"><DIV class="a209">03 - Pencen Perkhidmatan</DIV></TD>
+															<TD class="a213c"><DIV class="a213">759.05</DIV></TD>
+															<TD class="a217c"><DIV class="a217">0.00</DIV></TD>
+															<TD class="a221c"><DIV class="a221">0.00</DIV></TD>
+															<TD class="a225c"><DIV class="a225">759.05</DIV></TD>
+														</TR>
+														<TR VALIGN="top">
+															<TD style="HEIGHT:6.35mm"></TD><TD class="a209cl"><DIV class="a209">06 - Pencen Hilang Upaya</DIV></TD>
+															<TD class="a213c"><DIV class="a213">126.00</DIV></TD>
+															<TD class="a217c"><DIV class="a217">0.00</DIV></TD>
+															<TD class="a221c"><DIV class="a221">0.00</DIV></TD>
+															<TD class="a225c"><DIV class="a225">126.00</DIV></TD>
+														</TR>
+														<TR VALIGN="top">
+															<TD style="HEIGHT:6.35mm"></TD>
+															<TD class="a230c"><DIV class="a230">JUMLAH (RM)</DIV></TD>
+															<TD class="a234c"><DIV class="a234">885.05</DIV></TD>
+															<TD class="a238c"><DIV class="a238">0.00</DIV></TD>
+															<TD class="a242c"><DIV class="a242">0.00</DIV></TD>
+															<TD class="a246c"><DIV class="a246">885.05</DIV></TD>
+														</TR>
+														<TR VALIGN="top">
+															<TD style="HEIGHT:6.35mm"></TD>
+															<TD ROWSPAN="4" HEIGHT="96" class="a172cl"><DIV class="a172">DISEMBER</DIV></TD>
+															<TD class="a209cl"><DIV class="a209">03 - Pencen Perkhidmatan</DIV></TD>
+															<TD class="a213c"><DIV class="a213">857.72</DIV></TD>
+															<TD class="a217c"><DIV class="a217">0.00</DIV></TD>
+															<TD class="a221c"><DIV class="a221">0.00</DIV></TD>
+															<TD class="a225c"><DIV class="a225">857.72</DIV></TD>
+														</TR>
+														<TR VALIGN="top">
+															<TD style="HEIGHT:6.35mm"></TD>
+															<TD class="a209cl"><DIV class="a209">06 - Pencen Hilang Upaya</DIV></TD>
+															<TD class="a213c"><DIV class="a213">126.00</DIV></TD>
+															<TD class="a217c"><DIV class="a217">0.00</DIV></TD>
+															<TD class="a221c"><DIV class="a221">0.00</DIV></TD>
+															<TD class="a225c"><DIV class="a225">126.00</DIV></TD>
+														</TR>
+														<TR VALIGN="top">
+															<TD style="HEIGHT:6.35mm"></TD>
+															<TD class="a209cl"><DIV class="a209">93 - BIPP</DIV></TD>
+															<TD class="a213c"><DIV class="a213">0.00</DIV></TD>
+															<TD class="a217c"><DIV class="a217">500.00</DIV></TD>
+															<TD class="a221c"><DIV class="a221">0.00</DIV></TD>
+															<TD class="a225c"><DIV class="a225">500.00</DIV></TD>
+														</TR>
+														<TR VALIGN="top">
+															<TD style="HEIGHT:6.35mm"></TD>
+															<TD class="a230c"><DIV class="a230">JUMLAH (RM)</DIV></TD>
+															<TD class="a234c"><DIV class="a234">983.72</DIV></TD>
+															<TD class="a238c"><DIV class="a238">500.00</DIV></TD>
+															<TD class="a242c"><DIV class="a242">0.00</DIV></TD>
+															<TD class="a246c"><DIV class="a246">1,483.72</DIV></TD>
+														</TR>
+														<TR VALIGN="top">
+															<TD style="HEIGHT:6.35mm"></TD>
+															<TD class="a179c r14">&nbsp;</TD>
+															<TD class="a251c"><DIV class="a251">JUMLAH KESELURUHAN (RM)</DIV></TD>
+															<TD class="a255c"><DIV class="a255">12,008.63</DIV></TD>
+															<TD class="a259c"><DIV class="a259">796.01</DIV></TD>
+															<TD class="a263c"><DIV class="a263">0.00</DIV></TD>
+															<TD class="a267c"><DIV class="a267">12,804.64</DIV></TD>
+														</TR>-->
+													</TABLE>
+												</TD>
+											</TR>
+										</TABLE>
+									</TD>
+								</TR>
+							</TABLE>
+						</TD>
+					</TR>
+					<TR>
+						<TD class="a47c"><DIV class="a47">
+							<TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" COLS="8" LANG="en-US" class="r10" style="HEIGHT:4.98mm;WIDTH:198.404mm">
+								<TR VALIGN="top">
+									<TD style="HEIGHT:4.85mm;WIDTH:12.70mm;min-width: 12.70mm;HEIGHT:4.85mm;"></TD>
+									<TD style="WIDTH:23.97mm;min-width: 23.97mm;">
+										<TABLE CELLSPACING="0" CELLPADDING="0" LANG="en-US" style="">
+											<TR>
+												<TD style="WIDTH:23.97mm;min-width: 23.97mm;HEIGHT:4.85mm;" class="a36">AkaunPenerima</TD>
+											</TR>
+										</TABLE>
+									</TD>
+									<TD style="WIDTH:15.18mm;min-width: 15.18mm;HEIGHT:4.85mm;"></TD>
+									<TD style="WIDTH:78.31mm;min-width: 78.31mm;">
+										<TABLE CELLSPACING="0" CELLPADDING="0" LANG="en-US" style="">
+											<TR>
+												<TD style="WIDTH:78.31mm;min-width: 78.31mm;HEIGHT:4.98mm;" class="a39">Nota : Dokumen ini dijana oleh komputer.</TD>
+											</TR>
+										</TABLE>
+									</TD>
+									<TD style="WIDTH:13.76mm;min-width: 13.76mm;HEIGHT:4.85mm;"></TD>
+									<TD style="WIDTH:9.60mm;min-width: 9.60mm;">
+										<TABLE CELLSPACING="0" CELLPADDING="0" LANG="en-US" style="">
+											<TR>
+												<TD style="WIDTH:9.60mm;min-width: 9.60mm;HEIGHT:4.85mm;" class="a42">Tarikh:</TD>
+											</TR>
+										</TABLE>
+									</TD>
+									<TD style="WIDTH:1.41mm;min-width: 1.41mm;HEIGHT:4.85mm;"></TD>
+									<TD style="WIDTH:43.48mm;min-width: 43.48mm;">
+										<TABLE CELLSPACING="0" CELLPADDING="0" LANG="en-US" style="">
+											<TR>
+												<TD style="WIDTH:40.30mm;min-width: 40.30mm;HEIGHT:4.85mm;" class="a45"><?php echo date("F j, Y, g:i a");   ?></TD>
+											</TR>
+										</TABLE>
+									</TD>
+								</TR>
+							</TABLE></DIV>
+						</TD>
+					</TR>
+				</TABLE>
+			</TD>
+			<TD WIDTH="100%" HEIGHT="0"></TD>
+		</TR>
+	</TABLE>
+ 
+				<img src="<?= IMAGES_PATH ?>gold/spacer.gif" height="10px"/>
+				<div id="note" style="display:none">Nota: Penyata ini adalah janaan komputer. Tandatangan tidak diperlukan.</div>
+			</div>
+		</div>	
+		
+</div>
+<!--<a href="javascript:void(printSpecial())">Print</a>-->
+
+<?php 
+// Free the query result
+mssql_free_result($result2013);
+?>
+<!--<div class="entry-edit">
+	<div class="fieldset" id="group_fields63">
+		<p align="left"><strong><?= $this->translate->_('Tiada Rekod') ?></strong></p>
+	</div>	
+</div>-->

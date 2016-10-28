@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="language" content="en" />
+<?php
+$this->headTitle('Zend Framework Alpha Version', 'APPEND');
+$this->headTitle()->setSeparator(' - ');
+echo $this->headTitle();
+
+$front = Zend_Controller_Front::getInstance(); 
+?>
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/spt.css" type="text/css" media="all">
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/css_template.css" type="text/css" media="all">
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/menu.css" type="text/css" media="all">
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/table.css" type="text/css" media="all">
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/estilos.css" type="text/css" media="all">
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/clear.css" type="text/css" media="all" />
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/reset.css" media="all" />
+<!--[if IE]>
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/blueprint/ie.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/ie.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/iestyle.css" type="text/css" media="all">
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/below_ie7.css" type="text/css" media="all">
+<![endif]-->
+<style type="text/css">
+<!--
+body,td,th { 
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-size: 11px; 
+} 
+body { 
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #FFFFFF;
+} 
+.style1 { 
+	font-size: 12px; 
+	font-weight: bold; 
+} 
+.style2 {color: #FFFFFF} 
+.style5 {font-size: 9px} 
+.style6 { 
+	color: #C79C9C; 
+	font-weight: bold; 
+} 
+--> 
+</style> 
+<script type="text/javascript" src="<?= $front->getBaseUrl() ?>/public/js/unobtrusivedynamicselect_ex5.js"></script>
+<script type="text/javascript" src="<?= $front->getBaseUrl() ?>/public/js/menu/ddaccordion.js"></script>
+
+<style type="text/css">
+        @import "<?= $front->getBaseUrl() ?>/public/dojo/dijit/themes/tundra/tundra.css";
+        @import "<?= $front->getBaseUrl() ?>/public/dojo/dojo/resources/dojo.css"
+    </style>
+    <script type="text/javascript" src="<?= $front->getBaseUrl() ?>/public/dojo/dojo/dojo.js"
+        djConfig="parseOnLoad: true"></script>
+    <script type="text/javascript">
+			dojo.require("dijit.form.DateTextBox");
+			//dojo.require("dijit.form.TimeTextBox");
+			//dojo.require("dijit.form.NumberSpinner");
+			//dojo.require("dijit.form.Slider");
+			dojo.require("dijit.form.Textarea");
+			dojo.require("dijit.form.Button");
+			//dojo.require("dijit.form.Form");
+			//dojo.require("dijit.form.ComboBox");
+			dojo.require("dijit.form.CheckBox");
+			//dojo.require("dijit.Dialog");
+			dojo.require("dijit.form.ValidationTextBox");
+			dojo.require("dijit.form.FilteringSelect");
+			//dojo.require("dijit.layout.ContentPane");
+			//dojo.require("dijit.layout.LayoutContainer");
+			//dojo.require("dijit.layout.SplitContainer");
+			dojo.require("dijit.layout.TabContainer");
+			dojo.require("dijit.layout.AccordionContainer");
+			//dojo.require("dijit.InlineEditBox");
+			//dojo.require("dijit.TitlePane");
+			//dojo.require("dijit.ProgressBar");
+			//dojo.require("dojo.data.ItemFileReadStore");
+			
+			function setVal1(value) {
+				console.debug("Selected "+value);
+			}
+	   
+			function setVal2(value) {
+				console.debug("Selected "+value); }
+       
+			dojo.require("dojo.parser");
+			
+			function after5(constraints){
+                   var date=new Date();
+                   if(date.getHours() >= 17){
+                          return "\\d{5}";
+                   }else{
+                          return "\\D+";
+                   }
+                }
+				
+			function confirmPassword(value, constraints)
+			{
+				var isValid = false;
+				if(constraints && constraints.other)  {
+					var otherInput =  dijit.byId(constraints.other);
+					if(otherInput) {
+							var otherValue = otherInput.value;
+							console.log("%s == %s ?", value, otherValue);
+							isValid = (value == otherValue);
+					}
+				}
+				return isValid;
+			}
+			function onsubmit()
+			{
+				var p1 = dijit.byId('password1').value;
+				var p2 = dijit.byId('password2').value;
+				return p1 == p2;
+			}
+
+     </script>
+	 
+	 <script>
+       function helloCallback(data,ioArgs) {
+          alert(data);
+       }       
+       function helloError(data, ioArgs) {
+          alert('Error when retrieving data from the server!');
+       }
+	</script>
+	
+	<script language="Javascript">
+
+		function ajax_loader()
+		{
+			/*dijit.byId('loading-mask').show();
+			 dojoType="dijit.Dialog"*/
+			document.getElementById('loading-mask').style.display = "block";
+		}
+
+	</script>
+
+<script type="text/javascript" src="<?= $front->getBaseUrl() ?>/public/scripts/functions.js"></script>
+<script type="text/javascript" src="<?= $front->getBaseUrl() ?>/public/js/jquery/jquery.js"></script>
+	 
+<script type="text/javascript" src="<?= $front->getBaseUrl() ?>/public/js/index.php?c=auto&amp;f=,prototype/prototype.js,scriptaculous/builder.js,scriptaculous/effects.js,scriptaculous/dragdrop.js,scriptaculous/controls.js,scriptaculous/slider.js,prototype/validation.js,varien/js.js,mage/translate.js,mage/adminhtml/hash.js,mage/adminhtml/events.js,mage/adminhtml/loader.js,mage/adminhtml/grid.js,mage/adminhtml/tabs.js,mage/adminhtml/form.js,mage/adminhtml/accordion.js,mage/adminhtml/tools.js,mage/adminhtml/uploader.js" ></script>
+
+<script type="text/javascript" src="<?= $front->getBaseUrl() ?>/public/js/index.php?c=auto&amp;f=,mage/adminhtml/product.js,calendar/calendar.js,calendar/calendar-setup.js,extjs/ext-tree.js,extjs/ext-tree-checkbox.js" ></script>
+
+</head>
+
+<body onload="" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" class="tundra" > 
+<table height="100%" width="100%" border="0px" cellpadding="0px" cellspacing="0px" align="center"> 
+	<tr>
+		<td height="85%" align="left" valign="bottom"> 
+			<?php echo $this->layout()->content ?>	
+			<div id="loading-mask" style="display:none">
+				<p class="loader" id="loading_mask_loader"><img src="<?= SYSTEM_URL ?>/public/adminhtml/images/ajax-loader-tr.gif" alt="Loading..."/><br/>Please wait...</p>
+			</div>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

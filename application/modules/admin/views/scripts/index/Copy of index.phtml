@@ -1,0 +1,273 @@
+<?php 
+$defSession = Zend_Registry::get ( 'defSession' );
+if (isset($defSession->css))
+{
+	$css = $defSession->css;
+}
+else{
+	$css = 'gold';
+}
+?>
+<script language="Javascript">
+function show_ppp()
+{
+	document.getElementById("ppp").style.display = "block";
+	document.getElementById("ppp_up").style.display = "none";
+	document.getElementById("ppp_down").style.display = "block";
+}
+
+function hide_ppp()
+{
+	document.getElementById("ppp").style.display = "none";
+	document.getElementById("ppp_up").style.display = "block";
+	document.getElementById("ppp_down").style.display = "none";
+}
+function show_tg()
+{
+	document.getElementById("tg").style.display = "block";
+	document.getElementById("tg_up").style.display = "none";
+	document.getElementById("tg_down").style.display = "block";
+}
+
+function hide_tg()
+{
+	document.getElementById("tg").style.display = "none";
+	document.getElementById("tg_up").style.display = "block";
+	document.getElementById("tg_down").style.display = "none";
+}
+</script>
+
+<link href="<?= CSS_PATH ?>red.css" rel="stylesheet" type="text/css"/>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td style="background:url(<?= IMAGES_PATH.$css ?>/spip_9.jpg) repeat-x"><br>
+			<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td width="186" rowspan="2" valign="top"><div align="center">
+						<table width="100%"  border="0" cellspacing="1" cellpadding="5">
+							<tr>
+								<td align="left">
+									<!-- START: LEFT BLOCK -->
+									<div id="leftblock">
+									<div id="leftdiv">
+									<div id="left">
+										<div class="moduletable">			
+											<form>
+												<div class="search"><nobr>
+												<input name="searchword" id="mod_search_searchword" maxlength="20" alt="search" class="inputbox" type="text" size="20" value="<?= $this->translate->_('carian...') ?>"  onblur="if(this.value=='') this.value='<?= $this->translate->_('carian...') ?>';" onfocus="if(this.value=='carian...') this.value='';" /><input type="submit" value="<?= $this->translate->_('Cari') ?>" class="button"/></nobr>	
+												</div>
+											</form>		
+										</div>
+									</div>
+									</div>
+									</div>
+									<!-- END: LEFT BLOCK -->
+								</td>
+								<td width="2%">&nbsp;</td>
+							</tr>
+							<tr>
+								<td align="left">
+								<div align="center"><span style="font-size:10px">
+								<?= $this->translate->_('Jika terdapat sebarang masalah mengenai sistem atau data, sila hubungi:') ?>
+								<br><br> 
+								<strong>Bahagian Pengurusan Maklumat</strong><br> 
+								Aras 35, Menara Dato' Onn<br> 
+								Pusat Dagangan Dunia Putra<br> 
+								45 jalan Tun Ismail<br> 
+								50695 Kuala Lumpur<br> 
+								Telefon : 03-8886 4000<br> 
+								Email: eSPIP@motour.gov.my<br> </span>
+								</div>
+								</td>
+								<td width="2%">&nbsp;</td>
+							</tr>
+						</table>
+					</div>
+					
+					</td>
+					<td>
+					<div align="left">
+						<table width="90%"  border="0" cellspacing="1" cellpadding="5">
+							<tr valign="top">
+								<td width="60%">
+								<div align="center"><img src="<?= IMAGES_PATH ?>spip/gambar.jpg"></div>
+								<br />
+								<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+									<tr>
+										<td width="3%">
+											<div align="left">
+												<img src="<?= IMAGES_PATH ?>gold/spacer.gif" width="10" height="10">
+											</div>
+										</td>
+										<td width="97%" height="52" style="background: url(<?= IMAGES_PATH ?>spip/spip_10.gif) no-repeat">
+											<div align="left">
+												<h2><?= $this->translate->_('Informasi') ?></h2>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td width="3%">
+											<div align="left">
+												<img src="<?= IMAGES_PATH ?>gold/spacer.gif" width="10" height="10">
+											</div>
+										</td>
+										<td width="97%" valign="top">
+											<div align="left">
+												Sistem berkomputer untuk membantu PLN meningkatkan prestasi 
+												kerja dan memuaskan hati pelanggan. Memendekkan tempoh 
+												masa dalam piagam pelanggan bagi memproses permohonan 
+												lesen.
+												<br>
+												Sistem komputer yang mesra pengguna dan berupaya untuk 
+												dinaktaraf mengikut peredaran masa. Contoh ayat -Piawaian 
+												Dokumentasi & Pembangunan Sistem ini adalah sebagai panduan 
+												untuk pereka laman web dan pengaturcara sistem dalam 
+												merekabentuk sistem di mana ianya menerangkan tentang 
+												jenis-jenis ikon, butang arahan, jenis skrin serta tatacara 
+												penamaan yang sesuai bagi pangkalan data.
+											</div>
+										</td>
+									</tr>
+								</table>
+								</td>
+								<td width="2%" align="right">&nbsp;</td>
+								<td width="38%" align="right">
+									<!-- portlet -->
+									<!--
+									<table class="contents" width="98%" border="0" cellspacing="1" cellpadding="5">
+										<tr class="portlet_merah">
+											<td style="background-color: #CC0000;FONT-WEIGHT: bold;COLOR: #ffffff;font-size: 12px;">&nbsp;Premis Penginapan Pelancongan</td>
+										</tr>
+										<tr class="contents">
+											<td>
+												<table border="0" width="100%" cellpadding="2">
+													<tr>
+														<td valign="top"><br><br><br><br><br></td>
+													</tr>
+												</table>					
+											</td>
+										</tr>
+									</table>
+									<br>
+									<table class="contents" width="98%" border="0" cellspacing="1" cellpadding="5">
+										<tr class="portlet_merah">
+											<td style="background-color: #3366FF;FONT-WEIGHT: bold;COLOR: #ffffff;font-size: 12px;">&nbsp;Pemandu Pelancong</td>
+										</tr>
+										<tr class="contents">
+											<td>
+												<table border="0" width="100%" cellpadding="2">
+													<tr>
+														<td valign="top"><br><br><br><br><br></td>
+													</tr>
+												</table>					
+											</td>
+										</tr>
+									</table>
+									-->
+									<!-- portlet -->
+									<table class="contents" width="98%" border="0" cellspacing="1" cellpadding="5">
+										<tr class="portlet_merah">
+											<td style="background-color: #CC0000;FONT-WEIGHT: bold;COLOR: #ffffff;font-size: 12px;" height="20px">&nbsp;<?= $this->translate->_('Makluman') ?></td>								
+
+										</tr>
+										<tr class="contents">
+											<td>
+												<table border="0" width="100%" cellpadding="5" cellspacing="1">
+													<tr><td height="2px">&nbsp;</td></tr>
+													
+													<!-- ppp start -->
+													<tr>
+														<td valign="top">
+														<div id="ppp_up" style="display:block">
+														<img src="<?= IMAGES_PATH ?>/icon/img_up.bmp" onclick="show_ppp()" style="cursor:pointer" />
+														<strong>Premis Penginapan Pelancong (PPP)</strong>
+														</div>
+														
+														<div id="ppp_down" style="display:none">
+														<img src="<?= IMAGES_PATH ?>/icon/img_down.bmp" onclick="hide_ppp()" style="cursor:pointer" />
+														<strong>Premis Penginapan Pelancong (PPP)</strong>
+														</div>
+														<div id="ppp" style="display:none">
+								                            <table width="100%"  border="0" cellspacing="0" cellpadding="2">
+																<tr>
+																	<td width="50%">Pendaftaran Baru</td>
+																	<td width="50%" align="left">
+																	<a href="#" >0</a>
+																	</td>
+																</tr>
+																<tr>
+																	<td width="50%">Permohonan Pengkelasan</td>
+																	<td width="50%" align="left">
+																	<a href="#" >0</a>
+																	</td>
+																</tr>
+															</table>
+														</div>
+														</td>
+													</tr>
+													<!-- ppp end -->
+													<tr><td>&nbsp;</td></tr>
+													<!-- tg start -->
+													<tr>
+														<td valign="top">
+														<div id="tg_up" style="display:block">
+														<img src="<?= IMAGES_PATH ?>/icon/img_up.bmp" onclick="show_tg()" style="cursor:pointer" />
+														<strong>Pemandu Pelancong (TG)<span class="required2">*</span></strong>
+														</div>
+														
+														<div id="tg_down" style="display:none">
+														<img src="<?= IMAGES_PATH ?>/icon/img_down.bmp" onclick="hide_tg()" style="cursor:pointer" />
+														<strong>Pemandu Pelancong (TG)<span class="required2">*</span></strong>
+														</div>
+														<div id="tg" style="display:none">
+								                            <table width="100%"  border="0" cellspacing="0" cellpadding="2">
+																<tr>
+																	<td width="50%">Permohonan Lesen Baru</td>
+																	<td width="50%" align="left">
+																	<a href="#" >1</a>
+																	</td>
+																</tr>
+																<tr>
+																	<td width="50%">Permohonan Pembaharuan</td>
+																	<td width="50%" align="left">
+																	<a href="#" >2</a>
+																	</td>
+																</tr>
+																<tr>
+																	<td width="50%">Pembatalan Lesen</td>
+																	<td width="50%" align="left">
+																	<a href="#" >3</a>
+																	</td>
+																</tr>
+																<tr>
+																	<td width="50%">Rayuan</td>
+																	<td width="50%" align="left">
+																	<a href="#" >4</a>
+																	</td>
+																</tr>
+															</table>
+														</div>
+														</td>
+													</tr>
+													<!-- tg end -->
+													<tr><td>&nbsp;</td></tr>
+												</table>					
+											</td>
+										</tr>
+									</table>
+									<!-- portlet -->
+									<!-- portlet -->
+									<!-- portlet -->
+									<!-- portlet -->
+									<!-- portlet -->
+								</td>
+							</tr>
+						</table>
+					</div>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>	
+<br>					

@@ -1,0 +1,68 @@
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-user"><?= $this->translate->_('Papar Pengguna') ?></h3></td>
+		        <td class="a-right">
+		           <button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Kembali') ?></span></button>            	           	            	                     
+	            </td>
+		    </tr>
+		</table>
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+			<table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#CCCCCC" id="info-box">
+				<tr class="contents">
+					<td height="25%" align="left" valign="top" bgcolor="#EFEFEF" class="head"><strong><?= $this->translate->_('Nama') ?></strong></td>
+					<td align="left" valign="top" bgcolor="#FFFFFF" class="big-red"><?= $this->rowset['usr_fullname'] ?></td>
+					
+				</tr>
+				<tr class="contents">
+					<td width="25%" height="20" align="left" valign="top" bgcolor="#EFEFEF" class="head"><strong><?= $this->translate->_('No Kad Pengenalan') ?></strong></td>
+					<td align="left" valign="top" bgcolor="#FFFFFF" class="big-blue"><?= $this->rowset['usr_identno'] ?></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td width="25%"><?= $this->translate->_('Nama Penuh') ?></td>
+						<td><?= $this->rowset['usr_fullname'] ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('No KP') ?></td>
+						<td><?= $this->rowset['usr_identno'] ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Email') ?></td>
+						<td><?= $this->rowset['usr_email'] ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Tarikh Lahir') ?></td>
+						<td><?= $this->date->func_ymd2dmy($this->rowset['usr_bday']) ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('ID Pengguna') ?></td>
+						<td><?= $this->rowset['usr_id'] ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Kata Laluan') ?></td>
+						<td><?= $this->translate->_('-Tidak Dipamerkan-') ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Status') ?></td>
+						<td><?= $this->rowset['active_name'] ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Kumpulan Pengguna') ?></td>
+						<td><?= $this->rowset['acl_role_name'] ?></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>	
+	</div>		

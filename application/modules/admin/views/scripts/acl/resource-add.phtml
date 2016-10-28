@@ -1,0 +1,52 @@
+<?php if($this->entrySaved): ?>
+	<p class="success"><?= $this->translate->_('Tambah resource baru berjaya.') ?></p>
+	<meta http-equiv="refresh" content=1;URL="resources">
+<?php else: ?>
+
+<form action="<?= $this->escape($this->form->getAction()) ?>" method="<?= $this->escape($this->form->getMethod()) ?>">
+
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-cms-page"><?= $this->translate->_('Tambah Resource') ?></h3></td>
+		        <td class="a-right">
+		            <button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Kembali') ?></span></button>            	           	            	                    
+	                <button type="reset" name="reset" id="reset" style=""><span><?= $this->translate->_('Semula') ?></span></button>  
+	                <button type="submit" class="scalable save" name="submit" id="submit" style=""><span><?= $this->translate->_('Simpan') ?></span></button>  
+	            </td>
+		    </tr>
+		</table>
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset " id="group_fields63">
+			<p class="box"><?= $this->translate->_('Sila masukkan maklumat pada ruangan di bawah.') ?></p>
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="98%">
+				<colgroup>
+					<col class="oce-first" />
+					<col>
+				</colgroup>
+				<tbody>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Nama Resource') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->resources ?></td>
+					</tr> 
+					<tr>
+						<td width="20%"><?= $this->translate->_('Keterangan') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->desc ?></td>
+					</tr> 
+					<tr>
+						<td width="20%"><?= $this->translate->_('Modul') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->module ?></td>
+					</tr>
+					<tr>
+						<td valign="top"><?= $this->translate->_('Papar') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->show ?></td>
+					</tr>
+				</tbody>
+			</table>
+			<p class="required2" align="right">* <?= $this->translate->_('Diperlukan') ?></p>
+		</div>	
+	</div>
+</form>
+
+<?php endif; ?>

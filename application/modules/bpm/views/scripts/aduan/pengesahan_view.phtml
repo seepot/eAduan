@@ -1,0 +1,47 @@
+	<div class="entry-edit">
+		<div class="fieldset " id="group_fields63">
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+					<col />
+					<col class="oce-first" />
+					<col />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td height="40px" colspan="4" class="title" style="text-align:center;"><span style="font-size:18px;text-align:center"><strong><?= $this->translate->_('Pengesahan Aduan') ?></strong></span>
+						</td>
+					</tr>
+					<tr>
+						<td width = "20%"><?= $this->translate->_('Nama Penyelia') ?> </td>
+						<td><?= $this->function->getFullNameById($this->aduan->penyelia_user) ?></td>
+					</tr> 
+					<tr>
+						<td width="20%"><?= $this->translate->_('Jawatan') ?> </td>
+						<td><?= $this->function->getPositionById($this->aduan->penyelia_user) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Bahagian') ?> </td>
+						<td><?= $this->function->getDeptById($this->aduan->penyelia_user) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Unit') ?> </td>
+						<td><?= $this->function->getUnitById($this->aduan->penyelia_user) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('No Telefon') ?> </td>
+						<td><?= $this->function->getPhoneNoById($this->aduan->penyelia_user) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Pengesahan') ?></td>
+						<td><?= $this->function->getPengesahanById($this->aduan->penyelia_pengesahan) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Catatan') ?></td>
+						<td><?= $this->aduan->penyelia_catatan ?></td>
+					</tr>
+				</tbody>
+			</table>
+			<br />
+		</div>	
+	</div>

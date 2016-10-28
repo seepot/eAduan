@@ -1,0 +1,47 @@
+.dijitFileInput {
+        position:relative;
+        height:1.3em;
+        padding:2px; 
+}
+.dijitFileInputReal {
+        position:absolute;
+        z-index:2;
+        opacity:0;
+        filter:alpha(opacity:0);
+}
+.dijitFileInputButton,
+.dijitFileInputText {
+        border:1px solid #333;
+        padding:2px 12px 2px 12px;
+        cursor:pointer;
+}
+.dijitFileInputButton {
+        opacity:0;
+        filter:alpha(opacity:0);
+        z-index:3;
+        visibility:hidden;
+       
+}
+.dijitFakeInput { position:absolute; top:0; left:0; z-index:1; }
+
+#divinputfile{
+	background:url(upload_file.gif) no-repeat 100% 1px;
+	height:28px;
+	width:385px;
+	margin:0px;
+}
+#divinputfile   #filepc{
+	opacity: 0.0;
+	-moz-opacity: 0.0;
+	filter: alpha(opacity=00);
+	font-size:18px;
+}
+#fakeinputfile{
+	margin-top:-28px;
+}
+#fakeinputfile  #fakefilepc{
+	width:265px;
+	height:22px;
+	font-size:18px;
+	font-family:Arial;
+}

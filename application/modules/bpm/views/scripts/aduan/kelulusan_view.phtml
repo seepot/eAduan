@@ -1,0 +1,59 @@
+	<div class="entry-edit">
+		<div class="fieldset " id="group_fields63">
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+					<col />
+					<col class="oce-first" />
+					<col />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td height="40px" colspan="4" class="title" style="text-align:center;"><span style="font-size:18px;text-align:center"><strong><?= $this->translate->_('Kelulusan dan Agihan Aduan') ?></strong></span>
+						</td>
+					</tr>
+					<tr>
+						<td width = "20%"><?= $this->translate->_('Nama Staf') ?> </td>
+						<td><?= $this->function->getFullNameById($this->aduan->pegawai_user) ?></td>
+					</tr> 
+					<tr>
+						<td width="20%"><?= $this->translate->_('Jawatan') ?> </td>
+						<td><?= $this->function->getPositionById($this->aduan->pegawai_user) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Bahagian') ?> </td>
+						<td><?= $this->function->getDeptById($this->aduan->pegawai_user) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Unit') ?> </td>
+						<td><?= $this->function->getUnitById($this->aduan->pegawai_user) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('No Telefon') ?> </td>
+						<td><?= $this->function->getPhoneNoById($this->aduan->pegawai_user) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Kelulusan') ?></td>
+						<td><?= $this->function->getKelulusanById($this->aduan->pegawai_kelulusan) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Tahap Keutamaan') ?></td>
+						<td><?= $this->function->getTahapById($this->aduan->pegawai_tahap) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Unit') ?></td>
+						<td><?= $this->function->getUnitBpmById($this->aduan->pegawai_unit) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Staf') ?></td>
+						<td><?= $this->function->getFullNameById($this->aduan->pegawai_staf) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Catatan') ?></td>
+						<td><?= $this->aduan->pegawai_catatan ?></td>
+					</tr>
+				</tbody>
+			</table>
+			<br />
+		</div>	
+	</div>

@@ -1,0 +1,247 @@
+<?php 
+	if(Zend_Auth::getInstance()->getIdentity())
+		$page = SYSTEM_URL."/admin";
+	else
+		$page = SYSTEM_URL."/authentication/login";
+
+		//echo $language;
+	$defSession = Zend_Registry::get ( 'defSession' );
+	if ($defSession->css == 'blue'){
+		$css = $defSession->css;
+		$bgcolor = '#188DDC';
+	}
+	elseif ($defSession->css == 'green'){
+		$css = $defSession->css;
+		$bgcolor = '#395400';
+	}
+	else{
+		$css = 'gold';
+		$bgcolor = '#E97B02';
+	}
+?>
+
+<script type="text/javascript" src="<?= JS_PATH ?>datetime.js"></script>
+<script language="Javascript">
+function func_menu(menu){
+	var lfr = window.top.document.getElementById('SecondFrame');
+	var p = document.getElementById('personalizationx');
+	if(menu == 1){
+		top.location.href = '<?= SYSTEM_URL ?>'; 
+	}
+	else if(menu == 2){
+		lfr.cols ="275px,100%";
+		top.frames['left'].location.href = '<?= SYSTEM_URL ?>/menu/master'; 
+		top.frames['right'].location.href = '<?= SYSTEM_URL ?>/admin/user/list'; 
+		p.style.display = 'none';
+	}
+	else if(menu == 3){
+		var lfr = window.top.document.getElementById('SecondFrame');
+		lfr.cols ="275px,100%";
+		top.frames['left'].location.href = '<?= SYSTEM_URL ?>/menu/ppp'; 
+		top.frames['right'].location.href = '<?= SYSTEM_URL ?>/ppp/ppp/senarai'; 
+		p.style.display = 'none';
+	}
+	else if(menu == 4){
+		var lfr = window.top.document.getElementById('SecondFrame');
+		lfr.cols ="275px,100%";
+		top.frames['left'].location.href = '<?= SYSTEM_URL ?>/menu/tg'; 
+		top.frames['right'].location.href = '<?= SYSTEM_URL ?>/tg/tg/list'; 
+		p.style.display = 'none';
+	}
+	else if(menu == 5){
+		var lfr = window.top.document.getElementById('SecondFrame');
+		lfr.cols ="275px,100%";
+		top.frames['left'].location.href = '<?= SYSTEM_URL ?>/menu/tempahan'; 
+		top.frames['right'].location.href = '<?= SYSTEM_URL ?>/tempahan/transaksi'; 
+		p.style.display = 'none';
+	}
+	else if(menu == 6){
+		var lfr = window.top.document.getElementById('SecondFrame');
+		lfr.cols ="275px,100%";
+		top.frames['left'].location.href = '<?= SYSTEM_URL ?>/menu/test'; 
+		top.frames['right'].location.href = '<?= SYSTEM_URL ?>/admin/test/test1'; 
+		p.style.display = 'none';
+	}
+}
+
+function func_menu2(menu,url){
+	var lfr = window.top.document.getElementById('SecondFrame');
+	var p = document.getElementById('personalizationx');
+	
+	lfr.cols ="275px,100%";
+	top.frames['left'].location.href = '<?= SYSTEM_URL ?>/menu/'+menu; 
+	top.frames['right'].location.href = '<?= SYSTEM_URL ?>'+url; 
+	p.style.display = 'none';
+}
+
+function func_lang(lang){
+	var url = top.frames['right'].location.href;
+	top.location.href = '<?= SYSTEM_URL ?>/default/index/index/lang/'+lang; 
+	//submit(this.form);
+}
+function func_css(css){
+	var url = top.frames['right'].location.href;
+	var url_right = top.frames['right'].location.href;
+	//alert(top.frames['right'].location.href);
+	//exit();
+	//top.location.href = '<?= SYSTEM_URL ?>/default/index/index/css/'+css+'/url/'+url_right; 
+	top.location.href = '<?= SYSTEM_URL ?>/default/index/index/css/'+css; 
+}
+
+
+</script>
+
+<!------------------Start Show Tools ----------------------------------------->
+
+<script language="javascript">
+	new ypSlideOutMenu("menu1", "down", -50, 0, 238, 300,'right');
+</script>
+<div id="menu1Container">
+
+	<div id="menu1Content" class="menuOneBox">
+		<div id="extraIcons">
+			<table cellspacing="5" cellpadding="1" border="0" width="100%" height="84" style="background:<?= $bgcolor ?>; border:solid 1px #000000">
+			
+				<tr>
+					<td class="extraIconsRowIcon" width="30%"><span style="color:#FFFFFF"><strong><?= $this->translate->_('Bahasa') ?></strong></span></td>
+					<td align="left" class="extraIconsRow">
+						<span><a href="#" style="cursor:hand" onClick="func_lang('ms');">Bahasa Malaysia</a>&nbsp;<a href="#" style="cursor:hand" onClick="func_lang('en');">English</a></span>	
+					</td>
+				</tr>
+				<tr>
+					<td class="extraIconsRowIcon"><span style="color:#FFFFFF"><strong><?= $this->translate->_('Warna') ?></strong></span></td>
+					<td class="extraIconsRowIcon">
+						<span><a href="#" style="cursor:hand" onClick="func_css('gold');"><img src="<?= IMAGES_PATH ?>icon/oren.png" border="0" /></a>&nbsp;<a href="#" style="cursor:hand" onClick="func_css('blue');"><img src="<?= IMAGES_PATH ?>icon/cyan.png" border="0" /></a>&nbsp;<a href="#" style="cursor:hand" onClick="func_css('green');"><img src="<?= IMAGES_PATH ?>icon/green.png" border="0" /></a></span>	
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="extraIconsHeader" nowrap="nowrap" height="20" align="center" valign="bottom" style="border-top:solid 1px #000000;">
+						<a href="#" onClick="ypSlideOutMenu.hide('menu1')" title="Close"><img style="" border="0" src="<?= IMAGES_PATH ?>spt/btn_window_close.gif"/></a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+<!------------------End Show Tools ----------------------------------------->
+
+<table height="100%" width="100%" border="0px" cellpadding="0px" cellspacing="0px" align="center" style="border-bottom: #00000 1px"> 
+	<tr>
+		<td height="85%" align="left" valign="bottom"> 
+			<table height="100%" width="100%" border="0px" cellpadding="0px" cellspacing="0px"> 
+				<tr>
+					<td height="" align="left" valign="top">
+						<table width="100%"  border="0" cellspacing="0" cellpadding="0" class="banner">
+							<tr height="70px">
+								<td rowspan="2"><img id="ctl00_Imgbanner01" alt="" src="<?= IMAGES_PATH.$css ?>/<?= $this->translate->_('jhev_banner1.jpg') ?>" style="border-width:0px;" /></td>
+								<td width="99%" style="background: url(<?= IMAGES_PATH.$css ?>/<?= $this->translate->_('jhev_banner2.jpg') ?>) no-repeat <?= $bgcolor ?>">
+									<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+										<tr>
+											<td width="52%"><img id="ctl00_Imgbanner02" src="<?= IMAGES_PATH.$css ?>/spacer.gif" style="height:83px;width:5px;border-width:0px;" /></td>
+											<td width="48%" valign="bottom">
+												<div align="right"><form name="personalization" id="personalization" action="<?= PHP_SELF ?>" method="post">
+												<div id="personalizationx" style="display:block;">
+												<table cellspacing="5" cellpadding="1" border="0" style="background:<?= $bgcolor ?>; border:solid 1px #000000">
+													<tr>
+														<td align="left" class="extraIconsRow">
+															<select name="language" id="language" onChange="func_lang(this.value);" style="font-size:12px;" >
+																<option value="ms" <?= ($defSession->lang == 'ms')?'selected':''; ?>>Bahasa Malaysia</option>
+																<option value="en" <?= ($defSession->lang == 'en')?'selected':''; ?>>English</option>
+															</select>	
+															<!--<span><a href="#" style="cursor:hand" onClick="func_lang('ms');">Bahasa Malaysia</a>&nbsp;<a href="#" style="cursor:hand" onClick="func_lang('en');">English</a></span>-->
+														</td>
+														<td class="extraIconsRowIcon">
+															<span><a href="#" style="cursor:hand" onClick="func_css('gold');"><img src="<?= IMAGES_PATH ?>icon/oren.png" border="0" /></a>&nbsp;<a href="#" style="cursor:hand" onClick="func_css('blue');"><img src="<?= IMAGES_PATH ?>icon/cyan.png" border="0" /></a>&nbsp;<a href="#" style="cursor:hand" onClick="func_css('green');"><img src="<?= IMAGES_PATH ?>icon/green.png" border="0" /></a></span>	
+														</td>
+													</tr>
+												</table>
+												</div>
+												&nbsp;
+												<u style="color: #FFFFFF; font-size: medium">
+													<strong><?= (Zend_Auth::getInstance()->getIdentity()) ? Zend_Auth::getInstance()->getIdentity()->usr_fullname : $this->translate->_('Pelawat'); ?></strong></u><br/>
+													<span style="color: #FFFFFF; font-size: small; font-weight:bold">
+													<? //= $this->translate->_('Pentadbir Sistem') ?></span><br/>
+													<span id="clock" valign="middle"></span>
+												</form></div></td>
+											<td>&nbsp&nbsp&nbsp&nbsp</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>
+									<table width="100%"  border="0" cellpadding="0" cellspacing="0" style="background:url(<?= IMAGES_PATH.$css  ?>/spip_05.jpg) repeat-x">
+										<tr>
+											<td width="2%"><img id="ctl00_imgheader1" src="<?= IMAGES_PATH.$css ?>/spip_04.jpg" style="border-width:0px;" /></td>
+											<td width="" valign="middle">
+												<?php if(Zend_Auth::getInstance()->getIdentity()) { ?>
+												<span style="color:#000000;">
+													<strong><a class="menu" href="#" onClick="func_menu(1);" style="color:#000000"><?= $this->translate->_('UTAMA') ?></a></strong> 
+													<span>|</span> 
+													<?php if ($this->role == 2){ ?>
+													<strong><a class="menu" href="#" onClick="func_menu(2);"style="color:#000000"><?= $this->translate->_('INDUK') ?></a></strong> 
+													<span>|</span> 
+													<?php } ?>
+													<?php
+														/*if ($this->role == 3){
+															$url = '/tempahan/transaksi';
+														} else {
+															$url = '/tempahan/new';
+														}
+														echo '<strong><a class="menu" href="#" onClick="func_menu2(\'tempahan\',\''.$url.'\'); "style="color:#000000">'. $this->translate->_('TEMPAHAN') .'</a></strong>';
+														echo '<span>|</span> ';
+														if ($this->role == 2){
+														echo '<strong><a class="menu" href="#" onClick="func_menu2(\'pelarasan\',\'/pelarasan/semakan\'); "style="color:#000000">'. $this->translate->_('PENYELARASAN') .'</a></strong>';
+														echo '<span>|</span> ';
+														echo '<strong><a class="menu" href="#" onClick="func_menu2(\'alamat\',\'/alamat/tentera\'); "style="color:#000000">'. $this->translate->_('ALAMAT') .'</a></strong>';
+														echo '<span>|</span> ';
+														echo '<strong><a class="menu" href="#" onClick="func_menu2(\'btm\',\'/btm/paper/list\'); "style="color:#000000">'. $this->translate->_('SURAT KHABAR') .'</a></strong>';
+														echo '<span>|</span> ';
+														
+														}
+														if ($this->role == 5 || $this->role == 2){
+														echo '<strong><a class="menu" href="#" onClick="func_menu2(\'bkp\',\'/bkp/kajian/borang\'); "style="color:#000000">'. $this->translate->_('KAJIAN KEPUASAN PEKERJA') .'</a></strong>';
+														echo '<span>|</span> ';
+														} *///if ($this->role == 4 || $this->role == 2 ){
+														/*echo '<strong><a class="menu" href="#" onClick="func_menu2(\'bp\',\'/bp/penyata\'); "style="color:#000000">'. $this->translate->_('PENYATA') .'</a></strong>';
+														echo '<span>|</span> ';*/
+														echo '<strong><a class="menu" href="#" onClick="func_menu2(\'aduan\',\'/bpm/aduan/add\'); "style="color:#000000">'. $this->translate->_('ADUAN') .'</a></strong>';
+														echo '<span>|</span> ';
+														if ($this->role == 12 || $this->role == 2 || $this->role == 13 || $this->role == 14){
+														echo '<strong><a class="menu" href="#" onClick="func_menu2(\'report\',\'/bpm/report/month\'); "style="color:#000000">'. $this->translate->_('LAPORAN') .'</a></strong>';
+														echo '<span>|</span> ';
+														}
+														echo '<strong><a class="menu" href="#" onClick="func_menu2(\'profil\',\'/bp/personal/profile\'); "style="color:#000000">'. $this->translate->_('PROFIL') .'</a></strong>';
+														echo '<span>|</span> ';
+														/*echo '<strong><a class="menu" href="#" onClick="func_menu2(\'feedback\',\'/bp/feedback/add\'); "style="color:#000000">'. $this->translate->_('MAKLUMBALAS') .'</a></strong>';
+														echo '<span>|</span> ';
+														if ($this->role == 2 || $this->role == 6 ){
+															echo '<strong><a class="menu" href="#" onClick="func_menu2(\'bsn\',\'/btm/bsn/carian\'); "style="color:#000000">'. $this->translate->_('PENCEN BANK') .'</a></strong>';
+															echo '<span>|</span> ';
+														}*/
+														//}
+													?>
+													<strong><a class="menu" href="<?= SYSTEM_URL ?>/authentication/logout" target="_top" style="color:#FF0000"><?= $this->translate->_('KELUAR') ?></a></strong></span>
+												<?php } ?>
+											</td>
+											<td width="2%"></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							
+						</table>
+						<table width="100%" border="0" cellspacing="0" cellpadding="0"> 
+							<tr> 
+								<td style="background-color:black"><img src="<?= IMAGES_PATH ?>tpl/banner2/banner_shadow.gif"  alt="" /></td> 
+							</tr> 
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+

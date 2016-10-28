@@ -1,0 +1,274 @@
+<?php echo $this->doctype() ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="language" content="en" />
+<?php
+$this->headTitle('Zend Framework Alpha Version', 'APPEND');
+$this->headTitle()->setSeparator(' - ');
+echo $this->headTitle();
+
+$front = Zend_Controller_Front::getInstance(); 
+?>
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/spt.css" type="text/css" media="all">
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/estilos.css" type="text/css" media="all">
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/table.css" type="text/css" media="all">
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/adminhtml/menu.css" type="text/css" media="all">
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/tabs.css" type="text/css" media="all">
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/clear.css" type="text/css" media="all" />
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/reset.css" media="all" />
+<link rel="stylesheet" type="text/css" href="<?= $front->getBaseUrl() ?>/public/js/calendar/calendar-win2k-1.css"  />
+
+<!--[if IE]>
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/blueprint/ie.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/ie.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/iestyle.css" type="text/css" media="all">
+<link rel="stylesheet" href="<?= $front->getBaseUrl() ?>/public/css/below_ie7.css" type="text/css" media="all">
+<![endif]-->
+
+<script type="text/javascript" src="<?= $front->getBaseUrl() ?>/public/js/unobtrusivedynamicselect_ex5.js"></script>
+<style type="text/css">
+        @import "<?= $front->getBaseUrl() ?>/public/dojo/dijit/themes/tundra/tundra.css";
+        @import "<?= $front->getBaseUrl() ?>/public/dojo/dojo/resources/dojo.css";
+    </style>
+    <script type="text/javascript" src="<?= $front->getBaseUrl() ?>/public/dojo/dojo/dojo.js"
+        djConfig="parseOnLoad: true"></script>
+    <script type="text/javascript">
+			dojo.require("dijit.form.DateTextBox");
+			dojo.require("dijit.form.TimeTextBox");
+			dojo.require("dijit.form.NumberSpinner");
+			dojo.require("dijit.form.Slider");
+			dojo.require("dijit.form.Textarea");
+			dojo.require("dijit.form.Button");
+			dojo.require("dijit.form.Form");
+			dojo.require("dijit.form.ComboBox");
+			dojo.require("dijit.form.CheckBox");
+			dojo.require("dijit.Dialog");
+			dojo.require("dijit.form.ValidationTextBox");
+			dojo.require("dijit.form.FilteringSelect");
+			dojo.require("dijit.layout.ContentPane");
+			dojo.require("dijit.layout.LayoutContainer");
+			dojo.require("dijit.layout.SplitContainer");
+			dojo.require("dijit.layout.TabContainer");
+			dojo.require("dijit.InlineEditBox");
+			dojo.require("dijit.TooltipDialog");
+			dojo.require("dijit.TitlePane");
+			dojo.require("dijit.ProgressBar");
+			dojo.require("dojo.data.ItemFileReadStore");
+			
+			function setVal1(value) {
+				console.debug("Selected "+value);
+			}
+	   
+			function setVal2(value) {
+				console.debug("Selected "+value); }
+       
+			dojo.require("dojo.parser");
+			
+			function after5(constraints){
+                   var date=new Date();
+                   if(date.getHours() >= 17){
+                          return "\\d{5}";
+                   }else{
+                          return "\\D+";
+                   }
+                }
+				
+			function confirmPassword(value, constraints)
+			{
+				var isValid = false;
+				if(constraints && constraints.other)  {
+					var otherInput =  dijit.byId(constraints.other);
+					if(otherInput) {
+							var otherValue = otherInput.value;
+							console.log("%s == %s ?", value, otherValue);
+							isValid = (value == otherValue);
+					}
+				}
+				return isValid;
+			}
+			function onsubmit()
+			{
+				var p1 = dijit.byId('password1').value;
+				var p2 = dijit.byId('password2').value;
+				return p1 == p2;
+			}
+
+     </script>
+	 
+	 <script>
+       function helloCallback(data,ioArgs) {
+          alert(data);
+       }       
+       function helloError(data, ioArgs) {
+          alert('Error when retrieving data from the server!');
+       }
+	</script>
+	
+	<script language="Javascript">
+
+		function ajax_loader()
+		{
+			/*dijit.byId('loading-mask').show();
+			 dojoType="dijit.Dialog"*/
+			document.getElementById('loading-mask').style.display = "block";
+		}
+
+	</script>
+
+<script type="text/javascript" src="<?= $front->getBaseUrl() ?>/public/scripts/functions.js"></script>
+<script type="text/javascript" src="<?= $front->getBaseUrl() ?>/public/js/jquery/jquery.js"></script>
+	 
+<script type="text/javascript" src="<?= $front->getBaseUrl() ?>/public/js/index.php?c=auto&amp;f=,prototype/prototype.js,scriptaculous/builder.js,scriptaculous/effects.js,scriptaculous/dragdrop.js,scriptaculous/controls.js,scriptaculous/slider.js,prototype/validation.js,varien/js.js,mage/translate.js,mage/adminhtml/hash.js,mage/adminhtml/events.js,mage/adminhtml/loader.js,mage/adminhtml/grid.js,mage/adminhtml/tabs.js,mage/adminhtml/form.js,mage/adminhtml/accordion.js,mage/adminhtml/tools.js,mage/adminhtml/uploader.js" ></script>
+
+<script type="text/javascript" src="<?= $front->getBaseUrl() ?>/public/js/index.php?c=auto&amp;f=,mage/adminhtml/product.js,calendar/calendar.js,calendar/calendar-setup.js,extjs/ext-tree.js,extjs/ext-tree-checkbox.js" ></script>
+
+</head>
+
+<body class="tundra">
+
+   	<div class="wrapper">
+   		<!--  start header  -->
+   		<div class="header"> 
+	   		<div class="header-top-container">
+	    		<div class="header-top" style="background:url('<?= $front->getBaseUrl() ?>/public/images/tpl/banner2/lesen_centre.jpg') repeat 50%">    			
+	    			<div class="header-right">
+						<p class="super"><?= (Zend_Auth::getInstance()->getIdentity()) ? Zend_Auth::getInstance()->getIdentity()->usr_fullname : "Pelawat"; ?><span class="separator">|</span>
+							<?php 
+								$date = new Zend_Date();
+								echo $date->get(Zend_Date::DATE_FULL);
+							?>
+							<span class="separator">|</span><?= (Zend_Auth::getInstance()->getIdentity()) ? "<span onclick=\"dijit.byId('dialog1').show()\">Keluar</span>" : "<a href=\"".SYSTEM_URL."/authentication/login\">Login</a>"; ?></p>
+							
+								<div dojoType="dijit.Dialog" id="dialog1" title="Daftar Keluar" execute="checkPw(arguments[0]);" style="width:280px;">
+									<table width="100%">
+										<tr>
+											<td colspan="2">Adakah anda meneruskan daftar keluar?</td>
+										</tr>
+										<tr>
+											<td align="center">
+												<button dojoType=dijit.form.Button type="submit" onClick="Javascript:location.href='<?= SYSTEM_URL ?>/authentication/logout';">Ya</button>&nbsp;
+											</td>
+											<td align="center">
+												<button dojoType=dijit.form.Button type="submit">Tidak</button>
+											</td>
+										</tr>
+									</table>
+								</div>
+					</div>
+	    		</div>
+	    		<div class="header-nav-container">
+	    			<div class="header-nav">
+							<ul id="nav">
+								<li class="level0"><a href="<?= $front->getBaseUrl() ?>"   class=""><span>Utama</span></a></li>
+			                	<li onMouseOver="Element.addClassName(this,'over')" onMouseOut="Element.removeClassName(this,'over')" class="   parent level0"> <a href="#"  onclick="return false" class=""><span>Induk</span></a>
+			                    	<ul >
+			                			<li onMouseOver="Element.addClassName(this,'over')" onMouseOut="Element.removeClassName(this,'over')" class="parent level1"> <a href="#"  onclick="return false" class=""><span>Acl</span></a>
+			                                <ul >
+			                				<li class="level2"> <a href="<?= $front->getBaseUrl() ?>/admin/acl/module"   class=""><span>Modul</span></a></li>
+											<li class="level2"> <a href="<?= $front->getBaseUrl() ?>/admin/acl/resources"   class=""><span>Resources</span></a></li>
+											<li class="last level2"> <a href="<?= $front->getBaseUrl() ?>/admin/acl/privileges"   class=""><span>Privileges</span></a></li>
+											</ul>
+			                    		</li>
+										<li class="level2"> <a href="<?= $front->getBaseUrl() ?>/admin/user/list"   class=""><span>Senarai Pengguna</span></a></li>
+			                    		<li class="last level1"> <a href="<?= $front->getBaseUrl() ?>/admin/group/list"   class=""><span>Senarai Kumpulan Pengguna</span></a></li>
+			            			</ul>
+			            		<li onMouseOver="Element.addClassName(this,'over')" onMouseOut="Element.removeClassName(this,'over')" class="   parent level0"> <a href="#"  onclick="return false" class=""><span>Permohonan</span></a>
+			            			<ul >
+			                			<li class="level1"> <a href="<?= $front->getBaseUrl() ?>/lesen/permohonan/applynew"   class=""><span>Permohonan Baru</span></a></li>
+			                			<li class="last level1"> <a href="<?= $front->getBaseUrl() ?>/lesen/permohonan/applylist"   class=""><span>Senarai Permohonan</span></a></li>
+			            			</ul>
+			            		</li>
+			            		<li onMouseOver="Element.addClassName(this,'over')" onMouseOut="Element.removeClassName(this,'over')" class="   parent level0"> <a href="#"  onclick="return false" class=""><span>Transaksi</span></a>
+			            			<ul >
+			                			<li onMouseOver="Element.addClassName(this,'over')" onMouseOut="Element.removeClassName(this,'over')" class="parent level1"> <a href="#"  onclick="return false" class=""><span>Daerah</span></a>
+											<ul >
+												<li onMouseOver="Element.addClassName(this,'over')" onMouseOut="Element.removeClassName(this,'over')" class="parent level1"> <a href="#"  onclick="return false" class=""><span>FAD</span></a>
+													<ul>
+													<li class="last level2"> <a href="<?= $front->getBaseUrl() ?>/lesen/permohonan/districtlist"   class=""><span>Senarai Tindakan</span></a></li>
+													</ul>
+												</li>
+												<li onMouseOver="Element.addClassName(this,'over')" onMouseOut="Element.removeClassName(this,'over')" class="parent last level1"> <a href="#"  onclick="return false" class=""><span>KDP</span></a>
+													<ul>
+													<li class="last level2"> <a href="<?= $front->getBaseUrl() ?>/lesen/permohonan/districtlist"   class=""><span>Senarai Tindakan</span></a></li>
+													</ul>
+												</li>
+											</ul>
+										</li>	
+										<li onMouseOver="Element.addClassName(this,'over')" onMouseOut="Element.removeClassName(this,'over')" class="parent level1"> <a href="#"  onclick="return false" class=""><span>Wilayah</span></a>
+											<ul >
+												<li onMouseOver="Element.addClassName(this,'over')" onMouseOut="Element.removeClassName(this,'over')" class="parent level1"> <a href="#"  onclick="return false" class=""><span>PPW</span></a>
+													<ul>
+														<li class="last level2"> <a href="<?= $front->getBaseUrl() ?>/lesen/permohonan/territorylist"   class=""><span>Senarai Tindakan</span></a></li>
+													</ul>
+												<li>
+											</ul>
+										</li>
+										<li onMouseOver="Element.addClassName(this,'over')" onMouseOut="Element.removeClassName(this,'over')" class="parent level1"> <a href="#"  onclick="return false" class=""><span>Negeri</span></a>
+											<ul >
+											<li class="last level2"> <a href="<?= $front->getBaseUrl() ?>/lesen/permohonan/statelist"   class=""><span>Senarai Tindakan</span></a></li>
+											</ul>
+										</li>
+										<li onMouseOver="Element.addClassName(this,'over')" onMouseOut="Element.removeClassName(this,'over')" class="parent level1"> <a href="#"  onclick="return false" class=""><span>Ibu Pejabat</span></a>
+											<ul >
+												<li onMouseOver="Element.addClassName(this,'over')" onMouseOut="Element.removeClassName(this,'over')" class="parent level1"> <a href="#"  onclick="return false" class=""><span>PPCP</span></a>
+													<ul>
+													<li class="level2"> <a href="<?= $front->getBaseUrl() ?>/lesen/permohonan/ppcplist"   class=""><span>Senarai Tindakan</span></a></li>
+													</ul>
+												</li>
+												<li onMouseOver="Element.addClassName(this,'over')" onMouseOut="Element.removeClassName(this,'over')" class="parent level1"> <a href="#"  onclick="return false" class=""><span>KCP</span></a>
+													<ul>
+													<li class="last level2"> <a href="<?= $front->getBaseUrl() ?>/lesen/permohonan/hqlist"   class=""><span>Senarai Tindakan</span></a></li>
+													</ul>
+												</li>
+												<li onMouseOver="Element.addClassName(this,'over')" onMouseOut="Element.removeClassName(this,'over')" class="parent last level1"> <a href="#"  onclick="return false" class=""><span>Pengarah</span></a>
+													<ul>
+													<li class="last level2"> <a href="<?= $front->getBaseUrl() ?>/lesen/permohonan/hqlist"   class=""><span>Senarai Tindakan</span></a></li>
+													</ul>
+												</li>
+											</ul>
+										</li>	
+										<li class="last level1"> <a href="<?= $front->getBaseUrl() ?>/lesen/permohonan/historylist"   class=""><span>Sejarah Permohonan</span></a></li>
+										
+									</ul>
+			            		</li>
+								<li class="level0"><a href="<?= $front->getBaseUrl() ?>/user/profil/personal"   class=""><span>Profil</span></a></li>
+								<li class="level0"><a href="<?= $front->getBaseUrl() ?>/report/pita/jenis"   class=""><span>Laporan</span></a></li>
+							</ul>
+	    			</div>
+	    		</div>
+	    		<div class="middle col-1-layout">
+	                <!-- start center -->
+	                <div id="main" class="col-main">
+					<?php //echo $this->breadcrumb() ?>
+	                <!-- start content -->        
+	                
+	                <?php echo $this->layout()->content ?>          
+	  				<!-- end content -->
+					<div id="loading-mask" style="display:none">
+						<p class="loader" id="loading_mask_loader"><img src="<?= SYSTEM_URL ?>/public/adminhtml/images/ajax-loader-tr.gif" alt="Loading..."/><br/>Please wait...</p>
+					</div>
+					
+
+	                </div>
+	            	<!-- end center -->
+
+            	</div> 
+            	<!-- start footer -->
+		        <div class="footer-container">
+		            <div class="footer">
+		                
+						<p class="legality"><?= SYSTEM_ORGANIZATION ?></p>
+		            </div>
+		
+		        </div>
+		        <!-- end footer -->
+			</div>
+			
+    	</div>   
+        
+   	</div>
+   
+
+</body>
+</html>

@@ -1,0 +1,295 @@
+/* ------------------
+ styling for the tables 
+   ------------------   */
+
+
+body
+{
+	line-height: 1.6em;
+}
+
+#rounded-corner
+{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 12px;
+	/*margin: 45px;*/
+	width: 100%;
+	text-align: left;
+	border-collapse: collapse;
+}
+#rounded-corner thead th.rounded-company
+{
+	background: #b9c9fe url('/Zend_/template/public/images/table-images/left.png') left -1px no-repeat;
+}
+#rounded-corner thead th.rounded-q4
+{
+	background: #b9c9fe url('/Zend_/template/public/images/table-images/right.png') right -1px no-repeat;
+}
+#rounded-corner th
+{
+	padding: 8px;
+	font-weight: normal;
+	font-size: 13px;
+	color: #039;
+	background: #b9c9fe;
+}
+#rounded-corner td
+{
+	padding: 8px;
+	background: #e8edff;
+	border-top: 1px solid #fff;
+	color: #669;
+}
+#rounded-corner td a:hover { text-decoration:none; }
+#rounded-corner tfoot td.rounded-foot-left
+{
+	background: #e8edff url('/Zend_/template/public/images/table-images/botleft.png') left bottom no-repeat;
+}
+#rounded-corner tfoot td.rounded-foot-right
+{
+	background: #e8edff url('/Zend_/template/public/images/table-images/botright.png') right bottom no-repeat;
+}
+#rounded-corner tbody tr:hover td
+{
+	background: #d0dafd;
+}
+
+#one-column-emphasis
+{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 12px;
+	/*margin: 45px;*/
+	width: 100%;
+	text-align: left;
+	border-collapse: collapse;
+}
+#one-column-emphasis th
+{
+	font-size: 14px;
+	font-weight: normal;
+	padding: 12px 15px;
+	color: #039;
+}
+#one-column-emphasis td
+{
+	padding: 5px 10px;
+	/*padding: 10px 15px;*/
+	color: #669;
+	border-top: 1px solid #e8edff;
+	border-right: 1px solid #e8edff;
+	border-bottom: 1px solid #e8edff;
+}
+.oce-first
+{
+	background: #F0FFFF;
+	border-right: 10px solid transparent;
+	border-left: 10px solid transparent;
+}
+/*
+#one-column-emphasis tr:hover td
+{
+	color: #339;
+	background: #eff2ff;
+}
+*/
+
+table.contents
+{
+	background-color	:	#999999;
+}
+
+tr.label,td.label
+{
+	color				:	#000000;
+	background-color	:	#CCCCCC;
+	font-family			:	Verdana, Arial, Helvetica, sans-serif;
+	font-size			:	11px;
+	font-style			:	normal;
+	font-weight			:	bold;
+	text-align			:	left;
+	text-decoration		:	none;
+	vertical-align		:	top;
+}
+
+tr.contents
+{
+	color				:	#000000;
+	background-color	:	#FFFFFF;
+	font-family			:	Verdana, Arial, Helvetica, sans-serif;
+	font-size			:	11px;
+	font-style			:	normal;
+	font-weight			:	normal;
+	text-align			:	left;
+	text-decoration		:	none;
+	vertical-align		:	top;
+}
+
+tr.contents_warning_2
+{
+	color				:	#FF0000;
+	background-color	:	#FAC0C2;
+	font-family			:	Verdana, Arial, Helvetica, sans-serif;
+	font-size			:	11px;
+	font-style			:	normal;
+	font-weight			:	normal;
+	text-align			:	left;
+	text-decoration		:	none;
+	vertical-align		:	top;
+}
+
+td.contents_warning_2
+{
+	color				:	#FF0000;
+	background-color	:	#FAC0C2;
+	font-family			:	Verdana, Arial, Helvetica, sans-serif;
+	font-size			:	11px;
+	font-style			:	normal;
+	font-weight			:	normal;
+	text-align			:	left;
+	text-decoration		:	none;
+	vertical-align		:	top;
+	border-color		:	#000000;
+	border-style		: 	solid;
+	border-width		: 	1px;
+}
+
+tr.contents_warning_3
+{
+	color				:	#669;
+	background-color	:	#F9F8A9;
+	font-family			:	Verdana, Arial, Helvetica, sans-serif;
+	font-size			:	11px;
+	font-style			:	normal;
+	font-weight			:	normal;
+	text-align			:	left;
+	text-decoration		:	none;
+	vertical-align		:	top;
+}
+
+td.contents_warning_3
+{
+	color				:	#669;
+	background-color	:	#F9F8A9;
+	font-family			:	Verdana, Arial, Helvetica, sans-serif;
+	font-size			:	11px;
+	font-style			:	normal;
+	font-weight			:	normal;
+	text-align			:	left;
+	text-decoration		:	none;
+	vertical-align		:	top;
+	border-color		:	#000000;
+	border-style		: 	solid;
+	border-width		: 	1px;
+}
+
+tr.contents_warning_4
+{
+	color				:	#669;
+	background-color	:	#FBD28A;
+	font-family			:	Verdana, Arial, Helvetica, sans-serif;
+	font-size			:	11px;
+	font-style			:	normal;
+	font-weight			:	normal;
+	text-align			:	left;
+	text-decoration		:	none;
+	vertical-align		:	top;
+}
+
+td.contents_warning_4
+{
+	color				:	#669;
+	background-color	:	#FBD28A;
+	font-family			:	Verdana, Arial, Helvetica, sans-serif;
+	font-size			:	11px;
+	font-style			:	normal;
+	font-weight			:	normal;
+	text-align			:	left;
+	text-decoration		:	none;
+	vertical-align		:	top;
+	border-color		:	#000000;
+	border-style		: 	solid;
+	border-width		: 	1px;
+}
+
+#info-box
+{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 12px;
+	width: 100%;
+	text-align: left;
+	/*border-collapse: collapse;*/
+}
+#info-box th
+{
+	font-size: 14px;
+	font-weight: normal;
+	padding: 12px 15px;
+	color: #039;
+}
+#info-box td
+{
+	padding: 5px 10px;
+	border-top: 1px solid #e8edff;
+	border-right: 1px solid #e8edff;
+	border-bottom: 1px solid #e8edff;
+}
+
+/***********unijaya*******/
+#unijaya
+{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 12px;
+	/*margin: 45px;*/
+	width: 100%;
+	text-align: left;
+	/*border-collapse: collapse;*/
+}
+#unijaya thead th.rounded-company
+{
+	background: #b9c9fe url('/Zend_/template/public/images/table-images/left.png') left -1px no-repeat;
+}
+#unijaya thead th.rounded-q4
+{
+	background: #b9c9fe url('/Zend_/template/public/images/table-images/right.png') right -1px no-repeat;
+}
+#unijaya th
+{
+	padding: 8px;
+	font-weight	:bold;
+	font-size: 13px;
+	color: #039;
+	background: #eeeeee;
+	border: 1px solid #cccccc;
+}
+#unijaya td
+{
+	padding: 5px;
+	background: #ffffff;
+	border: 1px solid #cccccc;
+	color: #669;
+}
+#unijaya td a:hover { text-decoration:none; }
+#unijaya tfoot td.rounded-foot-left
+{
+	background: #e8edff url('/Zend_/template/public/images/table-images/botleft.png') left bottom no-repeat;
+}
+#unijaya tfoot td.rounded-foot-right
+{
+	background: #e8edff url('/Zend_/template/public/images/table-images/botright.png') right bottom no-repeat;
+}
+#unijaya tbody tr:hover td
+{
+	background: #d0dafd;
+}
+
+/**merah**/
+#unijaya td.contents_warning_2{ color:#FF0000; background:#FAC0C2;}
+#unijaya td.contents_warning_2_no{ color:#FF0000; background:#FAC0C2; text-align:center;}
+
+
+#unijaya td.contents_warning_3{ color:#669; background:#F9F8A9;}
+#unijaya td.contents_warning_3_no{ color:#669; background:#F9F8A9; text-align:center;}
+
+/***kaler oren***/
+#unijaya td.contents_warning_4{ color:#669; background:#FBD28A;} 
+#unijaya td.contents_warning_4_no{ color:#669; background:#FBD28A; text-align:center;}

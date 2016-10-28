@@ -1,0 +1,97 @@
+<?php
+	$arr_kronologi 	= array(
+						'1' => array(
+								'penerangan' => 'Aduan Baru',
+								'nama' => $this->aduan->insert_by,
+								'tarikhterima' => $this->aduan->insert_date,
+								'tarikhselesai' => $this->aduan->insert_date,
+								//'jangkamasa' => 'Tidak Lewat',
+						),
+						'2' => array(
+								'penerangan' => 'Pengesahan Penyelia',
+								'nama' => $this->aduan->penyelia_user,
+								'tarikhterima' => $this->aduan->insert_date,
+								'tarikhselesai' => $this->aduan->penyelia_date,
+								//'jangkamasa' => 'Tidak Lewat',
+						),
+						'3' => array(
+								'penerangan' => 'Kelulusan Pegawai BPM',
+								'nama' => $this->aduan->pegawai_user,
+								'tarikhterima' => $this->aduan->penyelia_date,
+								'tarikhselesai' => $this->aduan->pegawai_date,
+								//'jangkamasa' => '-',
+						),
+						'4' => array(
+								'penerangan' => 'Tindakan Staf BPM',
+								'nama' => $this->aduan->pegawai_staf,
+								'tarikhterima' => $this->aduan->pegawai_date,
+								'tarikhselesai' => $this->aduan->staf_date,
+								//'jangkamasa' => '-',
+						),
+					);
+?>
+	<div class="entry-edit">
+		<div class="fieldset " id="group_fields63">
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+					<col />
+					<col class="oce-first" />
+					<col />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td height="40px" colspan="4" class="title" style="text-align:center;"><span style="font-size:18px;text-align:center"><strong><?= $this->translate->_('Kronologi Aduan') ?></strong></span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<br />
+			<div class="fieldset" id="group_fields63">
+			<table width="100%" cellpadding="5" cellspacing="1">
+				<!--<tr>
+					<td width="10%"><strong>Petunjuk:</strong></td>
+					<td width="30px" style="border:solid 1px #000000"></td>
+					<td width="20%" align="left" valign="top"> <nobr>Tidak Lewat</nobr></td>
+					<td width="30px" class="contents_warning_2"></td>
+					<td width="60%" align="left" valign="top"> <nobr>Lewat</nobr></td>
+				</tr>-->
+			</table>
+			</div>
+			<br/>
+			<?= $this->cronology; ?>
+			<br/>
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<tbody>
+					<tr>
+						<td width="5%" align="center" class="oce-first" rowspan="2"><strong>Bil</strong></td>
+						<td width="20%" align="center" class="oce-first" rowspan="2"><strong>Penerangan</strong></td>
+						<td width="35%" align="center" class="oce-first" rowspan="2"><strong>Kumpulan Pengguna (Nama Pegawai)</strong></td>
+						<td width="40%" align="center" class="oce-first" colspan="2"><strong>Tarikh (Masa)</strong></td>
+						<!--<td width="15%" align="center" class="oce-first" rowspan="2"><strong>Jangka Masa</strong></td>-->
+					</tr>
+					<tr>
+						<td width="20%" align="center" class="oce-first"><strong>Terima</strong></td>
+						<td width="20%" align="center" class="oce-first"><strong>Tindakan</strong></td>
+					</tr>
+					<?php
+						foreach ($arr_kronologi as $key => $value)
+						{
+							echo "<tr ";
+							//if($key == 2)
+								//echo " class='contents_warning_2'";
+							//else
+							//	echo "";
+							echo ">";
+							
+							echo "	<td align='center' valign='top'>".$key."</td>";
+							
+							foreach($value as $detail)
+								echo "<td valign='top'>".$detail."</td>";
+							
+							echo "</tr>";
+						}
+					?>
+				</tbody>
+			</table>	
+		</div>	

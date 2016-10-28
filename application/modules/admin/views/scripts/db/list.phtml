@@ -1,0 +1,43 @@
+<script language="Javascript">
+	function filters()
+	{
+		var style = document.getElementById('filter').style.display;
+		
+		if(style == "none")
+			document.getElementById('filter').style.display = "";
+		else if(style == "")
+			document.getElementById('filter').style.display = "none";
+	}
+</script>
+<div class="content-header">
+	<table cellspacing="0">
+	    <tr>
+	        <td style="width:50%;"><h3 class="icon-head head-customer"><?= $this->translate->_('Senarai Fail Backup') ?></h3></td>
+	        <td class="a-right">
+	            <button type="button" class="add" onclick="setLocation('<?= SYSTEM_URL ?>/admin/db/backup')" style=""><span><?= $this->translate->_('Backup') ?></span></button>        
+	        </td>
+	    </tr>
+	</table>
+</div>
+<? //= $this->pages; ?><br>
+<?php
+
+
+?>
+<!--
+<table id="unijaya" width="100%"  align="center" cellspacing="1" >
+	<tr>
+		<th width="10%">Bil</th>
+		<th>Nama Fail</th>
+		<th>Saiz</th>
+		<th>Tarikh Backup</th>
+		<th>Aktiviti</th>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td class="alt   " >zend_template.1243482282.sql</td>
+		<td class="alt   " ></td>
+		<td class="alt   " >2009-05-28 11:44:42</td>
+		<td><a href='javascript:popUp("/Zend_template/admin/db/view/id/1","info",false,"")' target=""><img src="/Zend_template/public/images/icon/view.png" title="Muat Turun"></a>&nbsp;<a href="/Zend_template/admin/db/import/id/1" target="_blank"><img src="/Zend_template/public/images/icon/dload.png" title="Muat Turun"></a>&nbsp;<a href='javascript:popUp("/Zend_template/admin/db/restore/id/1","info",false,"")' target=""><img src="/Zend_template/public/images/icon/restore.png" title="Restore"></a>&nbsp;<a href="/id/1" target=""><img src="/Zend_template/public/images/icon/" title=""></a><a onclick="confirmSetLocation('Are you sure?', '/Zend_template/admin/user/delete/id/1')"><img src="/Zend_template/public/images/icon/del.png" title="Hapus Pengguna" style="cursor:pointer;">&nbsp;<strong></strong></a>&nbsp;</td>
+	</tr>
+</table>-->

@@ -1,0 +1,27 @@
+	
+	<?php
+		//print_r($this->rowset);
+		//echo $this->rowset->usr_foto;
+		if(isset($this->rowset->usr_foto) OR $this->rowset->usr_foto <> NULL){
+			$foto = UPLOAD_URL.'pesara/'.$this->rowset->usr_foto;
+		} else {
+			$foto = IMAGES_PATH.'nophoto.jpg';
+		}
+		//echo $foto;
+	?>
+	
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+			<table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#CCCCCC" id="info-box">
+				<tr class="contents">
+					<td height="25%" align="left" valign="middle" bgcolor="#EFEFEF" class="head"><strong>Nama Pengguna</strong></td>
+					<td align="left" valign="middle" bgcolor="#FFFFFF" class="big-red"><?= Zend_Auth::getInstance()->getIdentity()->usr_fullname ?></td>
+					<td height="150px" rowspan="2" width="10%"><img src="<?= $foto ?>" height="150px"></td>
+				</tr>
+				<tr class="contents">
+					<td width="25%" height="20" align="left" valign="middle" bgcolor="#EFEFEF" class="head"><strong>No Kad Pengenalan</strong></td>
+					<td align="left" valign="middle" bgcolor="#FFFFFF" class="big-blue"><?= Zend_Auth::getInstance()->getIdentity()->usr_identno ?></td>
+				</tr>
+			</table>
+		</div>
+	</div>

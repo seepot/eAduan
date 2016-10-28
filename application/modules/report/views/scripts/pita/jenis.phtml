@@ -1,0 +1,25 @@
+<script language="Javascript" src="<?= system_path."/library/report/FusionCharts/FusionCharts.js"; ?>"></script>
+<form name="frm_name" id="frm_name" method="post" action="<?= Zend_Controller_Front::getInstance()->getBaseUrl()."/report/pita/jenis"?>">
+	<table class="contents" width="100%" cellpadding="5" cellspacing="1" border="0">
+	<tr class="contents">
+		<td valign="top" class="label" width="20%">Jenis</td>
+		<td width="70%">
+			<select name="select_jenis[]" size="6" multiple="multiple" id="select_jenis" >
+            <?php 
+				foreach($this->pita as $key => $pita){
+					echo  "<option value=\"".$key."\" \>"
+						.$pita
+						."</option>";
+				}
+?>
+        </select>
+		</td>
+	</tr>
+	<tr class="contents">
+		<td colspan="2" align="center"><input type="submit" value=" Hantar " /></td>
+	</tr>
+	</table>
+	<br />
+</form>
+
+<input type="button" name="cmd_back" value="Kembali" onClick="history.back()">

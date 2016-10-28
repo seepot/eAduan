@@ -1,0 +1,65 @@
+<form enctype="multipart/form-data" action="" method="POST">	
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-user"><?= $this->translate->_('Upload Senarai Pelarasan Pencen') ?></h3></td>
+		        <td class="a-right">
+		           <button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Back') ?></span></button>            	    <button type="submit" class="scalable save" name="submit" id="submit" style=""><span><?= $this->translate->_('Upload') ?></span></button>
+	            </td>
+		    </tr>
+		</table>
+	</div>
+<?php
+
+if(isset($_POST['file_upload'])){
+
+
+} else {
+?>
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+			
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+					<col/>
+				</colgroup>
+				<tbody>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Tahun') ?></td>
+						<td><input name="tahun" type="text" /></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Bulan') ?></td>
+						<td>
+							<select name="bulan">
+							  <option value="1">Januari</option>
+							  <option value="2">Februari</option>
+							  <option value="3">Mac</option>
+							  <option value="4">April</option>
+							  <option value="5">Mei</option>
+							  <option value="6">Jun</option>
+							  <option value="7">Julai</option>
+							  <option value="8">Ogos</option>
+							  <option value="9">September</option>
+							  <option value="10">Oktober</option>
+							  <option value="11">November</option>
+							  <option value="12">Disember</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Pilih fail') ?></td>
+						<td><input name="file" type="file" /></td>
+					</tr>
+				</tbody>
+			</table>
+			<input type="hidden" name="file_upload" value="1" />
+		</div>	
+	</div>		
+</form> 
+
+
+<?php
+}
+?>

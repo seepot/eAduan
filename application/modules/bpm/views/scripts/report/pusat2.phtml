@@ -1,0 +1,59 @@
+<script language="Javascript" src="<?= system_path."/library/report/FusionCharts/FusionCharts.js"; ?>"></script>
+<form name="frm_name" id="frm_name" method="post" action="<?= Zend_Controller_Front::getInstance()->getBaseUrl()."/pesara/report/pusat2"?>">
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-user"><?= $this->translate->_('Laporan Mengikut Pusat Pendaftaran') ?></h3></td>
+		        <td class="a-right">
+		            <button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Kembali') ?></span></button>
+	                <button type="reset" name="reset" id="reset" style=""><span><?= $this->translate->_('Semula') ?></span></button>  
+	                <button type="submit" class="scalable save" name="submit" id="submit" style=""><span><?= $this->translate->_('Hantar') ?></span></button>  
+	                
+	            </td>
+		    </tr>
+		</table>
+	</div>
+	<table class="contents" width="100%" cellpadding="5" cellspacing="1" border="0">
+		<tr class="contents">
+			<td valign="top" class="label" width="20%">Pusat Pendaftaran</td>
+			<td width="70%">
+				<select name="select_jenis[]" size="6" multiple="multiple" id="select_jenis" >
+				<?php 
+					foreach($this->kump as $key => $kump){
+						echo  "<option value=\"".$key."\" \>"
+							.strtoupper($kump)
+							."</option>";
+					}
+				?>
+			</select>
+			</td>
+		</tr>
+	</table>
+	<br />
+</form>
+<?php 
+	if(isset($_POST['submit'])){
+	
+	/******Enable Dojo**********/
+	$this->dojo()->enable(); 
+	// Container with tabs
+	$this->tabContainer()->captureStart('pita', array(), array('style' => 'width:100%;text-align:left;', 'doLayout'=>'false', 'tabPosition'=>'top')); 
+		//Tab kedua "Maklumat Pekerjaan"
+		$this->contentPane()->captureStart('graf', array(), array('title' => 'Graf', 'selected' => ($this->tab == 'graf' ? 'true' : 'false')));
+		echo $this->chart;
+		echo "<br>";
+		
+		echo $this->contentPane()->captureEnd('graf');
+		/**************End Tab 2******************/ 
+		// First tab "statistik"
+		$this->contentPane()->captureStart('statistik', array(), array('title' => 'Statistik', 'selected' => ($this->tab == 'statistik' ? 'true' : 'false')));
+		include('stat_user.phtml');
+		echo $this->contentPane()->captureEnd('statistik');
+		/**************End Tab 1******************/
+		
+	echo $this->tabContainer()->captureEnd('pita'); 
+	/**************End Container******************/
+	
+	//echo "<input type=\"button\" name=\"cmd_back\" value=\"Kembali\" onClick=\"history.back()\">";
+	}
+?>

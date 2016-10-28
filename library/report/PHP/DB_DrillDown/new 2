@@ -1,0 +1,21 @@
+$strXML .= "<set name='" . datePart("d",$ors['day']) . "/" . datePart("m",$ors['day']) . "' value='" . $ors['jumlah'] . "' color='" . getFCColor() . "' link='n- ".$sys_config['system_url']."?mod=report&opt=pita_all&bln_thn=" . $bln_thn . "'/>";
+
+
+
+
+SELECT (SELECT syk_name FROM tbl_syk WHERE tbl_syk.syk_id = tbl_flm_tape.syk_id) AS nama_syarikat, COUNT( syk_id ) 
+FROM `tbl_flm_tape` 
+WHERE DATE_FORMAT( `flm_tape_tkh` , '%Y-%m-%d' ) = '2007-12-03'
+AND (
+flm_tape = 'PITA'
+OR flm_tape = 'pita'
+)
+AND jenis_id =1
+AND syk_id NOT 
+IN (
+
+SELECT syk_id
+FROM tbl_syk
+WHERE stesyen_tv =1
+)
+GROUP BY syk_id

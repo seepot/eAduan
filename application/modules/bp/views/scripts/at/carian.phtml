@@ -1,0 +1,116 @@
+<form action="" method="POST">
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-user"><?= $this->translate->_('Carian No AT') ?></h3></td>
+		        <td class="a-right">
+		            <button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Kembali') ?></span></button>
+	                <button type="reset" name="reset" id="reset" style=""><span><?= $this->translate->_('Semula') ?></span></button>  
+	                <button type="submit" class="scalable save" name="submit" id="submit" style=""><span><?= $this->translate->_('Cari') ?></span></button>  
+	                
+	            </td>
+		    </tr>
+		</table>
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+	    	<p class="box"><?= $this->translate->_('Sila masukkan maklumat pada ruangan di bawah.') ?> <span class="required2">* <?= $this->translate->_('Diperlukan') ?></span></p>
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td width="25%"><?= $this->translate->_('Carian') ?></td>
+						<td><input name="txt_carian" type="text" value="<?= isset($_POST['txt_carian']) ? $_POST['txt_carian'] : '' ?>" /></td>
+					</tr>
+					<tr>
+						<td width="25%"><?= $this->translate->_('Jenis Carian') ?></td>
+						<td>
+							<input type="radio" name="rad_type" value="no_ic" checked>&nbsp;No IC<br/>
+							<input type="radio" name="rad_type" value="nama">&nbsp;Nama
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>	
+	</div>
+</form>	
+
+<?php if($this->carianSuccess): ?>
+    <p class="success"><?= $this->translate->_('Senarai keputusan carian') ?></p> 
+	
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+			<table cellpadding="5" cellspacing="1"  id="unijaya" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th width="50%"><?= $this->translate->_('Nama') ?></th>
+						<th width="25%"><?= $this->translate->_('No IC') ?></th>
+						<th width="25%"><?= $this->translate->_('No AT') ?></th>
+					</tr>
+				</thead>	
+				<tbody>
+<?php
+		$server = 'NEWSERVER\JHEVINTRA2';
+		$db = '[Pertanyaan Pencen]';
+
+		// Connect to MSSQL
+		$link = mssql_connect($server, 'sa', '');
+
+		//mssql_select_db('Pertanyaan Pencen', $link);
+		
+		if (!$link || !mssql_select_db($db, $link)) {
+			die('Unable to connect or select database!');
+		}
+		
+		if(isset($_POST['txt_carian'])){
+			$rad_type = $_POST['rad_type'];
+			
+			$query = 'SELECT PENIC, PENOLDIC, PENNAME, ACCNOAKAUN
+									FROM PENSIONER062004 
+									LEFT OUTER JOIN ACCOUNT062004
+									ON PENSIONER062004.PENIC = ACCOUNT062004.F101PENIC
+									WHERE ';
+			
+			if($rad_type == 'nama'){
+				$query .=	'( PENNAME LIKE "%'.$_POST['txt_carian'].'%")';
+			} else if($rad_type == 'no_ic'){
+				$query .=	'(PENIC LIKE "%'.$_POST['txt_carian'].'%")
+							OR (PENOLDIC LIKE "%'.$_POST['txt_carian'].'%")';
+			}
+			//echo $query;
+			$query = mssql_query($query);
+			
+			// Check if there were any records
+			if (!mssql_num_rows($query)) {
+				echo 'No records found';
+			} else {
+				// Print a nice list of users in the format of:
+				// * name (username)
+				
+				while ($row = mssql_fetch_object($query)) {
+					//echo '<li>' . $row->PENNAME . ' (' . $row->PENIC . ', ' . $row->ACCNOAKAUN . ')</li>';
+					echo '<tr>';
+					echo '<td>' .$row->PENNAME. '</td>';
+					echo '<td>' .$row->PENIC. '</td>';
+					echo '<td>' .$row->ACCNOAKAUN. '</td>';
+					echo '</tr>';
+				}
+
+				
+			}
+
+			// Free the query result
+			mssql_free_result($query);
+		
+		}
+?>
+				</tbody>
+			</table>
+		</div>	
+	</div>
+<?php endif; ?>

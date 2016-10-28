@@ -1,0 +1,161 @@
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-user-edit">Profil Pengguna</h3></td>
+		    </tr>
+		</table>
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+			<table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#CCCCCC" id="info-box">
+				<tr class="contents">
+					<td height="25%" align="left" valign="top" bgcolor="#EFEFEF" class="head"><strong>Nama Pengguna</strong></td>
+					<td align="left" valign="top" bgcolor="#FFFFFF" class="big-red"><?= Zend_Auth::getInstance()->getIdentity()->usr_id ?></td>
+					
+				</tr>
+				<tr class="contents">
+					<td width="25%" height="20" align="left" valign="top" bgcolor="#EFEFEF" class="head"><strong>No Kad Pengenalan</strong></td>
+					<td align="left" valign="top" bgcolor="#FFFFFF" class="big-blue"><?= Zend_Auth::getInstance()->getIdentity()->usr_identno ?></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div id="mainTabContainer" dojoType="dijit.layout.TabContainer" doLayout="false" tabPosition="top" style="width:100%;">
+		<div id="personal" dojoType="dijit.layout.ContentPane" title="Maklumat Peribadi" <?= ($this->tab == 'personal' ? "selected=\"true\"" : "") ?> style="padding:10px;">
+	
+		<?php if($this->failedValidation): ?>
+			<p class="error">Terdapat masalah semasa kemaskini maklumat peribadi.</p> 
+		<?php endif; ?>
+
+		<?php if($this->profilSaved): ?>
+			<p class="success">Kemaskini maklumat peribadi berjaya</p>
+			<meta http-equiv="refresh" content=1;URL="personal">
+		<?php else: ?>
+
+			<form action="<?= $this->escape($this->form->getAction()) ?>" method="<?= $this->escape($this->form->getMethod()) ?>">
+			
+			<div class="entry-edit">
+				<div class="fieldset " id="group_fields63">
+					<p class="box">Sila masukkan maklumat pada ruangan di bawah. <span class="required2">* Diperlukan</span></p>
+					<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="98%">
+						<colgroup>
+							<col class="oce-first" />
+							<col>
+							<col class="oce-first" />
+							<col>
+						</colgroup>
+						<tbody>
+							<tr>
+								<td width="20%">Nama&nbsp;<span class="required2">*</span></td>
+								<td colspan="3"><?= $this->form->realname ?></td>
+							</tr> 
+							<tr>
+								<td>Email&nbsp;<span class="required2">*</span></td>
+								<td colspan="3"><?= $this->form->email ?></td>
+							</tr>
+							<tr>
+								<td>Tarikh Lahir</td>
+								<td width="30%"><?= $this->form->date_bday ?></td>
+								<td>Umur</td>
+								<td width="30%"><?= $this->form->age ?></td>
+							</tr>
+							<tr>
+								<td>Agama</td>
+								<td><?= $this->form->religion ?></td>
+								<td>Jantina</td>
+								<td><?= $this->form->gender ?></td>
+							</tr>
+							<tr>
+								<td>Warganegara</td>
+								<td><?= $this->form->nationality ?></td>
+								<td>Status Perkahwinan</td>
+								<td><?= $this->form->marital ?></td>
+							</tr>
+							<tr>
+								<td>Pendidikan</td>
+								<td colspan="3"><?= $this->form->education ?></td>
+							</tr>
+							<tr>
+								<td valign="top">Alamat Rumah</td>
+								<td colspan="3"><?= $this->form->address ?></td>
+							</tr>
+							<tr>
+								<td>Poskod</td>
+								<td><?= $this->form->poscode ?></td>
+								<td>Bandar</td>
+								<td><?= $this->form->city ?></td>
+							</tr>
+							<tr>
+								<td>Negeri</td>
+								<td><?= $this->form->state ?></td>
+								<td>Negara</td>
+								<td><?= $this->form->country ?></td>
+							</tr>
+							<tr>
+								<td>No Telefon (R)</td>
+								<td><?= $this->form->phone ?></td>
+								<td>No Telefon (M)</td>
+								<td><?= $this->form->mobile ?></td>
+							</tr>
+						</tbody>
+					</table>
+					<!--<button id="submit" name="submit" type="submit" dojoType="dijit.form.Button">Submit!</button>-->
+					
+				</div>	
+			</div>
+			<div class="entry-edit">
+				<div class="fieldset" style="text-align:center;">
+					<?= $this->form->reset ?>&nbsp;
+					<button type="submit" class="scalable save" name="submit" id="submit" style=""><span>Kemaskini</span></button>  
+				</div>
+			</div>
+			</form>
+		<?php endif; ?>
+		</div>
+		<div id="occupation" dojoType="dijit.layout.ContentPane" title="Maklumat Pekerjaan" style="padding:10px;">
+
+		</div>
+		<div id="password" dojoType="dijit.layout.ContentPane" title="Tukar Kata Laluan" <?= ($this->tab == 'password' ? "selected=\"true\"" : "") ?> style="padding:10px;">
+		<?php if($this->failedValidationPassword): ?>
+			<p class="error">Terdapat masalah semasa kemaskini kata laluan.</p> 
+		<?php endif; ?>
+		<?php if($this->profilSaved): ?>
+			<p class="success">Tukar kata laluan berjaya.</p>
+			<meta http-equiv="refresh" content=1;URL="personal">
+		<?php else: ?>
+			<form action="<?= $this->escape($this->form_password->getAction()) ?>" method="<?= $this->escape($this->form_password->getMethod()) ?>">
+			<div class="entry-edit">
+				<div class="fieldset">
+					<p class="box">Anda boleh menukar kata laluan anda pada ruangan di bawah ini.</p>
+					<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="98%">
+						<colgroup>
+							<col class="oce-first" />
+							<col>
+						</colgroup>
+						<tbody>
+							<tr>
+								<td width="20%">Kata Laluan Lama</td>
+								<td><?= $this->form_password->oldpassword ?></td>
+							</tr>
+							<tr>
+								<td width="20%">Kata Laluan Baru</td>
+								<td><?= $this->form_password->newpassword1 ?></td>
+							</tr>
+							<tr>
+								<td width="20%">Kata Laluan Baru (Semula)</td>
+								<td><?= $this->form_password->newpassword2 ?></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="entry-edit">
+				<div class="fieldset" style="text-align:center;">
+					<button name="reset" id="reset" type="reset" class="scalable">Semula</button>&nbsp;
+					<button type="submit" class="scalable save" name="submit" id="submit" style=""><span>Kemaskini</span></button>  
+				</div>
+			</div>
+			</form>
+		<?php endif; ?>
+		</div>
+	</div>

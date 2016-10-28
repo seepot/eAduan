@@ -1,0 +1,94 @@
+<div class="content-header">
+	<table cellspacing="0">
+	    <tr>
+	        <td style="width:50%;"><h3 class="icon-head head-customer"><?= $this->translate->_('Audit Trail') ?></h3></td>
+	        <td class="a-right">
+	            <!--<button type="button" class="add" onclick="setLocation('<?= $this->url ?>/admin/state/add')" style=""><span><?= $this->translate->_('Tambah') ?></span></button>--> 
+	        </td>
+	    </tr>
+	</table>
+</div>
+<?php
+
+	$arr_senarai = array(
+					'0' => array(
+						'nama' => 'Mohd Tengku Sembok',
+						'modul' => 'PPP',
+						'tugasan' => 'Ulasan Premis',
+						'tarikh' => '10-6-2008',
+						'ip' => '202.185.46.246'
+					),
+					'1' => array(
+						'nama' => 'Hailani Muji Tahir',
+						'modul' => 'PPP',
+						'tugasan' => 'Kelulusan Premis',
+						'tarikh' => '11-6-2008',
+						'ip' => '202.185.46.240'
+					),
+					'2' => array(
+						'nama' => 'Zulaiha Ali Othman',
+						'modul' => 'TG',
+						'tugasan' => 'Semakan Permohonan Lesen',
+						'tarikh' => '12-6-2008',
+						'ip' => '202.185.46.244'
+					),
+					'3' => array(
+						'nama' => 'Azimin Tazilan Bin Mohd Tazilan',
+						'modul' => 'TG',
+						'tugasan' => 'Serahan Kad Pemandu Pelancong',
+						'tarikh' => '20-6-2008',
+						'ip' => '202.185.46.216'
+					),
+					'4' => array(
+						'nama' => 'Kamaruzaman Sopian',
+						'modul' => 'PPP',
+						'tugasan' => 'Masukkan Rating Hotel',
+						'tarikh' => '30-6-2008',
+						'ip' => '202.185.46.248'
+					)
+				);
+
+?>
+<input type="hidden" name="inputId" id="inputId">
+<table id="unijaya" width="100%"  align="center" cellspacing="1" >
+	<tr>
+		<th align="center" width="5%"><nobr>Bil&nbsp;&nbsp;&nbsp;<a href='#' onClick="filters()"><img title='<?= $this->translate->_('Carian') ?>' src="<?= IMAGES_PATH ?>spt/narrow_by_li_by.gif"></a><nobr></th>
+		<th width="25%"><a href='#'>Nama Pengguna</a></th>
+		<th width="15%"><a href='#'>Modul</a></th>
+		<th width="20%"><a href='#'>Tugasan</a></th>
+		<th width="15%"><a href='#'>Tarikh</a></th>
+		<th width="10%"><a href='#'>Alamat IP</a></th>
+	</tr>
+
+	<?php
+		$int_counter = 0;
+		
+		$xtvt = "
+				<a href='ratedinfo'><img src='".IMAGES_PATH."icon/view.png' title='Papar'>&nbsp;</a>
+				<a href='#'><img src='".IMAGES_PATH."icon/del.png' title='Hapus Rekod'>&nbsp;</a>
+		";
+		
+		foreach ($arr_senarai as $key => $value){
+			//print_r($value);
+			$int_counter++;
+			echo "<tr>";
+			echo "<td align='center'>".$int_counter."</td>";
+			foreach($value as $detail){
+				echo "<td>$detail</td>";
+			}
+			echo "</tr>";
+		}
+	?>
+	<tr>
+		<td class="barra_tabela" colspan="6">
+			<div style="padding:2px;">
+				<div style="float:left;text-align:left;width:20%;">
+					<a target='_blank' href='#'><img title="PDF"  src="<?= IMAGES_PATH ?>icon/pdf.gif"  border="0"></a>
+					<a target='_blank' href='#'><img src="<?= IMAGES_PATH ?>icon/print.gif" border="0"></a>
+				</div>
+				<div style="float:left;text-align:center;width:60%;"> <em>(1 hingga <?= count($arr_senarai); ?> dari <?= count($arr_senarai); ?>)</em>  | </div>
+				<div style="float:right;width:20%;"></div>
+			</div>
+        </td>
+	</tr>
+</table>

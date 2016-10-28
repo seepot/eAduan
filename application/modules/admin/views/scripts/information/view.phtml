@@ -1,0 +1,41 @@
+
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-newsletter-list"><?= $this->translate->_('Kemaskini Informasi Sistem') ?></h3></td>
+		        <td class="a-right">
+		           <button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Kembali') ?></span></button>            	           	            	                    
+	               <? //= $this->form->reset ?>  
+	               <button type="submit" class="scalable save" name="submit" id="submit" style=""><span><?= $this->translate->_('Kemaskini') ?></span></button>  
+	            </td>
+		    </tr>
+		</table>
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset " id="group_fields63">
+	    	<p class="box"><?= $this->translate->_('Sila masukkan maklumat pada ruangan di bawah.') ?></p>
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td width="25%"><?= $this->translate->_('Nama') ?></td>
+						<td><?= $this->rowset['ipage_name'] ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Keterangan') ?></td>
+						<td><?= $this->rowset['ipage_desc'] ?></td>
+					</tr>
+					<tr>
+						<td colspan="2"><?= $this->translate->_('Kandungan') ?></td>
+					</tr>
+					<tr>
+						<td colspan="2" style="background:#FFFFFF"><?= $this->rowset['ipage_content'] ?></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>	
+	</div>
+
+			

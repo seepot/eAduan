@@ -1,0 +1,47 @@
+<div class="entry-edit">
+		<div class="fieldset " id="group_fields63">
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+					<col />
+					<col class="oce-first" />
+					<col />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td height="40px" colspan="4" class="title" style="text-align:center;"><span style="font-size:18px;text-align:center"><strong><?= $this->translate->_('Maklumat Pengadu') ?></strong></span>
+						</td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Nama') ?></td>
+						<td><?= $this->function->getFullNameById($this->aduan->insert_by) ?></td>
+					</tr> 
+					<tr>
+						<td><?= $this->translate->_('No Kad Pengenalan') ?></td>
+						<td><?= $this->function->getNoKpById($this->aduan->insert_by) ?></td>
+					</tr> 
+					<tr>
+						<td><?= $this->translate->_('No Jabatan') ?></td>
+						<td><?= $this->function->getNoJabatanById($this->aduan->insert_by) ?></td>
+					</tr> 
+					<tr>
+						<td><?= $this->translate->_('Bahagian') ?></td>
+						<td><?= $this->function->getDeptById($this->aduan->insert_by) ?></td>
+					</tr> 
+					<tr>
+						<td><?= $this->translate->_('Unit') ?></td>
+						<td><?= $this->function->getUnitById($this->aduan->insert_by) ?></td>
+					</tr> 
+					<tr>
+						<td><?= $this->translate->_('Jawatan') ?></td>
+						<td><?= $this->function->getPositionById($this->aduan->insert_by) ?></td>
+					</tr> 
+					<tr>
+						<td><?= $this->translate->_('No Telefon Pejabat') ?></td>
+						<td><?= $this->function->getPhoneNoById($this->aduan->insert_by) ?></td>
+					</tr> 
+				</tbody>
+			</table>
+			<br />
+		</div>	
+	</div>

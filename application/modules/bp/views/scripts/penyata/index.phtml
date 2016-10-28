@@ -1,0 +1,48 @@
+<div class="content-header">
+	<table cellspacing="0">
+		<tr>
+			<td style="width:50%;"><h3 class="icon-head head-user"><?= $this->translate->_('Senarai Semak') ?></h3></td>
+			<td class="a-right">
+				
+			</td>
+		</tr>
+	</table>
+</div>
+<p align="left"><strong>Maklumat Pencen</strong></p>
+<div class="entry-edit">
+	<div class="fieldset" id="group_fields63">
+		<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+			<colgroup>
+				<col class="oce-first" />
+			</colgroup>
+			<tbody>
+				<tr>
+					<td width="25%"><?= $this->translate->_('Jenis Penerima') ?></td>
+					<td><?= (isset($this->rowset->pesara_jenispenerima) || $this->rowset->pesara_jenispenerima = 0 )? strtoupper($this->func->getJenisPenerimaById($this->rowset->pesara_jenispenerima)) : 'TIADA MAKLUMAT' ?></td>
+				</tr>
+				<?php if($this->rowset->pesara_jenispenerima == 1): ?>
+				<tr>
+					<td><?= $this->translate->_('No Tentera') ?></td>
+					<td><?= isset($this->rowset->pesara_notentera) ? $this->rowset->pesara_notentera : 'TIADA MAKLUMAT' ?></td>
+				</tr>
+				<?php elseif($this->rowset->pesara_jenispenerima == 2): ?>
+				<tr>
+					<td><?= $this->translate->_('No MyKad') ?></td>
+					<td><?= isset($this->rowset->usr_identno) ? $this->rowset->usr_identno : 'TIADA MAKLUMAT' ?></td>
+				</tr>
+				<?php endif; ?>
+			</tbody>
+		</table>
+		<ul>
+		
+		</ul>
+	</div>
+</div>
+
+		<?php if($this->rowset->pesara_jenispenerima == 0): ?>
+			<p class="error"><?= $this->translate->_('Sila kemaskini profil terlebih dahulu dan pastikan maklumat peribadi, maklumat perkhidmatan serta maklumat pencen dimasukkan. Sekiranya maklumat tidak lengkap, penyata tidak akan dipapar. Sekian makluman.') ?></p> 
+		<?php elseif($this->rowset->pesara_jenispenerima == 1 AND $this->rowset->pesara_notentera == NULL) : ?>
+			<p class="error"><?= $this->translate->_('Sila kemaskini profil terlebih dahulu dan pastikan maklumat peribadi, maklumat perkhidmatan serta maklumat pencen dimasukkan. Sekiranya maklumat tidak lengkap, penyata tidak akan dipapar. Sekian makluman.') ?></p> 
+		<?php elseif($this->rowset->pesara_jenispenerima == 2 AND $this->rowset->pesara_notentera == NULL) : ?>
+			<p class="error"><?= $this->translate->_('Sila kemaskini profil terlebih dahulu dan pastikan maklumat peribadi, maklumat perkhidmatan serta maklumat pencen dimasukkan. Sekiranya maklumat tidak lengkap, penyata tidak akan dipapar. Sekian makluman.') ?></p> 
+		<?php endif; ?>

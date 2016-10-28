@@ -1,0 +1,62 @@
+
+	<?php //include('info.phtml'); ?>
+	<? //= $this->func_tab; ?>
+	<div class="entry-edit">
+		<div class="fieldset " id="group_fields63">
+			</p>
+			<input type="hidden" id="pesara_id" name="pesara_id" value="<?= $this->pesara_id; ?>">
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+					<col />
+					<col class="oce-first" />
+					<col />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td height="40px" colspan="4" class="title" style="text-align:center;"><span style="font-size:18px;text-align:center"><strong><?= $this->translate->_('Tindakan') ?></strong></span>
+						</td>
+					</tr>
+					<tr>
+						<td width = "20%"><?= $this->translate->_('Nama Staf') ?> </td>
+						<td><?= $this->function->getFullNameById($this->aduan->pegawai_staf) ?></td>
+					</tr> 
+					<tr>
+						<td width="20%"><?= $this->translate->_('Jawatan') ?> </td>
+						<td><?= $this->function->getPositionById($this->aduan->pegawai_staf) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Bahagian') ?> </td>
+						<td><?= $this->function->getDeptById($this->aduan->pegawai_staf) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Unit') ?> </td>
+						<td><?= $this->function->getUnitById($this->aduan->pegawai_staf) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('No Telefon') ?> </td>
+						<td><?= $this->function->getPhoneNoById($this->aduan->pegawai_staf) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Status Masalah') ?> </td>
+						<td><?= $this->function->getStatusMasalah($this->aduan->staf_status) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Tindakan yang diambil') ?> </td>
+						<td><?= $this->aduan->staf_tindakan ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Lampiran') ?> </td>
+						<td><a href="<?= UPLOAD_URL.'aduan/'.$this->aduan->staf_lampiran ?>" target = "_new" ><?= $this->aduan->staf_lampiran ?></a></td>
+					</tr>
+				</tbody>
+			</table>
+			<br />
+		</div>	
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" style="text-align:center;">
+			<button type="submit" class="scalable save" name="submit" id="submit"><span><?= $this->translate->_('Hantar') ?></span></button>&nbsp;
+			<button type="reset" class="scalable reset" name="reset" id="reset" style=""><span><?= $this->translate->_('Semula') ?></span></button>&nbsp;
+		</div>
+	</div>

@@ -1,0 +1,128 @@
+<?php
+	
+	if(Zend_Controller_Front::getInstance()->getRequest()->getParam('tab'))
+		$tab = Zend_Controller_Front::getInstance()->getRequest()->getParam('tab');
+	else
+		$tab = 'ulasan';
+	
+	$arr_papar	=	array(
+					'namapp' => 'Ahmad Zainol Bin Zainuddin',
+					'kppassport' => '650510141013',
+					'alamatrumah' => 'No 404, Block A<br />Kondominium Mewah, Damansara,<br />Petaling Jaya',
+					'poskod' => '47400',
+					'notel' => '-',
+					'alamathubungi' => '-',
+					'tarafkerja' => 'Bebas',
+					'namaalamatmajikan' => 'TM Tours and Travel<br />No.41, 1st Floor,<br />Jalan Tun Tan Siew Sin<br />57000 Kuala Lumpur<br />Malaysia',
+					'notelmajikan' => '0326661111',
+					'nolesen' => 'TG1357',
+					'tarikhtamat' => '09-03-2009',
+					'jenis' => 'City Guide',
+					'namapenyemak' => 'Idzihar Bin Mokhtar',
+					'tarikhsemak' => date('Y-m-d'),
+					'ulasan' => 'Ulasan',
+					'tarikhulasan' => date('Y-m-d'),
+					'namapengulas' => 'Hazim Bin Mohamad',
+					
+					'tarikhsyor' => date('Y-m-d'),
+					'perakuan' => 'Diperakukan',
+					'namaperaku' => 'Fadhullah Bin Zainal',
+					'tarikhperaku' =>  date('Y-m-d'),
+					'kelulusan' => 'Dilulusan',
+					'namapelulus' => 'Amir Bin Amran',
+					'tarikhkelulusan' =>  date('Y-m-d'),
+					);
+				
+	$arr_bahasaguna = array(
+						'1' => 'Bahasa Malaysia',
+						'2' => 'Bahasa Inggeris',
+					);
+	
+	$arr_penghantaran = array(
+						'1' => 'Melalui Sistem',
+						'2' => 'Melalui Emel',
+						'3' => 'SMS',
+					);
+?>
+<script language="Javascript">
+	function show_others(value)
+	{
+		if (document.getElementById('penghantaran[3]').checked==true)
+			document.getElementById('div_others').style.display = "";
+		else if (document.getElementById('penghantaran[3]').checked==false)
+			document.getElementById('div_others').style.display = "none";
+	}
+</script>
+
+	<div class="content-header">
+		<table cellspacing="0">
+			<tr>
+				<td style="width:50%;"><h3 class="icon-head head-sales-order">Pertanyaan</h3></td>
+				<td class="a-right">
+					<button type="submit" class="scalable back" name="submit" id="submit" style="" onClick="Javascript:history.back();"><span>Kembali</span></button>
+					<button type="reset" class="scalable reset" name="reset" id="reset" style=""><span>Semula</span></button>
+					<button type="submit" class="scalable save" name="submit" id="submit" style=""><span>Hantar</span></button>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	
+	<form action="<?= SYSTEM_URL ?>/tg/tg/syor/tab/perakuan" method="post" onSubmit="ajax_loader();" id="form_syor">
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+			<p class="box" align="left">Masukkan maklumat pada ruangan di bawah.<span class="required2"> * Diperlukan</span></p>
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<tbody>
+					<colgroup>
+						<col class="oce-first" />
+						<col>
+					</colgroup>
+					<tr>
+						<td width="20%" valign="top">Nama Penerima <span class="required2">*</span></td>
+						<td><select multiple="true" dojoType='dijit.form.MultiSelect' style="width:40%">
+							<?php
+								//foreach($arr_rayuan as $index => $value){
+									//echo "<option value='$index'>$value</option>";
+								//}
+							?> 
+						</select></td>
+					</tr>
+					<tr>
+						<td width="20%" valign="top">Pertanyaan <span class="required2">*</span></td>
+						<td><textarea id="pertanyaan" name="pertanyaan" class="medium2"
+								dojoType="dijit.form.Textarea"
+								required="true"
+								ucfirst="true" invalidMessage=""
+								style="width:60%" ></textarea> </td>
+					</tr>
+					<tr>
+						<td width="20%" valign="top">Penghantaran <span class="required2">*</span></td>
+						<td><?php
+							foreach($arr_penghantaran as $key => $value)
+							{
+								echo "	<input type='checkbox' value='$key' name='penghantaran' id='penghantaran[$key]' onClick='show_others();' ".(($key == 1)?' checked disabled ':'')." dojoType='dijit.form.CheckBox'  /> $value<br />";
+							}
+						?></td>
+					</tr>
+					<tr name="div_others" id="div_others" style="display:none">
+						<td width="20%" valign="top">Perkara SMS <span class="required2">*</span></td>
+						<td><input type="text" id="perkarasms" name="perkarasms" class="medium2"
+										dojoType="dijit.form.ValidationTextBox"
+										required="true"
+										ucfirst="true" invalidMessage=""
+										style="width:50%;" maxlength="160" /></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>	
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" style="text-align:center;">
+			<button type="submit" class="scalable save" name="submit" id="submit" style=""><span>Hantar</span></button>&nbsp;
+			<button type="reset" class="scalable reset" name="reset" id="reset" style=""><span>Semula</span></button>&nbsp;
+			<button type="submit" class="scalable back" name="submit" id="submit" style="" onClick="Javascript:history.back();"><span>Kembali</span></button>  
+				
+		</div>
+	</div>
+	</form>

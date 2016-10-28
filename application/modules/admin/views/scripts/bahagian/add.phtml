@@ -1,0 +1,42 @@
+<?php if($this->failedValidation): ?>
+    <p class="error"><?= $this->translate->_('Terdapat masalah semasa pendaftaran bahagian baru') ?></p>
+<?php endif; ?>
+
+<?php if($this->entrySaved): ?>
+    <p class="success"><?= $this->translate->_('Pendaftaran bahagian baru berjaya') ?></p>
+    <meta http-equiv="refresh" content=1;URL="list">
+<?php else: ?>
+    
+<form name="form_add" action="<?= $this->escape($this->form->getAction()) ?>" method="<?= $this->escape($this->form->getMethod()) ?>">
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-customer"><?= $this->translate->_('Tambah Bahagian') ?></h3></td>
+		        <td class="a-right">
+		            <button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Kembali') ?></span></button>            	           	            	                    
+	                <?= $this->form->reset ?>  
+	                <button type="submit" class="scalable save" name="submit" id="submit"><span><?= $this->translate->_('Simpan') ?></span></button>  
+	            </td>
+		    </tr>
+		</table>
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+	    	<p class="box"><?= $this->translate->_('Sila masukkan maklumat pada ruangan di bawah.') ?></p>
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td width="25%"><?= $this->translate->_('Nama Bahagian') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->txt_dept_name ?></td>
+					</tr>
+				</tbody>
+			</table>
+			<p class="required2" align="right">* <?= $this->translate->_('Diperlukan') ?></p>
+		</div>	
+	</div>
+</form>
+    
+<?php endif; ?>

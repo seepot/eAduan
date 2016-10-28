@@ -1,0 +1,399 @@
+<script language="JavaScript">
+var gAutoPrint = true; // Flag for whether or not to automatically call the print function
+
+function printSpecial()
+{
+
+document.getElementById("logo").style.display = "";
+
+if (document.getElementById != null)
+{
+var html = '<HTML>\n<HEAD>\n';
+
+if (document.getElementsByTagName != null)
+{
+var headTags = document.getElementsByTagName("head");
+if (headTags.length > 0)
+html += headTags[0].innerHTML;
+}
+
+html += '\n</HE' + 'AD>\n<BODY>\n';
+
+var printReadyElem = document.getElementById("printReady");
+
+if (printReadyElem != null)
+{
+html += printReadyElem.innerHTML;
+}
+else
+{
+alert("Could not find the printReady section in the HTML");
+return;
+}
+
+html += '\n</BO' + 'DY>\n</HT' + 'ML>';
+
+var printWin = window.open("","printSpecial");
+printWin.document.open();
+printWin.document.write(html);
+printWin.document.close();
+if (gAutoPrint){
+	printWin.print();
+	document.getElementById("logo").style.display = "none";
+	}
+}
+else
+{
+alert("Sorry, the print ready feature is only available in modern browsers.");
+}
+}
+
+
+
+</script>
+<link rel="Stylesheet" type="text/css" href="<?= CSS_PATH ?>GlobalStyle.css" />
+<form action="" method="POST">
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-user"><?= $this->translate->_('Penyata Pencen Online') ?></h3></td>
+		        <td class="a-right">
+		            <button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Kembali') ?></span></button>
+	                <button type="reset" name="reset" id="reset" style=""><span><?= $this->translate->_('Semula') ?></span></button>  
+	                <button type="submit" class="scalable save" name="submit" id="submit" style=""><span><?= $this->translate->_('Cari') ?></span></button>  
+	                
+	            </td>
+		    </tr>
+		</table>
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+	    	<p class="box"><?= $this->translate->_('Sila masukkan maklumat pada ruangan di bawah.') ?> </p>
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td width="25%"><?= $this->translate->_('Tahun') ?></td>
+						<td><input name="txt_tahun" type="text" value="2009" readonly /></td>
+					</tr>
+					<!--<tr>
+						<td width="25%"><?= $this->translate->_('Carian') ?></td>
+						<td><input name="txt_carian" type="text" value="<?= isset($_POST['txt_carian']) ? $_POST['txt_carian'] : '' ?>" />&nbsp;<span class="required2">* <?= $this->translate->_('No Tentera Pesara atau No Kad Pengenalan Waris') ?></span></td>
+					</tr>
+					<tr>
+						<td width="25%"><?= $this->translate->_('Jenis Carian') ?></td>
+						<td>
+							<input type="radio" name="rad_type" value="pesara" checked>&nbsp;Pesara<br/>
+							<input type="radio" name="rad_type" value="waris">&nbsp;Waris
+						</td>
+					</tr>-->
+				</tbody>
+			</table>
+			<input type="hidden" name="hide_cari" value="1" />
+		</div>	
+	</div>
+</form>	
+
+<?php if($this->carianSuccess): ?>
+    <p class="success"><?= $this->translate->_('Keputusan carian') ?></p> 
+<?php
+		$server = 'JHEVDATABASE';
+		$db = '[PenyataOnline]';
+
+		// Connect to MSSQL
+		$link = mssql_connect($server, 'sa', 'JH#V@dm1n');
+
+		//mssql_select_db('Pertanyaan Pencen', $link);
+		
+		if (!$link || !mssql_select_db($db, $link)) {
+			die('Unable to connect or select database!');
+		}
+		
+		if(isset($_POST['hide_cari'])){
+			//$rad_type = $_POST['rad_type'];
+			
+			$query = "SELECT notentera, nama, alamat, kod_bank, no_akaun, bank_name
+					FROM tentera 
+					LEFT OUTER JOIN kodbank
+					ON kodbank.bank_code = tentera.kod_bank
+					WHERE notentera = '".$this->rowset->pesara_notentera."'";
+			
+			$query = mssql_query($query);
+			$row = mssql_fetch_object($query);
+			
+			/* if($rad_type == 'waris'){
+			
+				$q_waris = "SELECT     PARMCODES.agensi_code, PARMCODES.addr1_text + ' ' + PARMCODES.addr2_text + ' ' + PARMCODES.addr3_text AS alamat, 
+							PARMCODES.name_text, BAYARAN.NOAKAUN, BAYARAN.BANK, BAYARAN.NOTENTERA, kodbank.bank_name
+							FROM PARMCODES INNER JOIN
+							BAYARAN ON PARMCODES.agensi_code = BAYARAN.NOKPBARU
+							LEFT OUTER JOIN kodbank
+							ON kodbank.bank_code = BAYARAN.BANK
+							WHERE PARMCODES.agensi_code = '".$this->rowset->usr_identno."'";
+							
+				$r_waris = mssql_query($q_waris);
+				
+				
+				if (!mssql_num_rows($r_waris)) {
+					echo 'No records found';
+					$this->noResult = TRUE;
+					$this->Result = FALSE;
+				} else {
+					$row_waris = mssql_fetch_array($r_waris);
+					$this->Result = TRUE;
+					
+				}
+			} */
+			
+			// Check if there were any records
+			if (!mssql_num_rows($query)) {
+				echo 'No records found';
+				//$this->Result = FALSE;
+				$this->noTen = TRUE;
+				
+			} else {
+				// Print a nice list of users in the format of:
+				// * name (username)
+				$this->Result = TRUE;
+				$this->Tentera = TRUE;
+				/* if($rad_type == 'waris'){
+					$this->Result = FALSE;
+					$this->noResult = TRUE;
+				} */
+				//$row = mssql_fetch_object($query);
+				
+				
+			}
+			
+			if($this->rowset->pesara_jenispenerima == 1){
+				//maklumat tentera dari pesara
+				$query = "SELECT notentera, nama, alamat, kod_bank, no_akaun, bank_name
+						FROM tentera 
+						LEFT OUTER JOIN kodbank
+						ON kodbank.bank_code = tentera.kod_bank
+						WHERE notentera = '".$this->rowset->pesara_notentera."'";
+				
+				$query = mssql_query($query);
+				if($row = mssql_fetch_object($query)){
+				
+					$kod_penerima = $this->rowset->pesara_notentera;
+					$bayar_kepada = 'PP';
+					$kod_bayar = $row->notentera;
+					$nama = $row->nama;
+					$alamat = $row->alamat;
+					$bank = $row->bank_name.'&nbsp;('. $row->no_akaun .')';
+				}
+			} else if($this->rowset->pesara_jenispenerima == 2){
+				
+				//maklumat tentera dari waris
+				$query = "SELECT tentera.notentera, tentera.nama, tentera.alamat
+						FROM tentera 
+						LEFT OUTER JOIN hubungan
+						ON hubungan.NOTENTERA = tentera.notentera
+						WHERE hubungan.NOKPBARU = '".$this->rowset->usr_identno."'";
+				
+				/* echo $query;
+				die(); */
+				$query = mssql_query($query);
+				$row = mssql_fetch_object($query);
+				
+				//maklumat waris
+				$q_waris = "SELECT     PARMCODES.agensi_code, PARMCODES.addr1_text + ' ' + PARMCODES.addr2_text + ' ' + PARMCODES.addr3_text AS alamat, 
+							PARMCODES.name_text, BAYARAN.NOAKAUN, BAYARAN.BANK, BAYARAN.NOTENTERA, kodbank.bank_name
+							FROM PARMCODES INNER JOIN
+							BAYARAN ON PARMCODES.agensi_code = BAYARAN.NOKPBARU
+							LEFT OUTER JOIN kodbank
+							ON kodbank.bank_code = BAYARAN.BANK
+							WHERE PARMCODES.agensi_code = '".$this->rowset->usr_identno."'";
+							
+				$r_waris = mssql_query($q_waris);
+				$row_waris = mssql_fetch_array($r_waris);
+				
+				//maklumat hubungan
+				
+				
+				$kod_penerima = $this->rowset->usr_identno;
+				$bayar_kepada = 'WA';
+				$kod_bayar = $this->rowset->usr_identno;
+				$nama = $row_waris['name_text'];
+				$alamat = $row_waris['alamat'];
+				$bank = $row_waris['bank_name'].'&nbsp;('. $row_waris['NOAKAUN'] .')';
+			}
+			
+		}
+		
+		
+?>
+<?php if($this->Result): ?>
+<div id="printReady">
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+                <table border="0" width="100%">
+                    <tr id="logo" style="display:none">
+
+                        <td colspan="3">
+                            <table border="0" width="100%">
+								<tr>
+									<td><img src="<?= IMAGES_PATH ?>/logo1.JPG" /></td>
+									<td align="center" style="width:80%"><span id="lblHeader">PENYATA PENCEN TAHUN 2009</span></td>
+									<td><img src="<?= IMAGES_PATH ?>/logo2.JPG" /></td>   
+								</tr>
+							</table>
+						</td>                        
+                    </tr>
+					<tr>
+                        <td align="center">&nbsp;</td>
+                        <td align="left">
+                            <br />
+                            <span id="parameter">
+                            <div>
+								<table cellspacing="1" cellpadding="3" border="0" id="DetailsView1" style="background-color:White;border-color:White;border-width:2px;border-style:Ridge;height:50px;width:100%;">
+									<tr style="color:Black;background-color:#DEDFDE;height:25px;">
+										<td>KOD BAYAR</td>
+										<td><?= $kod_bayar  ?></td>
+									</tr>
+									<tr style="color:Black;background-color:#DEDFDE;height:25px;">
+										<td>NAMA</td>
+										<td><?= $nama ?></td>
+									</tr>
+									<tr style="color:Black;background-color:#DEDFDE;height:25px;">
+										<td>ALAMAT</td>
+										<td><?= $alamat ?></td>
+									</tr>
+									<tr style="color:Black;background-color:#DEDFDE;height:25px;">
+										<td>BANK</td>
+										<td><?=  $bank ?></td>
+									</tr>
+								</table>
+							</div>
+							<br />
+							<div>
+								<table cellspacing="1" cellpadding="3" border="0" id="GridView2" style="background-color:White;border-color:White;border-width:2px;border-style:Ridge;width:100%;">
+									<?php if($this->Tentera): ?>
+									<tr style="color:#E7E7FF;background-color:#4A3C8C;font-weight:bold;height:25px;">
+										<th scope="col" style="text-align:center;">NO TENTERA</th>
+										<th scope="col" style="text-align:center;">NAMA</th>
+										<th scope="col" style="text-align:center;">ALAMAT</th>
+									</tr>
+									<tr style="color:Black;background-color:#DEDFDE;height:25px;">
+										<td><?= $row->notentera ?></td>
+										<td><?= $row->nama ?></td>
+										<td><?= $row->alamat ?></td>
+									</tr>
+									<?php elseif($this->noTen): ?>
+									<tr style="color:Black;background-color:#DEDFDE;height:25px;">
+										<td>Tiada Rekod Tentera</td>
+									</tr>
+									<?php endif; ?>
+								</table>
+							</div>
+							<br />
+							<?php	
+	
+							$pencen = array();
+							$potongan = array();
+							$total = array();
+
+							//display the results
+							echo '<div>';
+							echo '<table cellspacing="0" cellpadding="3" rules="all" id="GridView1" border="1" style="background-color:White;width:100%;border-collapse:collapse;">';
+							echo '<tr align="center" style="color:White;background-color:Navy;font-weight:bold;height:25px;">
+										<th scope="col" style="white-space:nowrap;text-align:center;">BULAN</th>
+										<th scope="col" style="white-space:nowrap;text-align:center;"> AMAUN PENCEN</th>
+										<th scope="col" style="white-space:nowrap;text-align:center;"> AMAUN POTONGAN</th>
+										<th scope="col" style="white-space:nowrap;text-align:center;"> AMAUN BERSIH</th>
+									</tr>';
+									
+									//query pencen bersih
+									$query1 = "select period_num, sum(amount_in) AS jum 
+												from  pensionledg2009
+												where notentera = '".$kod_penerima."' 
+												and year_num = '2009' 
+												and jenis_bayaran = 'P' 
+												and status_ind in ('D','L') 
+												and bayar_kepada = '".$bayar_kepada."' 
+												group by period_num";
+									
+									$result1 = mssql_query($query1);
+									//$row1 = mssql_fetch_array($result1, MSSQL_NUM);
+									$bulan = 0;
+									while ($row1 = mssql_fetch_array($result1, MSSQL_NUM)) {
+										$bulan++;
+										$pencen[$bulan] = $row1[1];
+									}
+									
+									/* print_r($pencen);
+									
+									die(); */
+									//query potongan
+									$query2 = "SELECT period_num, sum(amount_in) AS jum 
+													FROM PENSIONLEDG2009
+													WHERE notentera = '".$kod_penerima."'
+													and year_num = '2009' 
+													and jenis_bayaran = 'D' 
+													and status_ind in ('D','L') 
+													and bayar_kepada in ('PP','PL') 
+													group by period_num";
+									
+									$result2 = mssql_query($query2);
+									//$row2 = mssql_fetch_array($result2);
+									$bulan = 0;
+									while ($row2 = mssql_fetch_array($result2, MSSQL_NUM)) {
+										$bulan++;
+										$potongan[$bulan] = $row2[1];
+									}
+									
+									for($i=1;$i<13;$i++)
+									{
+										if(isset($potongan[$i]))
+											$total[$i] = $pencen[$i] + $potongan[$i];
+										else if(isset($pencen[$i]))
+											$total[$i] = $pencen[$i] + 0.00;
+										else
+											$total[$i] = $pencen[$i];
+											
+										echo '<tr style="background-color:Silver;height:25px">
+											<td align="center">' . $i . '</td><td align="center">' . $total[$i] . '</td><td align="center">' . (isset($potongan[$i]) ?  $potongan[$i] : '0.00'). '</td><td align="center">' . $pencen[$i] . '</td>
+										</tr>';
+										
+									}
+									
+
+							echo '</table>';
+							echo '</div>';
+
+							?>
+							<br />
+                            </span>
+                        </td>
+                        <td align="center">&nbsp;
+                            <input name="hid1" type="hidden" id="hid1" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="3" align="center">Jabatan Hal Ehwal Veteran ATM</td>
+                    </tr>
+                </table>
+			</div>
+	</div>
+</div>
+<a href="javascript:void(printSpecial())">Print</a>
+
+<?php 
+// Free the query result
+mssql_free_result($query);
+elseif($this->noResult):
+?>
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+			<p align="left"><strong><?= $this->translate->_('Tiada Rekod') ?></strong></p>
+		</div>	
+	</div>
+	
+<?php
+endif; 
+endif; 
+?>

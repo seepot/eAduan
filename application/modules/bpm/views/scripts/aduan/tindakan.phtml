@@ -1,0 +1,83 @@
+<?php if($this->entrySaved): ?>
+    <p class="success"><?= $this->translate->_('Pendaftaran aduan baru berjaya') ?></p>
+    <!--<meta http-equiv="refresh" content=2;URL="transaction">-->
+<?php else: ?>
+<script language="Javascript">
+	function func_checkdate(type){
+		var a = document.getElementById('date_tarikh_'+type).value;
+		alert(a);
+	}
+</script>
+<form action="<?= $this->escape($this->form->getAction()) ?>" method="<?= $this->escape($this->form->getMethod()) ?>" enctype="multipart/form-data">
+	<?php //include('info.phtml'); ?>
+	<? //= $this->func_tab; ?>
+	<div class="entry-edit">
+		<div class="fieldset " id="group_fields63">
+			<p class="box" align="left">Masukkan maklumat pada ruangan di bawah.<span class="required2"> * Diperlukan</span><br/>
+			</p>
+			<input type="hidden" id="pesara_id" name="pesara_id" value="<?= $this->pesara_id; ?>">
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+					<col />
+					<col class="oce-first" />
+					<col />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td height="40px" colspan="4" class="title" style="text-align:center;"><span style="font-size:18px;text-align:center"><strong><?= $this->translate->_('Tindakan') ?></strong></span>
+						</td>
+					</tr>
+					<tr>
+						<td width = "20%"><?= $this->translate->_('Nama Staf') ?> </td>
+						<td><?= $this->function->getFullNameById(Zend_Auth::getInstance()->getIdentity()->usr_id) ?></td>
+					</tr> 
+					<tr>
+						<td width="20%"><?= $this->translate->_('Jawatan') ?> </td>
+						<td><?= $this->function->getPositionById(Zend_Auth::getInstance()->getIdentity()->usr_id) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Bahagian') ?> </td>
+						<td><?= $this->function->getDeptById(Zend_Auth::getInstance()->getIdentity()->usr_id) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Unit') ?> </td>
+						<td><?= $this->function->getUnitById(Zend_Auth::getInstance()->getIdentity()->usr_id) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('No Telefon') ?> </td>
+						<td><?= $this->function->getPhoneNoById(Zend_Auth::getInstance()->getIdentity()->usr_id) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Status Masalah') ?> <span class="required2">*</span></td>
+						<td><?= $this->form->sel_status ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Tindakan yang diambil') ?> <span class="required2">*</span></td>
+						<td><?= $this->form->txt_tindakan ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Lampiran') ?> </td>
+						<td>
+							<?php
+								if ($this->aduan->staf_lampiran <> '')
+								{
+									echo $this->aduan->staf_lampiran;
+								}
+							?>
+							<input name="file" type="file" /><input type="hidden" name="file_upload" value="1" /></td>
+					</tr>
+				</tbody>
+			</table>
+			<br />
+		</div>	
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" style="text-align:center;">
+			<button type="submit" class="scalable save" name="submit" id="submit"><span><?= $this->translate->_('Hantar') ?></span></button>&nbsp;
+			<button type="reset" class="scalable reset" name="reset" id="reset" style=""><span><?= $this->translate->_('Semula') ?></span></button>&nbsp;
+		</div>
+	</div>
+</form>
+
+<?php endif; ?>

@@ -1,0 +1,222 @@
+<?php if($this->failedValidation): ?>
+		<p class="error">Terdapat masalah semasa kemaskini maklumat perkhidmatan.</p> 
+	<?php endif; ?>
+
+	<?php if($this->profilSaved): ?>
+		<p class="success">Kemaskini maklumat perkhidmatan berjaya</p>
+		<meta http-equiv="refresh" content=1;URL="profile">
+	<?php else: ?>
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-user-edit">Kemaskini Profil</h3></td>
+		    </tr>
+		</table>
+	</div>
+	<?php include('info.phtml'); ?>
+	<form action="<?= $this->escape($this->form->getAction()) ?>" method="<?= $this->escape($this->form->getMethod()) ?>">
+<?php 
+		/******Enable Dojo**********/
+		$this->dojo()->enable(); 
+		// Container with tabs
+		$this->tabContainer()->captureStart('profiledit', array(), array('style' => 'width:100%;text-align:left;', 'doLayout'=>'false', 'tabPosition'=>'top')); 
+			 // First tab "Am"
+			$this->contentPane()->captureStart('general', array(), array('title' => $this->translate->_('Maklumat Peribadi'), 'selected' => ($this->tab == 'personal' ? 'true' : 'false')));
+	?>
+			
+
+			<div class="entry-edit">
+				<div class="fieldset " id="group_fields63">
+					<p class="box">Sila masukkan maklumat pada ruangan di bawah. <span class="required2">* Diperlukan</span></p>
+					<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="98%">
+						<colgroup>
+							<col class="oce-first" />
+							<col>
+							<col class="oce-first" />
+							<col>
+						</colgroup>
+						<tbody>
+							<tr>
+								<td width="20%">Nama&nbsp;<span class="required2">*</span></td>
+								<td colspan="3"><?= $this->form->realname ?></td>
+							</tr> 
+							<tr>
+								<td>No Tentera&nbsp;<span class="required2">*</span></td>
+								<td colspan="3"><?= $this->form->notentera ?>&nbsp;<span class="required2">Cth: 108123</span></td>
+							</tr>
+							<tr>
+								<td>No MyKad&nbsp;<span class="required2">*</span></td>
+								<td width="30%"><?= $this->form->nomykad ?>&nbsp;<span class="required2">Cth: 600612015205</span></td>
+								<td>No KP Lama</td>
+								<td width="30%"><?= $this->form->nokplama ?></td>
+							</tr>
+							<tr>
+								<td>Tarikh Lahir</td>
+								<td width="30%"><?= $this->form->date_bday ?></td>
+								<td>Umur</td>
+								<td width="30%"><? //= $this->form->age ?></td>
+							</tr>
+							<tr>
+								<td valign="top">Alamat Tetap</td>
+								<td colspan="3"><?= $this->form->alamat1 ?><br/><br/>
+								<?= $this->form->alamat2 ?><br/><br/>
+								<?= $this->form->alamat3 ?></td>
+							</tr>
+							<tr>
+								<td>Poskod</td>
+								<td><?= $this->form->poscode ?></td>
+								<td>Bandar</td>
+								<td><?= $this->form->city ?></td>
+							</tr>
+							<tr>
+								<td>Negeri</td>
+								<td colspan="3"><?= $this->form->state ?></td>
+							</tr>
+							<tr>
+								<td>Agama</td>
+								<td><?= $this->form->religion ?></td>
+								<td>Bangsa</td>
+								<td><?= $this->form->race ?></td>
+							</tr>
+							<tr>
+								<td>Jantina</td>
+								<td><?= $this->form->gender ?></td>
+								<td>Status Perkahwinan</td>
+								<td><?= $this->form->marital ?></td>
+							</tr>
+							<tr>
+								<td>Pendidikan Tertinggi</td>
+								<td colspan="3"><?= $this->form->education ?></td>
+							</tr>
+							<tr>
+								<td>Pekerjaan Sekarang</td>
+								<td colspan="3"><?= $this->form->pekerjaan ?></td>
+							</tr>
+							<tr>
+								<td>No Telefon (R)</td>
+								<td><?= $this->form->phone ?></td>
+								<td>No Telefon (M)</td>
+								<td><?= $this->form->mobile ?></td>
+							</tr>
+							<!--<tr>
+								<td>Gambar Foto</td>
+								<td colspan="3"><? //= $this->form->pekerjaan ?></td>
+							</tr>
+							<tr>
+								<td>Status Hidup</td>
+								<td colspan="3"><?= $this->form->statushidup ?></td>
+							</tr>-->
+						</tbody>
+					</table>
+					<!--<button id="submit" name="submit" type="submit" dojoType="dijit.form.Button">Submit!</button>-->
+					
+				</div>	
+			</div>
+		
+	<?php
+		echo $this->contentPane()->captureEnd('general');
+		/**************End Tab 1******************/
+		//Tab 2 "pengalaman"
+	?>
+	
+	<?php
+			/**************End Tab 5******************/
+			//Tab 6 "Perakuan"
+			$this->contentPane()->captureStart('pesara', array(), array('title' => $this->translate->_('Maklumat Perkhidmatan')));
+			//echo "tab6 content";
+	?>
+			
+			
+			<div class="entry-edit">
+				<div class="fieldset " id="group_fields63">
+					<p class="box">Sila masukkan maklumat pada ruangan di bawah. <span class="required2">* Diperlukan</span></p>
+					<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="98%">
+						<colgroup>
+							<col class="oce-first" />
+							<col>
+							<col class="oce-first" />
+							<col>
+						</colgroup>
+						<tbody>
+							<tr>
+								<td>Kategori Perkhidmatan</td>
+								<td width="30%"><?= $this->form->perkhidmatan ?></td>
+								<td>Pangkat Terakhir</td>
+								<td width="30%"><?= $this->form->pangkat ?></td>
+							</tr>
+							<tr>
+								<td>Tarikh Mula Khidmat</td>
+								<td width="30%"><?= $this->form->tkh_mulakhidmat ?></td>
+								<td>Tarikh Tamat Khidmat</td>
+								<td width="30%"><?= $this->form->tkh_tamatkhidmat ?></td>
+							</tr>
+							<tr>
+								<td>Jumlah Tahun Perkhidmatan&nbsp;</td>
+								<td colspan="3"><?= $this->form->tempoh ?></td>
+							</tr>
+							<tr>
+								<td>Sebab Berhenti&nbsp;</td>
+								<td colspan="3"><?= $this->form->para ?></td>
+							</tr>
+						</tbody>
+					</table>
+					<!--<button id="submit" name="submit" type="submit" dojoType="dijit.form.Button">Submit!</button>-->
+				</div>	
+			</div>
+			
+	
+	<?php
+			echo $this->contentPane()->captureEnd('pesara');
+			/**************End Tab 6******************/
+	?>
+	<?php
+			/**************End Tab 5******************/
+			//Tab 6 "Perakuan"
+			$this->contentPane()->captureStart('pencen', array(), array('title' => $this->translate->_('Maklumat Pencen')));
+			//echo "tab6 content";
+	?>
+			
+			
+			<div class="entry-edit">
+				<div class="fieldset " id="group_fields63">
+					<p class="box">Sila masukkan maklumat pada ruangan di bawah. <span class="required2">* Diperlukan</span></p>
+					<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="98%">
+						<colgroup>
+							<col class="oce-first" />
+							<col>
+							<col class="oce-first" />
+							<col>
+						</colgroup>
+						<tbody>
+							<tr>
+								<td width="20%">Status Pencen&nbsp;<span class="required2">*</span></td>
+								<td><?= $this->form->statuspencen ?></td>
+							</tr>
+							<tr>
+								<td>Jenis Penerima&nbsp;<span class="required2">*</span></td>
+								<td><?= $this->form->jenispenerima ?></td>
+							</tr>
+						</tbody>
+					</table>
+					<!--<button id="submit" name="submit" type="submit" dojoType="dijit.form.Button">Submit!</button>-->
+				</div>	
+			</div>
+			
+	
+	<?php
+			echo $this->contentPane()->captureEnd('pencen');
+			/**************End Tab 6******************/
+	?>
+	<?php
+		echo $this->tabContainer()->captureEnd('profiledit'); 
+		/**************End Container******************/
+	?>
+			<br/>
+			<div class="entry-edit">
+				<div class="fieldset" style="text-align:center;">
+					<button type="submit" class="scalable save" name="submit" id="submit" style=""><span>Kemaskini</span></button>&nbsp;
+					<button type="submit" class="scalable back" name="submit" id="submit" style="" onClick="Javascript:history.back();"><span><?= $this->translate->_('Kembali') ?></span></button>  
+				</div>
+			</div>
+		</form>
+<?php endif; ?>

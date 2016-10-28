@@ -1,0 +1,143 @@
+<?php if($this->failedValidation): ?>
+    <p class="error-msg"><?= $this->translate->_('Terdapat masalah dikesan semasa proses log masuk.') ?></p>
+<?php elseif($this->failedAuthentication): ?>
+    <p class="error-msg"><?= $this->translate->_('Harap maaf. Akaun anda tidak diaktifkan lagi.') ?></p>
+<?php endif; ?>
+<br>
+<link href="<?= CSS_PATH ?>red.css" rel="stylesheet" type="text/css"/>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td width="186" rowspan="2" valign="top"><div align="center">
+			<table width="100%"  border="0" cellspacing="1" cellpadding="5">
+				<tr>
+					<td align="left">
+						<div id="left">
+							<div class="moduletable">		
+								<div class="line"><h4><strong><?= $this->translate->_('Daftar Masuk') ?></strong></h4></div>
+								<form action="<?= $this->escape($this->form->getAction()) ?>" method="<?= $this->escape($this->form->getMethod()) ?>" onSubmit="ajax_loader();">
+									<div align="center"><strong><?= $this->translate->_('ID Pengguna') ?></strong></div>
+									<div align="center"><?= $this->form->name ?></div><br>
+									<div align="center"><strong><?= $this->translate->_('Kata Laluan') ?></strong></div>
+									<div align="center"><?= $this->form->password ?></div><br>
+									<img src="<?= SYSTEM_URL ?>/imagegenerator/generatecaptcha" />
+									<div align="center">
+										<button type="submit" name="Submit" value="Login" class="scalable save"><?= $this->translate->_('Daftar Masuk') ?></button>
+									</div><br>
+									<div align="center"><a href="<?= SYSTEM_URL ?>/default/authentication/register" style="font-weight:normal;font-size:10px" title="<?= $this->translate->_('Pengguna selain Kakitangan  Kementerian sahaja') ?>"><strong><?= $this->translate->_('Pengguna Baru') ?></strong></a><br /><a href="#" style="font-weight:normal;font-size:10px"><?= $this->translate->_('Hilang Katalaluan?') ?></a></div>
+								</form>		
+							</div>
+						</div>
+						<br>
+						<!-- START: LEFT BLOCK -->
+						<div id="leftblock">
+						<div id="leftdiv">
+						<div id="left">
+							<div class="moduletable">			
+								<form>
+									<div class="search">
+										<input name="searchword" id="mod_search_searchword" maxlength="20" alt="search" class="inputbox" type="text" size="20" value="<?= $this->translate->_('carian...') ?>"  onblur="if(this.value=='') this.value='<?= $this->translate->_('carian...') ?>';" onfocus="if(this.value=='carian...') this.value='';" /><input type="submit" value="<?= $this->translate->_('Cari') ?>" class="button"/>
+									</div>
+								</form>		
+							</div>
+						</div>
+						</div>
+						</div>
+						<!-- END: LEFT BLOCK -->
+					</td>
+					<td width="2%">&nbsp;</td>
+				</tr>
+			</table>
+		</div>
+		</td>
+		<td><div align="center">
+			<table width="100%"  border="0" cellspacing="1" cellpadding="5">
+				<tr valign="top">
+					<td width="31%"><img src="<?= IMAGES_PATH ?>spip/gambar.jpg"></td>
+					<td width="69%">
+						<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td width="3%">
+									<div align="left">
+										<img src="<?= IMAGES_PATH ?>gold/spacer.gif" width="10" height="10">
+									</div>
+								</td>
+								<td colspan="2" height="52" style="background: url(<?= IMAGES_PATH ?>spip/spip_10.gif) no-repeat">
+									<div align="left">
+										<h2><?= $this->translate->_('Informasi') ?></h2>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="3%">
+									<div align="left">
+										<img src="<?= IMAGES_PATH ?>gold/spacer.gif" width="10" height="10">
+									</div>
+								</td>
+								<td width="97%" valign="top">
+									<div align="left">
+										Sistem berkomputer untuk membantu PLN meningkatkan prestasi
+										kerja dan memuaskan hati pelanggan. Memendekkan tempoh 
+										masa dalam piagam pelanggan bagi memproses permohonan 
+										lesen.
+										<br>
+										Sistem komputer yang mesra pengguna dan berupaya untuk 
+										dinaktaraf mengikut peredaran masa. Contoh ayat -Piawaian 
+										Dokumentasi & Pembangunan Sistem ini adalah sebagai panduan 
+										untuk pereka laman web dan pengaturcara sistem dalam
+										merekabentuk sistem di mana ianya menerangkan tentang 
+										jenis-jenis ikon, butang arahan, jenis skrin serta tatacara
+										penamaan yang sesuai bagi pangkalan data.
+									</div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<table width="100%"  border="0" cellspacing="1" cellpadding="5">
+				<tr valign="top">
+					<td width="30%"><br>
+						<div class="line"><h5><strong>Pendahuluan</strong></h5></div>
+						<div align="left">
+						<span style="color:#000000">
+								Piawaian Dokumentasi & Pembangunan 
+									Sistem ini adalah sebagai panduan untuk  
+									pereka laman web dan  
+									pengaturcara sistem dalam 
+									merekabentuk sistem di mana ianya
+									menerangkan tentang jenis-jenis ikon,  
+									butang arahan, jenis skrin serta tatacara  
+									penamaan yang sesuai bagi pangkalan data   
+								</span>
+						</div>
+					</td>
+					
+					<td width="2%">&nbsp;</td>
+					<td width="30%"><br>
+						<div class="line"><h5><strong>Bantuan/Aduan</strong></h5></div>
+						<div align="left">
+						<span style="color:#000000">
+								Jika terdapat sebarang masalah mengenai 
+								sistem atau data, sila hubungi:<br> 
+								<br> 
+								<strong>Bahagian Pengurusan Maklumat</strong><br> 
+								Aras 35, Menara Dato' Onn<br> 
+								Pusat Dagangan Dunia Putra<br> 
+								45 jalan Tun Ismail<br> 
+								50695 Kuala Lumpur<br> 
+								Telefon : 03-8886 4000<br> 
+								Email: eSPIP@motour.gov.my<br> 
+								</span>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>	
+<br>					

@@ -1,0 +1,48 @@
+.barra_tabela {
+	background-color: #F0E4CC;
+	text-align: center;
+}
+
+.barra_tabela input {
+	width: 120px !important;
+	margin: 4px;
+}
+
+.barra_tabela a {
+	padding: 2px 2px 2px 2px;
+	margin: 2px;
+	text-decoration: none;
+	color: #333;
+}
+
+.barra_tabela a img {
+	border: 0px solid #ffa500;
+	padding: 0px;
+	margin: 0px;
+	position: relative;
+	top: 3px;
+}
+
+.portlet_merah {
+	FONT-WEIGHT: bold;
+	COLOR: #ffffff;
+	font-size: 12px;
+	text-style: italic;
+	background-color: #CC0000;
+}
+
+.portlet_biru {
+	FONT-WEIGHT: bold;
+	COLOR: #ffffff;
+	font-size: 12px;
+	text-style: italic;
+	background-color: #3366FF;
+}
+
+.portlet_hijau {
+	FONT-WEIGHT: bold;
+	COLOR: #ffffff;
+	font-size: 12px;
+	text-style: italic;
+	background-color: #99CC00;
+}

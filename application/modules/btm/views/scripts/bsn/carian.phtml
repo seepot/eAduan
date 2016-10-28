@@ -1,0 +1,136 @@
+<form action="" method="POST">
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-user"><?= $this->translate->_('Carian No Bayaran BSN dan Reject Bank') ?></h3></td>
+		        <td class="a-right">
+		            <button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Kembali') ?></span></button>
+	                <button type="reset" name="reset" id="reset" style=""><span><?= $this->translate->_('Semula') ?></span></button>  
+	                <button type="submit" class="scalable save" name="submit" id="submit" style=""><span><?= $this->translate->_('Cari') ?></span></button>  
+	                
+	            </td>
+		    </tr>
+		</table>
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+	    	<p class="box"><?= $this->translate->_('Sila masukkan maklumat pada ruangan di bawah.') ?> <span class="required2">* <?= $this->translate->_('Diperlukan') ?></span></p>
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td width="25%"><?= $this->translate->_('No Akaun BSN') ?></td>
+						<td><input name="txt_carian" type="text" value="<?= isset($_POST['txt_carian']) ? $_POST['txt_carian'] : '' ?>" /></td>
+					</tr>
+					<tr>
+						<td width="25%"><?= $this->translate->_('No KP / No Tentera') ?></td>
+						<td><input name="txt_kp" id="txt_kp" type="text" value="<?= isset($_POST['txt_kp']) ? $_POST['txt_kp'] : '' ?>" />
+							<span class="required2"><br/>* <?= $this->translate->_('Seperti digunakan semasa mengisi borang BSN <br/> Contoh : 850722015123') ?></span></td>
+					</tr>
+					<!--<tr>
+						<td width="25%"><?= $this->translate->_('Jenis Carian') ?></td>
+						<td>
+							<input type="radio" name="rad_type" value="no_ic" checked>&nbsp;No IC<br/>
+							<input type="radio" name="rad_type" value="nama">&nbsp;Nama
+						</td>
+					</tr>-->
+				</tbody>
+			</table>
+		</div>	
+	</div>
+</form>	
+
+<?php if($this->carianSuccess): ?>
+    <p class="success"><?= $this->translate->_('Senarai keputusan carian') ?></p> 
+	
+	<div class="entry-edit">
+		<p class="box"><?= $this->translate->_('No Bayaran BSN') ?></p>
+		<div class="fieldset" id="group_fields63">
+			<table cellpadding="5" cellspacing="1"  id="unijaya" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th width="20%"><?= $this->translate->_('No Bayaran') ?></th>
+						<th width="30%"><?= $this->translate->_('Nama') ?></th>
+						<th width="20%"><?= $this->translate->_('No IC') ?></th>
+						<th width="20%"><?= $this->translate->_('No Akaun') ?></th>
+						<th width="20%"><?= $this->translate->_('Amaun') ?></th>
+						
+					</tr>
+				</thead>	
+				<tbody>
+<?php
+				if(count($this->row) > 0)
+				{
+					foreach ($this->row as $row){
+						echo '<tr>';
+						echo '<td><span class="required2"><strong>' .$row->NOVIBES. '</strong></span></td>';
+						echo '<td>' .$row->NAMA. '</td>';
+						echo '<td>' .$row->IC. '</td>';
+						echo '<td>' .$row->AKAUNMO. '</td>';
+						echo '<td>' .$row->AMAUN. '</td>';
+						
+						echo '</tr>';
+					}
+				}
+				else
+				{
+					echo '<tr>';
+						echo '<td colspan = "5" height="40px"><center><span style="font-size:20px">' .$this->translate->_(' -Tiada Maklumat- ') . '</span></center></td>';
+						
+						echo '</tr>';
+				}
+?>
+				</tbody>
+			</table>
+		</div>	
+		<span class="required2">NOTA :* <?= $this->translate->_('Sila gunakan No Bayaran yang dipamerkan di kaunter BSN.') ?></span>
+		<p class="box"><?= $this->translate->_('Reject Bank') ?></p>
+		<div class="fieldset" id="group_fields63">
+			<table cellpadding="5" cellspacing="1"  id="unijaya" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th width="20%"><?= $this->translate->_('No Penerima') ?></th>
+						<th width="30%"><?= $this->translate->_('Nama') ?></th>
+						<th width="20%"><?= $this->translate->_('Bank') ?></th>
+						<th width="20%"><?= $this->translate->_('Amaun') ?></th>
+						<th width="20%"><?= $this->translate->_('Catatan') ?></th>
+						
+					</tr>
+				</thead>	
+				<tbody>
+<?php
+				//echo count($this->row2);
+				if(count($this->row2) > 0)
+				{
+					foreach ($this->row2 as $row2){
+						echo '<tr>';
+						echo '<td><span class="required2"><strong>' .$row2->PenerimaID. '</strong></span></td>';
+						echo '<td>' .$row2->Nama. '</td>';
+						echo '<td>' .$row2->bank. '</td>';
+						echo '<td>' .$row2->AMAUN. '</td>';
+						echo '<td>' .$row2->Reason. '</td>';
+						
+						echo '</tr>';
+					}
+				}
+				else
+				{
+					echo '<tr>';
+						echo '<td colspan = "5" height="40px"><center><span style="font-size:20px">' .$this->translate->_(' -Tiada Maklumat- ') . '</span></center></td>';
+						
+						echo '</tr>';
+				}
+?>
+				</tbody>
+			</table>
+		</div>
+	</div>
+<?php endif; ?>

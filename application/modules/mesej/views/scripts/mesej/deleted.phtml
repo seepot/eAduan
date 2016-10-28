@@ -1,0 +1,77 @@
+<div class="content-header">
+	<table cellspacing="0">
+	    <tr>
+	        <td style="width:50%;"><h3 class="icon-head head-customer"><?= $this->translate->_('Mesej Hapus') ?></h3></td>
+	        <td class="a-right">
+	            <!--<button type="button" class="add" onclick="setLocation('<?= $this->url ?>/admin/state/add')" style=""><span><?= $this->translate->_('Tambah') ?></span></button>--> 
+	        </td>
+	    </tr>
+	</table>
+</div>
+<?php
+
+	$arr_senarai = array(
+					'0' => array(
+						'namapp' => 'Saiful Izwan Bin Ibrahim',
+						'maklumat' => 'Nature Guide (T2)',
+						'tarikh' => '02-04-2009',
+						'aktiviti' => "<a href='#'><img src='".IMAGES_PATH."icon/view.png' title='Papar'></a>&nbsp;
+										<a href='#'><img src='".IMAGES_PATH."icon/del.png' title='Hapus'></a>",
+					),
+					'1' => array(
+						'namapp' => 'Saiful Izwan Bin Ibrahim',
+						'maklumat' => 'Nature Guide (T2)',
+						'tarikh' => '02-04-2009',
+						'aktiviti' => "<a href='#'><img src='".IMAGES_PATH."icon/view.png' title='Papar'></a>&nbsp;
+										<a href='#'><img src='".IMAGES_PATH."icon/del.png' title='Hapus'></a>",
+					),
+				);
+
+?>
+<input type="hidden" name="inputId" id="inputId">
+<table id="unijaya" width="100%"  align="center" cellspacing="1" >
+	<tr>
+		<th width="5%" align="center">Bil</th>
+		<th width="15%"><a href='#'>Penerima</a></th>
+		<th width="40%"><a href='#'>Maklumat</a></th>
+		<th width="15%"><a href='#'>Tarikh Hantar</a></th>
+		<th width="10%">Aktiviti</th>
+	</tr>
+	
+	<?php
+		$int_counter = 0;
+		
+		foreach ($arr_senarai as $key => $value){
+			//print_r($value);
+			$int_counter++;
+			echo "<tr>";
+			echo "<td align='center' valign='top' ";
+			echo ">".$int_counter."</td>";
+			
+			foreach($value as $detail){
+				echo "<td valign='top' ";
+				echo ">".$detail."</td>";
+			}
+			echo "</tr>";
+		}		
+	?>
+	<tr>
+		<td class="barra_tabela" colspan="5">
+			<div style="padding:2px;">
+				<div style="float:left;text-align:left;width:20%;">
+					<a target='_blank' href='/prototype/DOF/eLesen/admin/user/list/export/pdf'><img title="PDF"  src="<?= IMAGES_PATH ?>icon/pdf.gif"  border="0"></a>
+					<!--<a target='_blank' href='/prototype/DOF/eLesen/admin/user/list/export/word'><img title="Microsoft Office 2003" src="<?= IMAGES_PATH ?>icon/word.gif"  border="0"></a>
+					<a target='_blank' href='/prototype/DOF/eLesen/admin/user/list/export/wordx'><img title="Microsoft Office 2007" src="<?= IMAGES_PATH ?>icon/wordx.gif"  border="0"></a>
+					<a target='_blank' href='/prototype/DOF/eLesen/admin/user/list/export/excel'><img title="Microsoft Excel"  src="<?= IMAGES_PATH ?>icon/excel.gif"  border="0"></a>-->
+					<a target='_blank' href='/prototype/DOF/eLesen/admin/user/list/export/print'><img src="<?= IMAGES_PATH ?>icon/print.gif" border="0"></a>
+					<!--<a target='_blank' href='/prototype/DOF/eLesen/admin/user/list/export/xml'><img src="<?= IMAGES_PATH ?>icon/xml.gif" border="0"></a>
+					<a target='_blank' href='/prototype/DOF/eLesen/admin/user/list/export/csv'><img src="<?= IMAGES_PATH ?>icon/csv.gif" border="0"></a>
+					<a target='_blank' href='/prototype/DOF/eLesen/admin/user/list/export/ods'><img title="OpenOffice Spreadsheet" src="<?= IMAGES_PATH ?>icon/ods.gif" border="0"></a>
+					<a target='_blank' href='/prototype/DOF/eLesen/admin/user/list/export/odt'><img title="OpenOffice Document Text" src="<?= IMAGES_PATH ?>icon/odt.gif"  border="0"></a>-->
+				</div>
+				<div style="float:left;text-align:center;width:60%;"> <em>(1 hingga <?= count($arr_senarai); ?> dari <?= count($arr_senarai); ?>)</em>  | </div>
+				<div style="float:right;width:20%;"></div>
+			</div>
+        </td>
+	</tr>
+</table>

@@ -1,0 +1,169 @@
+<?php if($this->entrySaved): ?>
+    <p class="success"><?= $this->translate->_('Penghantaran aduan baru ke staf BPM berjaya') ?></p>
+    <meta http-equiv="refresh" content=2;URL="pegawailist">
+<?php else: ?>
+<?php 
+
+	function func_show_file_name($namelocation)
+	{	if($namelocation == null || $namelocation == '')
+		{
+			return 'Tiada Fail Dimuatnaik';
+		}
+		else
+		{	$name = explode("/", $namelocation);
+			return "<a href=\"$namelocation\" target=\"_blank\">".$name[6]."</a>";
+		}
+	}
+	
+	function func_check_filename($namelocation)
+	{
+		if (isset($namelocation))
+			return "<img src=\"".IMAGES_PATH."icon/active.gif\">";
+		else
+			return "<img src=\"".IMAGES_PATH."icon/del.png\">";
+	}
+	
+	function func_add_popup($str_func_name = '', $str_alt = '', $bln_enabled = true)
+	{
+		if ($bln_enabled == true)		
+		{	// upload button enabled
+			$str_process_button = "<img src=\"" . IMAGES_PATH 
+							   	. "icon/profile.gif\" border=\"0\" alt=\"" . $str_alt . "\""
+							   	.	" onClick=\"".$str_func_name."\""
+							   	.	" style=\"cursor:pointer\">";
+		}
+		else	{	// upload button disabled
+			$str_process_button = "<img src=\"" . IMAGES_PATH 
+							 	. "icon/add_0.gif\" border=\"0\" alt=\"" . $str_alt . "\">";
+		}
+		return $str_process_button;
+	}
+	
+	function func_delete_popup($str_func_name = '', $str_alt = '', $bln_enabled = true)
+	{
+		global $sys_config;
+		
+		if ($bln_enabled == true)		
+		{	// upload button enabled
+			$str_process_button = "<img src=\"" . IMAGES_PATH 
+							   	. "icon/delete.gif\" border=\"0\" alt=\"" . $str_alt . "\""
+							   	.	" onClick=\"".$str_func_name."\""
+							   	.	" style=\"cursor:pointer\">";
+		}
+		else	{	// upload button disabled
+			$str_process_button = "<img src=\"" . IMAGES_PATH 
+							 	. "icon/delete.gif\" border=\"0\" alt=\"" . $str_alt . "\">";
+		}
+		return $str_process_button;
+	}
+?>
+<script language="Javascript">
+	function func_addForm(url)
+	{
+		x = 100;
+		y = 100;
+		var a = document.getElementById("sel_staf").value;
+		//alert(a);
+		statusWindow = "resizable=no,toolbar=no,statusbar=yes,scrollbars=yes,directories=no,menubar=no,width=600,height=450,top="+y+",left="+x;
+		mywindow = window.open(url+a,"NewMessage",statusWindow);
+		mywindow.moveTo(80,80);
+	}
+function func_empty_field(type)
+	{
+		if(type == 'sah'){
+			document.getElementById("txtSahName").value='';
+			document.getElementById("txtSahId").value='';
+		} else if(type == 'syor'){
+			document.getElementById("txtSyorName").value='';
+			document.getElementById("txtSyorId").value='';
+		}
+	}
+	function func_checkdate(type){
+		var a = document.getElementById('date_tarikh_'+type).value;
+		alert(a);
+	}
+</script>
+<form action="<?= $this->escape($this->form->getAction()) ?>" method="<?= $this->escape($this->form->getMethod()) ?>" enctype="multipart/form-data">
+	<?php //include('info.phtml'); ?>
+	<? //= $this->func_tab; ?>
+	<div class="entry-edit">
+		<div class="fieldset " id="group_fields63">
+			<p class="box" align="left">Masukkan maklumat pada ruangan di bawah.<span class="required2"> * Diperlukan</span><br/>
+			</p>
+			<input type="hidden" id="pesara_id" name="pesara_id" value="<?= $this->pesara_id; ?>">
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="100%">
+				<colgroup>
+					<col class="oce-first" />
+					<col />
+					<col class="oce-first" />
+					<col />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td height="40px" colspan="4" class="title" style="text-align:center;"><span style="font-size:18px;text-align:center"><strong><?= $this->translate->_('Kelulusan dan Agihan Aduan') ?></strong></span>
+						</td>
+					</tr>
+					<tr>
+						<td width = "20%"><?= $this->translate->_('Nama Pegawai') ?> </td>
+						<td><?= $this->function->getFullNameById(Zend_Auth::getInstance()->getIdentity()->usr_id) ?></td>
+					</tr> 
+					<tr>
+						<td width="20%"><?= $this->translate->_('Jawatan') ?> </td>
+						<td><?= $this->function->getPositionById(Zend_Auth::getInstance()->getIdentity()->usr_id) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Bahagian') ?> </td>
+						<td><?= $this->function->getDeptById(Zend_Auth::getInstance()->getIdentity()->usr_id) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Unit') ?> </td>
+						<td><?= $this->function->getUnitById(Zend_Auth::getInstance()->getIdentity()->usr_id) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('No Telefon') ?> </td>
+						<td><?= $this->function->getPhoneNoById(Zend_Auth::getInstance()->getIdentity()->usr_id) ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Kelulusan') ?> <span class="required2">*</span></td>
+						<td><?= $this->form->chk_kelulusan ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Tahap Keutamaan') ?> <span class="required2">*</span></td>
+						<td><?= $this->form->chk_tahap ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Unit') ?> <span class="required2">*</span></td>
+						<td><?= $this->form->sel_unit ?></td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Staf') ?> <span class="required2">*</span></td>
+						<td>
+							<?= $this->form->sel_staf ?>
+							<?php 
+								$cond_add1 = "javascript:func_addForm('".SYSTEM_URL."/bpm/aduan/task/id/')";
+								$cond_add2 = 'Pilih';
+								$cond_add3 = 1;
+								echo func_add_popup($cond_add1, $cond_add2 , $cond_add3); 
+								echo "&nbsp;";
+								
+							?>
+						</td>
+					</tr>
+					<tr>
+						<td width="20%"><?= $this->translate->_('Catatan') ?> <span class="required2">*</span></td>
+						<td><?= $this->form->txt_catatan ?></td>
+					</tr>
+				</tbody>
+			</table>
+			<br />
+		</div>	
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" style="text-align:center;">
+			<button type="submit" class="scalable save" name="submit" id="submit"><span><?= $this->translate->_('Hantar') ?></span></button>&nbsp;
+			<button type="reset" class="scalable reset" name="reset" id="reset" style=""><span><?= $this->translate->_('Semula') ?></span></button>&nbsp;
+		</div>
+	</div>
+</form>
+
+<?php endif; ?>

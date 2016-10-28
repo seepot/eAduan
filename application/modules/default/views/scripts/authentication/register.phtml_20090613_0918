@@ -1,0 +1,136 @@
+
+<?php if($this->failedValidation): ?>
+    <p class="error"><?= $this->translate->_('Terdapat masalah semasa pendaftaran pengguna baru') ?></p>
+<?php elseif($this->userError): ?>
+    <p class="error"><?= $this->translate->_('ID Pengguna yang dipilih sudah terdapat di dalam pangkalan data') ?></p> 
+<?php elseif($this->nokpError): ?>
+    <p class="error"><?= $this->translate->_('No KP yang dipilih sudah terdapat di dalam pangkalan data') ?></p> 
+<?php elseif($this->emailError): ?>
+    <p class="error"><?= $this->translate->_('Alamat Email yang dipilih sudah terdapat di dalam pangkalan data') ?></p> 
+<?php endif; ?>
+
+<?php if($this->entrySaved): ?>
+    <p class="success"><?= $this->translate->_('Pendaftaran pengguna baru berjaya') ?></p>
+    <meta http-equiv="refresh" content=1;URL="login">
+<?php else: ?>
+<center>
+<div style="width:70%;">
+<form action="<?= $this->escape($this->form->getAction()) ?>" method="<?= $this->escape($this->form->getMethod()) ?>">
+	<div class="content-header">
+		<table cellspacing="0" width="70%">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-user"><?= $this->translate->_('Pendaftaran Pengguna') ?></h3></td>
+		        <td class="a-right">
+		            <button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Kembali') ?></span></button>
+	                <button type="reset" name="reset" id="reset" style=""><span><?= $this->translate->_('Semula') ?></span></button>  
+	                <button type="submit" class="scalable save" name="submit" id="submit" style=""><span><?= $this->translate->_('Simpan') ?></span></button>  
+	                
+	            </td>
+		    </tr>
+		</table>
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" id="group_fields63">
+	    	<p class="box"><?= $this->translate->_('Sila masukkan maklumat pada ruangan di bawah.') ?> <span class="required2">* <?= $this->translate->_('Diperlukan') ?></span></p>
+			<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="70%">
+				<colgroup>
+					<col class="oce-first" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<td width="25%"><?= $this->translate->_('ID Pengguna') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->user_id ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Kata Laluan') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->user_password1 ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Kata Laluan (Semula)') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->user_password2 ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Jenis Pengguna') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->type_id ?> </td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Kewarganegaraan') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->nation_id ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Nama') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->user_name ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('No Kad Pengenalan / Passport / Syarikat') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->user_identno ?>&nbsp;&nbsp;Contoh : <strong>860610355627 / A8481744</strong></td>
+					</tr>
+					<tr>
+						<td valign="top"><?= $this->translate->_('Alamat') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->primary_add ?></td>
+						
+					</tr>
+					
+					<tr>
+						<td valign="top"><?= $this->translate->_('Poskod') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->poskod_add ?></td>
+						
+					</tr>
+					
+					
+					
+					<tr>
+						<td valign="top"><?= $this->translate->_('Negeri') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->state_add ?></td>
+						
+					</tr>
+					
+					
+					<tr>
+						<td><?= $this->translate->_('No Telefon') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->mobile_no ?>&nbsp;&nbsp;Contoh : <strong>0361386677 / 0121234567</strong></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Emel') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->user_email ?>&nbsp;&nbsp;Contoh : <strong>abc@def.com</strong></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Jantina') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->user_sex ?></td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Cara Untuk Dihubungi') ?>&nbsp;<span class="required2">*</span></td>
+						<td>
+							<input type="checkbox" name="contacttype1" checked disabled dojoType="dijit.form.CheckBox"/>&nbsp;Melalui Sistem SPIP	&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="contacttype2" dojoType="dijit.form.CheckBox"/>&nbsp;E-mel	&nbsp;&nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="contacttype3" dojoType="dijit.form.CheckBox"/>&nbsp;SMS</td>
+					</tr>
+					<tr>
+						<td><?= $this->translate->_('Kumpulan Pengguna') ?>&nbsp;<span class="required2">*</span></td>
+						<td><?= $this->form->group_id ?></td>
+					</tr>
+
+					<tr>
+						<td valign="top"><?= $this->translate->_('Kod Pengesahan') ?>&nbsp;<span class="required2">*</span></td>
+						<td><nobr><div><img src="<?= IMAGES_PATH ?>verification.jpg" /><br /><br />Sila masukkan 6 digit kod pengesahan seperti diatas :<br /><input type="text" id="verify" name="verify" class="medium2"
+										dojoType="dijit.form.ValidationTextBox"
+										required="true" 
+										invalidMessage="" /></td></div></nobr>
+					</tr>
+				</tbody>
+			</table>
+		</div>	
+	</div>
+	<div class="entry-edit">
+		<div class="fieldset" style="text-align:center;" >
+			<button type="submit" class="scalable save" name="submit" id="submit" style=""><span><?= $this->translate->_('Simpan') ?></span></button>  
+			<button type="reset" name="reset" id="reset" style=""><span><?= $this->translate->_('Semula') ?></span></button>  
+			<button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Kembali') ?></span></button>
+			</table>
+		</div>
+	</div>
+
+</form>
+</div>
+
+<?php endif; ?></center>

@@ -1,0 +1,201 @@
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-user-edit">Profil Pengguna</h3></td>
+		    </tr>
+		</table>
+	</div>
+	<?php include('info.phtml'); ?>
+<?php 
+		/******Enable Dojo**********/
+		$this->dojo()->enable(); 
+		// Container with tabs
+		$this->tabContainer()->captureStart('profiledit', array(), array('style' => 'width:100%;text-align:left;', 'doLayout'=>'false', 'tabPosition'=>'top')); 
+			 // First tab "Am"
+			$this->contentPane()->captureStart('general', array(), array('title' => $this->translate->_('Maklumat Peribadi')));
+	?>
+
+			<div class="entry-edit">
+				<div class="fieldset " id="group_fields63">
+					<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="98%">
+						<colgroup>
+							<col class="oce-first" />
+							<col>
+							<col class="oce-first" />
+							<col>
+						</colgroup>
+						<tbody>
+							<tr>
+								<td width="20%">Nama</td>
+								<td colspan="3"><?= isset($this->rowset->usr_fullname) ? strtoupper($this->rowset->usr_fullname) : 'TIADA MAKLUMAT'; ?></td>
+							</tr> 
+							<tr>
+								<td>No Tentera</td>
+								<td colspan="3"><?= isset($this->rowset->pesara_notentera) ? strtoupper($this->rowset->pesara_notentera) : 'TIADA MAKLUMAT'; ?></td>
+							</tr>
+							<tr>
+								<td>No MyKad</td>
+								<td width="30%"><?= isset($this->rowset->usr_identno) ? strtoupper($this->rowset->usr_identno) : 'TIADA MAKLUMAT'; ?></td>
+								<td>No KP Lama</td>
+								<td width="30%"><?= isset($this->rowset->usr_nokplama) ? strtoupper($this->rowset->usr_nokplama) : 'TIADA MAKLUMAT'; ?></td>
+							</tr>
+							<tr>
+								<td>Tarikh Lahir</td>
+								<td width="30%"><?= isset($this->rowset->usr_date_birth) ? strtoupper($this->date->func_ymd2dmy2($this->rowset->usr_date_birth)) : 'TIADA MAKLUMAT'; ?></td>
+								<td>Umur</td>
+								<td width="30%"><?= isset($this->rowset->usr_date_birth) ? strtoupper(date('Y') - substr($this->rowset->usr_date_birth,0,4)) : 'TIADA MAKLUMAT'; ?></td>
+							</tr>
+							<tr>
+								<td valign="top">Alamat Tetap</td>
+								<td colspan="3"><?= isset($this->rowset->usr_add_primary) ? strtoupper($this->rowset->usr_add_primary) : 'TIADA MAKLUMAT'; ?></td>
+							</tr>
+							<tr>
+								<td>Poskod</td>
+								<td><?= isset($this->rowset->usr_poscode_primary) ? strtoupper($this->rowset->usr_poscode_primary) : 'TIADA MAKLUMAT'; ?></td>
+								<td>Bandar</td>
+								<td><?= isset($this->rowset->usr_city_primary) ? strtoupper($this->rowset->usr_city_primary) : 'TIADA MAKLUMAT'; ?></td>
+							</tr>
+							<tr>
+								<td>Negeri</td>
+								<td colspan="3"><?= isset($this->rowset->usr_state_primary) ? strtoupper($this->func->getStateById($this->rowset->usr_state_primary)) : 'TIADA MAKLUMAT'; ?></td>
+							</tr>
+							<tr>
+								<td>Agama</td>
+								<td><?= isset($this->rowset->usr_religion) ? strtoupper($this->func->getReligionById($this->rowset->usr_religion)) : 'TIADA MAKLUMAT'; ?></td>
+								<td>Bangsa</td>
+								<td><?= isset($this->rowset->usr_race) ? strtoupper($this->func->getRaceById($this->rowset->usr_race)) : 'TIADA MAKLUMAT'; ?></td>
+							</tr>
+							<tr>
+								<td>Jantina</td>
+								<td><?= isset($this->rowset->usr_sex) ? strtoupper($this->func->getSexById($this->rowset->usr_sex)) : 'TIADA MAKLUMAT'; ?></td>
+								<td>Status Perkahwinan</td>
+								<td><?= isset($this->rowset->usr_marital_status) ? strtoupper($this->func->getMaritalStatusById($this->rowset->usr_marital_status)) : 'TIADA MAKLUMAT'; ?></td>
+							</tr>
+							<tr>
+								<td>Pendidikan Tertinggi</td>
+								<td colspan="3"><?=  isset($this->rowset->usr_education_level) ? strtoupper($this->func->getEducationById($this->rowset->usr_education_level)) : 'TIADA MAKLUMAT'; ?></td>
+							</tr>
+							<tr>
+								<td>Pekerjaan Sekarang</td>
+								<td colspan="3"><?= isset($this->rowset->usr_latestjob) ? strtoupper($this->rowset->usr_latestjob) : 'TIADA MAKLUMAT'; ?></td>
+							</tr>
+							<tr>
+								<td>No Telefon (R)</td>
+								<td><?= isset($this->rowset->usr_phone_no) ? strtoupper($this->rowset->usr_phone_no) : 'TIADA MAKLUMAT'; ?></td>
+								<td>No Telefon (M)</td>
+								<td><?= isset($this->rowset->usr_mobile_no) ? strtoupper($this->rowset->usr_mobile_no) : 'TIADA MAKLUMAT'; ?></td>
+							</tr>
+							<!--<tr>
+								<td>Gambar Foto</td>
+								<td colspan="3"><? //= $this->rowset->pekerjaan ?></td>
+							</tr>
+							<tr>
+								<td>Status Hidup</td>
+								<td colspan="3"><?= $this->rowset->statushidup ?></td>
+							</tr>-->
+						</tbody>
+					</table>
+				</div>	
+			</div>
+	<?php
+		echo $this->contentPane()->captureEnd('general');
+		/**************End Tab 1******************/
+		//Tab 2 "pengalaman"
+	?>
+	
+	<?php
+			/**************End Tab 5******************/
+			//Tab 6 "Perakuan"
+			$this->contentPane()->captureStart('pesara', array(), array('title' => $this->translate->_('Maklumat Perkhidmatan')));
+			//echo "tab6 content";
+	?>
+			
+			
+			<div class="entry-edit">
+				<div class="fieldset " id="group_fields63">
+					<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="98%">
+						<colgroup>
+							<col class="oce-first" />
+							<col>
+							<col class="oce-first" />
+							<col>
+						</colgroup>
+						<tbody>
+							<tr>
+								<td>Kategori Perkhidmatan</td>
+								<td width="30%"><?= isset($this->rowset->pesara_perkhidmatan) ? strtoupper($this->func->getServiceById($this->rowset->pesara_perkhidmatan)) : 'TIADA MAKLUMAT'; ?></td>
+								<td>Pangkat Terakhir</td>
+								<td width="30%"><?= isset($this->rowset->pesara_pangkat) ? strtoupper($this->func->getPangkatById($this->rowset->pesara_pangkat)) : 'TIADA MAKLUMAT'; ?></td>
+							</tr>
+							<tr>
+								<td>Tarikh Mula Khidmat</td>
+								<td width="30%"><?= isset($this->rowset->pesara_tarikhmulakhidmat) ? strtoupper($this->date->func_ymd2dmy2($this->rowset->pesara_tarikhmulakhidmat)) : 'TIADA MAKLUMAT'; ?></td>
+								<td>Tarikh Tamat Khidmat</td>
+								<td width="30%"><?= isset($this->rowset->pesara_tarikhtamatkhidmat) ? strtoupper($this->date->func_ymd2dmy2($this->rowset->pesara_tarikhtamatkhidmat)) : 'TIADA MAKLUMAT'; ?></td>
+							</tr>
+							<tr>
+								<td>Jumlah Tahun Perkhidmatan&nbsp;</td>
+								<td colspan="3"><?= isset($this->rowset->pesara_tempoh_perkhidmatan) ? $this->rowset->pesara_tempoh_perkhidmatan : 'TIADA MAKLUMAT'; ?></td>
+							</tr>
+							<tr>
+								<td>Sebab Berhenti&nbsp;</td>
+								<td colspan="3"><?= isset($this->rowset->pesara_sebab_berhenti) ? strtoupper($this->func->getParaById($this->rowset->pesara_sebab_berhenti)) : 'TIADA MAKLUMAT'; ?></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>	
+			</div>
+			
+	
+	<?php
+			echo $this->contentPane()->captureEnd('pesara');
+			/**************End Tab 6******************/
+	?>
+	
+	<?php
+			/**************End Tab 5******************/
+			//Tab 6 "Perakuan"
+			$this->contentPane()->captureStart('pencen', array(), array('title' => $this->translate->_('Maklumat Pencen')));
+			//echo "tab6 content";
+	?>
+			
+			
+			<div class="entry-edit">
+				<div class="fieldset " id="group_fields63">
+					<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="98%">
+						<colgroup>
+							<col class="oce-first" />
+							<col>
+							<col class="oce-first" />
+							<col>
+						</colgroup>
+						<tbody>
+							<tr>
+								<td width="20%">Status Pencen</td>
+								<td colspan="3"><?= isset($this->rowset->pesara_statuspencen) ? strtoupper($this->func->getStatusPencenById($this->rowset->pesara_statuspencen)) : 'TIADA MAKLUMAT'; ?></td>
+							</tr>
+							<tr>
+								<td>Jenis Penerima</td>
+								<td colspan="3"><?= isset($this->rowset->pesara_jenispenerima) ? strtoupper($this->func->getJenisPenerimaById($this->rowset->pesara_jenispenerima)) : 'TIADA MAKLUMAT'; ?></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>	
+			</div>
+			
+	
+	<?php
+			echo $this->contentPane()->captureEnd('pencen');
+			/**************End Tab 6******************/
+	?>
+	
+	<?php
+		echo $this->tabContainer()->captureEnd('profiledit'); 
+		/**************End Container******************/
+	?>
+			<br/>
+			<div class="entry-edit">
+				<div class="fieldset" style="text-align:center;">
+					<button type="submit" class="scalable back" name="submit" id="submit" style="" onClick="Javascript:history.back();"><span><?= $this->translate->_('Kembali') ?></span></button>  
+				</div>
+			</div>

@@ -1,0 +1,39 @@
+<?php if($this->failedValidation): ?>
+    <p class="error-msg">Terdapat masalah dikesan semasa proses log masuk.</p>
+<?php elseif($this->failedAuthentication): ?>
+    <p class="error-msg">Harap maaf. Akaun anda tidak diaktifkan lagi.</p>
+<?php endif; ?>
+<br><br>
+<table width="100%" border="0">
+	<tr>
+		<td align="center">
+			<div class="col3-set login-box">
+				<form action="<?= $this->escape($this->form->getAction()) ?>" method="<?= $this->escape($this->form->getMethod()) ?>" onSubmit="ajax_loader();"> 
+				<div class="col-2 registered-users">
+					<div class="content">
+						<h4>Log Masuk</h4>
+						<p>Jika mempunyai akaun, sila log masuk.</p>
+						<table border="0">
+							<tr>
+								<td><strong>ID Pengguna</strong>&nbsp;</td>
+								<td><?= $this->form->name ?></td>
+							</tr>
+							<tr>
+								<td><strong>Kata Laluan</strong>&nbsp;</td>
+								<td><?= $this->form->password ?></td>
+							</tr>
+						</table>
+						
+					</div>
+					<div class="button-set">
+						<a href="/author/psswd" class="left">Lupa Katalaluan?</a>
+						<button class="scalable right" type="submit"><span>Login</span></button>
+					</div>
+				</div>
+				</form>
+			</div>
+		</td>
+	</tr>
+</table>
+<br>
+

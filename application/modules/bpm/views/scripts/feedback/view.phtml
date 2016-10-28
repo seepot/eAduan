@@ -1,0 +1,59 @@
+	<div class="content-header">
+		<table cellspacing="0">
+		    <tr>
+		        <td style="width:50%;"><h3 class="icon-head head-user-edit">Papar Maklumbalas</h3></td>
+		    </tr>
+		</table>
+	</div>
+	<?php include('info.phtml'); ?>
+
+			<div class="entry-edit">
+				<div class="fieldset " id="group_fields63">
+					<table cellpadding="5" cellspacing="1"  id="unijaya" width="98%">
+						<thead>
+							<tr>
+								<td width="20%" class="big-red">ID Maklumbalas</td>
+								<td colspan="3" class="big-red"><?= $this->tiket_id; ?></td>
+							</tr> 
+						</thead>
+					</table>
+					<br/>
+					<?php
+						foreach ($this->feedback as $id=>$value)
+						{
+					?>
+					<table cellpadding="5" cellspacing="1"  id="one-column-emphasis" width="98%">
+						<colgroup>
+							<col class="oce-first" />
+							<col>
+							<col class="oce-first" />
+							<col>
+						</colgroup>
+						
+						<tbody>
+							<tr>
+								<td width ="20%">Nama</td>
+								<td colspan="3"><?= isset($value->msg_user_id) ? strtoupper($value->usr_fullname) : 'TIADA MAKLUMAT'; ?></td>
+							</tr>
+							<tr>
+								<td>Tarikh/Masa</td>
+								<td colspan="3"><?= isset($value->tiket_datetime) ? strtoupper($value->tiket_datetime) : 'TIADA MAKLUMAT'; ?></td>
+							</tr>
+							<tr>
+								<td>Mesej</td>
+								<td colspan="3"><?= isset($value->msg_feedback) ? strtoupper($value->msg_feedback) : 'TIADA MAKLUMAT'; ?></td>
+							</tr>
+						</tbody>
+					</table>
+					<br/>
+					<?php
+						}
+					?>
+				</div>	
+			</div>
+			<br/>
+			<div class="entry-edit">
+				<div class="fieldset" style="text-align:center;">
+					<button type="submit" class="scalable back" name="submit" id="submit" style="" onClick="Javascript:history.back();"><span><?= $this->translate->_('Kembali') ?></span></button>  
+				</div>
+			</div>

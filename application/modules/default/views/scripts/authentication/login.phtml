@@ -1,0 +1,108 @@
+<link type="text/css" rel="stylesheet" href="<?= CSS_PATH ?>/admin/reset.css" media="all">
+<link type="text/css" rel="stylesheet" href="<?= CSS_PATH ?>/admin/boxes.css" media="all">
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30147445-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script type="text/javascript">
+window.fbAsyncInit = function() {
+    FB.init({
+        appId      : '233654290150464',
+        status     : true, // check login status
+        cookie     : true, // enable cookies to allow the server to access the session
+        oauth      : true, // enable OAuth 2.0
+        xfbml      : true  // parse XFBML
+    });
+ 
+    button = document.getElementById('fbc-login-button');
+    button.onclick = function() {
+        FB.getLoginStatus(function(response) {
+            if (response.authResponse) {
+                this.location = '/development/eAduan/authentication/facebook/token/' +  response.authResponse.accessToken;
+            }
+            else {
+                FB.login(function(response) {
+                    if (response.authResponse) {
+                        this.location = '/development/eAduan/authentication/facebook/token/' +  response.authResponse.accessToken;
+                    }}, {scope: 'email'});
+            }
+        });
+ 
+    };
+};
+ 
+(function(d){
+     var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     d.getElementsByTagName('head')[0].appendChild(js);
+   }(document));
+</script>
+<div class="login-container">
+        <?php if($this->failedValidation): ?>
+    <p class="error-msg"><?= $this->translate->_('Terdapat masalah dikesan semasa proses log masuk.') ?></p>
+<?php elseif($this->failedAuthentication): ?>
+    <p class="error-msg"><?= $this->translate->_('Sorry, your account is not activate.') ?></p>
+<?php endif; ?>
+		<div class="login-box">
+            
+                <div class="login-form">
+                    <form id="loginForm" action="<?= $this->escape($this->form->getAction()) ?>" method="<?= $this->escape($this->form->getMethod()) ?>" onSubmit="ajax_loader();">
+					<input name="form_key" value="RZrsidTr2elQpWye" type="hidden">
+                    <h2>Log Masuk</h2>
+                    <div id="messages">
+                                            </div>
+                    <div class="input-box input-left"><label for="username">ID Pengguna :</label><br>
+                        <?= $this->form->name ?></div>
+                    <div class="input-box input-right"><label for="login">Kata Laluan :</label><br>
+                        <?= $this->form->password ?></div>
+                    <div class="clear"></div>
+                    <div class="form-buttons">
+                        <span class="left"><a href="<?= SYSTEM_URL ?>/default/authentication/register" style="font-weight:normal;font-size:10px" title="<?= $this->translate->_('New User') ?>"><strong><?= $this->translate->_('Pendaftaran') ?></strong></a>&nbsp;<a href="<?= SYSTEM_URL ?>/default/authentication/forgotpassword" style="font-weight:normal;font-size:10px"><strong><?= $this->translate->_('Lupa Kata Laluan') ?></strong></a>
+                        <input class="form-button" value="Login" title="Login" type="submit"></div></span>
+					</form><!--<br/>
+					<a href="#"><img id="fbc-login-button" src= "<?= IMAGES_PATH.'fb2.jpg' ?>"></a>&nbsp;&nbsp;&nbsp;-->
+					<!--<?php
+
+					$this->openid->identity = 'https://www.google.com/accounts/o8/id';
+					$this->openid->required = array(
+					  'namePerson/first',
+					  'namePerson/last',
+					  'contact/email',
+					);
+						$this->openid->returnUrl = 'http://210.19.20.218/eOnline2013/authentication/google';
+						?>
+					<a href="<?php //echo $this->openid->authUrl() ?>" target="_parent"><img src= "<?= IMAGES_PATH.'google.png' ?>"></a>
+					-->
+			   </div>
+                <p class="legal">Bahagian Pengurusan Maklumat. Copyright &copy; <?= date('Y') ?> Jabatan Hal Ehwal Veteran ATM.</p>
+            
+            <div class="bottom"></div>
+            <script type="text/javascript">
+                 var loginForm = new varienForm('loginForm');
+            </script>
+        </div>
+    </div>					
+	<script type="text/javascript">
+
+    var imgPath = '<?php echo $this->baseUrl('images/');?>';
+
+    // console.log(imgPath);
+
+    $(document).ready(function() {
+        openid.img_path = imgPath;
+        openid.init('openid_identifier');
+        openid.setDemoMode(false); //Stops form submission for client javascript-only test purposes
+
+    });
+</script>
+

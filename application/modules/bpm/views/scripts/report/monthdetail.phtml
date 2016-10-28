@@ -1,0 +1,51 @@
+<div class="content-header">
+	<table cellspacing="0">
+		<tr>
+			<td style="width:50%;"><h3 class="icon-head head-user"><?= $this->translate->_('Statistik Aduan Mengikut Bulan') ?></h3></td>
+			<td class="a-right">
+				<button type="button" class="scalable back" onclick="Javascript:history.back();" style=""><span><?= $this->translate->_('Kembali') ?></span></button>
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="entry-edit">
+	<div class="fieldset" id="group_fields63">
+		<table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#CCCCCC" id="info-box">
+			<tr class="contents">
+				<td width="25%" align="left" valign="top" bgcolor="#EFEFEF" class="head"><strong><?= $this->translate->_('BULAN') ?></strong></td>
+				<td align="left" valign="top" bgcolor="#FFFFFF" class="big-red"><?= $this->function->func_get_month_name($this->bulan) ?></td>
+				
+			</tr>
+		</table>
+	</div>
+</div>
+<?php 
+
+	
+	/******Enable Dojo**********/
+	$this->dojo()->enable(); 
+	// Container with tabs
+	$this->tabContainer()->captureStart('pita', array(), array('style' => 'width:100%;text-align:left;', 'doLayout'=>'false', 'tabPosition'=>'top')); 
+		//Tab kedua "Maklumat Pekerjaan"
+		$this->contentPane()->captureStart('graf', array(), array('title' => 'Unit BPM', 'selected' => ($this->tab == 'graf' ? 'true' : 'false')));
+					echo $this->chart;
+					echo "<br>";
+		echo $this->contentPane()->captureEnd('graf');
+		$this->contentPane()->captureStart('graf2', array(), array('title' => 'Bahagian', 'selected' => ($this->tab == 'graf' ? 'true' : 'false')));
+		echo $this->chart2;
+		echo "<br>";
+		
+		echo $this->contentPane()->captureEnd('graf2');
+		/**************End Tab 2******************/ 
+		// First tab "statistik"
+		$this->contentPane()->captureStart('statistik', array(), array('title' => 'Statistik', 'selected' => ($this->tab == 'statistik' ? 'true' : 'false')));
+		include('stat_monthdtl.phtml');
+		echo $this->contentPane()->captureEnd('statistik');
+		/**************End Tab 1******************/
+		
+	echo $this->tabContainer()->captureEnd('pita'); 
+	/**************End Container******************/
+	
+	//echo "<input type=\"button\" name=\"cmd_back\" value=\"Kembali\" onClick=\"history.back()\">";
+
+?>
